@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_simple_topbar" />
+
+    <ImageView
+        android:layout_width="@dimen/height_75"
+        android:layout_height="@dimen/height_75"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/height_70"
+        android:background="@mipmap/launcher_login" />
+
+    <FrameLayout
+        android:id="@+id/frame_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_20"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_20">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_LoginCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="验证码登录"
+                android:checked="true"
+                android:button="@drawable/radio_button_style"
+                android:textColor="@color/black_66" />
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/margin_1dp"/>
+            <RadioButton
+                android:id="@+id/rb_LoginPwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="密码登录"
+                android:layout_marginLeft="@dimen/margin_30"
+                android:button="@drawable/radio_button_style"
+                android:textColor="@color/black_66" />
+        </RadioGroup>
+    </LinearLayout>
+    <!--<TextView-->
+    <!--android:id="@+id/tv_LoginType"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="@dimen/margin_20"-->
+    <!--android:layout_marginRight="@dimen/margin_20"-->
+    <!--android:layout_marginTop="@dimen/margin_30"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingBottom="@dimen/margin_20"-->
+    <!--android:text="密码登录"-->
+    <!--android:textColor="@color/black_aa"-->
+    <!--android:textSize="@dimen/textsize_12" />-->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/height_70"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_LoginRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="立即注册"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textsize_13" />
+
+        <View
+            android:layout_width="@dimen/margin_1"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_10"
+            android:background="@color/black_e5" />
+
+        <TextView
+            android:id="@+id/tv_LoginForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="忘记密码?"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textsize_13" />
+    </LinearLayout>
+</LinearLayout>

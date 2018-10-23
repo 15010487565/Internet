@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_gravity="center">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:focusable="false">
+
+        <RelativeLayout
+            android:id="@+id/main_tabitem_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/main_tabwidget_image_margin"
+            android:layout_marginRight="@dimen/main_tabwidget_image_margin"
+            android:layout_marginBottom="@dimen/margin_2"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_5">
+
+            <TextView
+                android:id="@+id/main_tabitem_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black_66"
+                android:textSize="@dimen/main_tabitem" />
+
+            <ImageView
+                android:id="@+id/main_tabitem_icon"
+                android:layout_width="@dimen/main_tabwidget_image_size"
+                android:layout_height="@dimen/main_tabwidget_image_size"
+                android:layout_above="@id/main_tabitem_text"
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_1dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_tabitem_viewhl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/main_tabwidget_image_margin"
+            android:layout_marginRight="@dimen/main_tabwidget_image_margin"
+            android:layout_marginBottom="@dimen/margin_2"
+            android:alpha="0"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_5">
+
+            <TextView
+                android:id="@+id/main_tabitem_texthl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="0dp"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/main_tabitem" />
+
+            <ImageView
+                android:id="@+id/main_tabitem_iconhl"
+                android:layout_width="@dimen/main_tabwidget_image_size"
+                android:layout_height="@dimen/main_tabwidget_image_size"
+                android:layout_above="@id/main_tabitem_texthl"
+                android:layout_gravity="center"
+                android:padding="@dimen/margin_1dp" />
+
+        </RelativeLayout>
+        <www.xcd.com.mylibrary.view.BadgeView
+            android:id="@+id/main_tabitem_redpoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_3"
+            android:gravity="center"
+            android:minHeight="@dimen/main_tabwidget_redpoint_size"
+            android:minWidth="@dimen/main_tabwidget_redpoint_size"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_tabwidget_redpoint_text"
+            android:visibility="gone" />
+    </FrameLayout>
+</RelativeLayout>

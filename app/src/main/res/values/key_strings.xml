@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Weixin -->
+    <string name="weixin_key">wxfaf772b01b93fb55</string>
+
+    <!-- QQ -->
+    <string name="tencent_qq_appid">1104548558</string>
+
+</resources>

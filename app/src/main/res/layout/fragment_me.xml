@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="false"
+    android:background="@color/line_gray"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <include layout="@layout/view_simple_topbar" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingRight="@dimen/margin_20"
+                    android:paddingTop="@dimen/margin_20"
+                    android:paddingBottom="@dimen/margin_20"
+                    android:gravity="center_vertical"
+                    android:background="@color/blue">
+                    <ImageView
+                        android:id="@+id/iv_MeTopHead"
+                        android:layout_width="@dimen/height_60"
+                        android:layout_height="@dimen/height_60"
+                        android:contentDescription="@null"
+                        android:layout_gravity="center_vertical"
+                        android:background="@mipmap/launcher_login"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_MeTopName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="X先生"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize_17" />
+                        <TextView
+                            android:id="@+id/tv_MeTopPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:duplicateParentState="true"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="+86 15010487565"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize_12" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="@dimen/margin_20"
+                        android:layout_height="@dimen/margin_20"
+                        android:contentDescription="@null"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:layout_gravity="center_vertical"
+                        android:alpha="0.8"
+                        android:background="@mipmap/twocode"/>
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="18dp"
+                        android:contentDescription="@null"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        android:background="@mipmap/icon_back_norma"/>
+
+                </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_40"
+                    android:background="@color/blue"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_20"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_white">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="30px"
+                            android:layout_height="30px"
+                            android:gravity="center"
+                            android:background="@mipmap/me_property" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:text="总资产"
+                            android:textColor="@color/black_30"
+                            android:textSize="@dimen/textsize_12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:text="更多"
+                            android:textColor="@color/black_99"
+                            android:textSize="@dimen/textsize_12" />
+                        <ImageView
+                            android:layout_width="30px"
+                            android:layout_height="30px"
+                            android:gravity="center"
+                            android:background="@mipmap/back_black" />
+                    </LinearLayout>
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/mPieChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_15"
+                android:orientation="vertical"
+                android:background="@drawable/shape_white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30px"
+                        android:layout_height="30px"
+                        android:gravity="center"
+                        android:background="@mipmap/me_red" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:text="我的红包"
+                        android:textColor="@color/black_30"
+                        android:textSize="@dimen/textsize_12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:text="更多"
+                        android:textColor="@color/black_99"
+                        android:textSize="@dimen/textsize_12" />
+                    <ImageView
+                        android:layout_width="30px"
+                        android:layout_height="30px"
+                        android:gravity="center"
+                        android:background="@mipmap/back_black" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_15"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_StatisticStotalMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="USDT个数"
+                            android:textColor="@color/black_40"
+                            android:textSize="@dimen/textsize_12" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5"
+                            android:text="0,000.00"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/textsize_20" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="@dimen/margin_1"
+                        android:layout_height="match_parent"
+                        android:background="@color/line_c3"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_1"
+                        android:layout_marginRight="@dimen/margin_1"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_StatisticGoodsNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="约等于美金"
+                            android:textColor="@color/black_99"
+                            android:textSize="@dimen/textsize_12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_5"
+                            android:text="$ 0,000.00"
+                            android:textColor="@color/black_33"
+                            android:textSize="@dimen/textsize_20" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/me_custom_func_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/me_vertical_margin"
+                android:orientation="vertical"
+                android:paddingBottom="1px"
+                android:paddingTop="1px">
+
+                <LinearLayout
+                    android:id="@+id/me_custom_func_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/me_system_func_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/me_vertical_margin"
+                android:orientation="vertical"
+                android:paddingBottom="1px"
+                android:paddingTop="1px">
+
+                <LinearLayout
+                    android:id="@+id/me_system_func_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

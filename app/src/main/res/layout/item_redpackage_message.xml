@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_msg"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="387px"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_orange"
+            android:orientation="horizontal"
+            android:paddingBottom="25px"
+            android:paddingLeft="18px"
+            android:paddingRight="18px"
+            android:paddingTop="25px">
+
+            <ImageView
+                android:layout_width="54px"
+                android:layout_height="62px"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/redpkg_chatitem" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_RedPkgRemark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.5"
+                    android:singleLine="true"
+                    android:text="恭喜发财，大吉大利"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_13" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:text="领取红包"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_11" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_RedPkgSendName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="18px"
+            android:paddingRight="18px"
+            android:paddingTop="9px"
+            android:paddingBottom="9px"
+            android:singleLine="true"
+            android:text="来自何夏夏的USDT红包"
+            android:textColor="@color/black_99"
+            android:textSize="@dimen/textsize_10"
+            android:background="@color/white"/>
+    </LinearLayout>
+
+</FrameLayout>

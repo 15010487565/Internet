@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="topbar_back" type="id"/>
+    <item name="main_topbar_add" type="id"/>
+    <item name="setting" type="id"/>
+    <item name="topbar_album_confirm" type="id"/>
+    <item name="album_photo_left" type="id"/>
+    <item name="topbar_camera_edit_confirm" type="id"/>
+    <item name="topbar_camera_edit_cancel" type="id"/>
+    <!--传智id-->
+    <item name="home_left" type="id"/>
+    <item name="home_right" type="id"/>
+    <item name="contact_right" type="id"/>
+    <item name="me_left" type="id"/>
+    <item name="me_ranking" type="id"/>
+    <item name="me_friend" type="id"/>
+    <item name="me_help" type="id"/>
+    <item name="me_about" type="id"/>
+    <item name="next" type="id"/>
+    <item name="confirm" type="id"/>
+</resources>

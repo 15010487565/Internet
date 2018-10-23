@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_f3f3f3"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_simple_topbar" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_20"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="币种"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="USDT"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@drawable/shape_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="币种"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="91px"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入金额"
+                    android:paddingRight="@dimen/margin_15"
+                    android:textColor="@color/black_33"
+                    android:textColorHint="@color/black_cc"
+                    android:textSize="@dimen/textsize_17" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="USDT"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="每个人抽到的金额随机"
+                android:textColor="@color/black_99"
+                android:textSize="@dimen/textsize_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@drawable/shape_white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="数量"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="91px"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:hint="请输入数量"
+                    android:paddingRight="@dimen/margin_15"
+                    android:textColor="@color/black_33"
+                    android:textColorHint="@color/black_cc"
+                    android:textSize="@dimen/textsize_17" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="个"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_5"
+                android:text="本群人数 50 人"
+                android:textColor="@color/black_99"
+                android:textSize="@dimen/textsize_12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@drawable/shape_white"
+                android:padding="@dimen/margin_10"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="91px"
+                    android:text="留言"
+                    android:textColor="@color/black_33"
+                    android:textSize="@dimen/textsize_18" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="left|top"
+                    android:hint="恭喜发财，大吉大利"
+                    android:minHeight="@dimen/height_100"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:maxLength="288"
+                    android:textColor="@color/black_33"
+                    android:textColorHint="@color/black_cc"
+                    android:textSize="@dimen/textsize_17" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_RedSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/height_100"
+                android:padding="@dimen/margin_10"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="@dimen/textsize_18"
+                android:background="@color/red"
+                android:text="塞币进红包"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="91px"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_15"
+                android:gravity="center_horizontal"
+                android:text="红包未领取，将于24小时后发起退币"
+                android:textColor="@color/black_99"
+                android:textSize="@dimen/textsize_12" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

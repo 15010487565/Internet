@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="40dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:paddingTop="@dimen/margin_10"
+    android:paddingBottom="@dimen/margin_10"
+    android:paddingLeft="@dimen/margin_15">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.xcd.www.internet.view.CircleImageView
+            android:id="@+id/iv_Sortlogo"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@color/red"
+            app:type="circle" />
+        <TextView
+            android:id="@+id/tv_Sortlogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_15"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:text=""/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/margin_10"
+        android:textSize="@dimen/textsize_15"
+        android:textColor="@color/black_33"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        tools:text="" />
+</LinearLayout>

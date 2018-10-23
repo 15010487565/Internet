@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item-->
+        <!--android:drawable="@android:color/white" />-->
+    <!--//设置状态栏颜色-->
+   <item
+        android:drawable="@drawable/shape_gradient"
+        android:gravity="top" />
+</layer-list>
