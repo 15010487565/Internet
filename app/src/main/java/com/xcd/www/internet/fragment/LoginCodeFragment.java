@@ -1,7 +1,7 @@
 package com.xcd.www.internet.fragment;
 
-import android.content.Intent;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -9,14 +9,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xcd.www.internet.R;
-import com.xcd.www.internet.activity.MainActivity;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.util.CommonHelper;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
 /**
@@ -66,9 +67,17 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
-
-                startActivity(new Intent(getActivity(), MainActivity.class));
-                ToastUtil.showToast("验证码登录");
+                String code = etLoginCode.getText().toString().trim();
+                code = "111111";
+                if (TextUtils.isEmpty(code)) {
+                    ToastUtil.showToast("验证码不能为空！");
+                    return;
+                }
+                Map<String,String> map = new HashMap<>();
+                map.put("account",phone);
+                map.put("code",code );
+                map.put("country ","86");
+                okHttpPostBody(100, GlobalParam.LOGIN,map);
                 break;
         }
     }

@@ -1,6 +1,5 @@
 package com.xcd.www.internet.activity;
 
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,9 +20,11 @@ import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.util.CommonHelper;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
 public class RegisterActivity extends SimpleTopbarActivity implements TextWatcher {
@@ -122,8 +123,12 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
                 if (TextUtils.isEmpty(code1)) {
 
                 }
-                startActivity(new Intent(this, MainActivity.class));
-                ToastUtil.showToast("立即注册");
+                Map<String,String> map = new HashMap<>();
+                map.put("account",phone1);
+                map.put("password",password1);
+                map.put("country ","86");
+                map.put("code ",code1);
+                okHttpPostBody(100, GlobalParam.REGISTER,map);
                 break;
             case R.id.ll_Back:
                 finish();

@@ -501,7 +501,47 @@ public abstract class SimpleTopbarActivity extends BaseActivity implements OnCli
             }
         });
     }
-
+    /**
+     * POST网络请求
+     *
+     * @param url        地址
+     * @param paramsMaps 参数
+     */
+    public void okHttpPostBody(final int requestCode, String url, final Map<String, String> paramsMaps) {
+        if (NetUtil.getNetWorking(SimpleTopbarActivity.this) == false) {
+            showToast("请检查网络。。。");
+            return;
+        }
+        OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps,new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    //请求错误
+                    case HttpConfig.REQUESTERROR:
+                        IOException error = (IOException) msg.obj;
+                        onErrorResult(HttpConfig.REQUESTERROR, error);
+                        break;
+                    //解析错误
+                    case HttpConfig.PARSEERROR:
+                        onParseErrorResult(HttpConfig.PARSEERROR);
+                        break;
+                    //网络错误
+                    case HttpConfig.NETERROR:
+                        break;
+                    //请求成功
+                    case HttpConfig.SUCCESSCODE:
+                        Bundle bundle = msg.getData();
+                        int requestCode = bundle.getInt("requestCode");
+                        int returnCode = bundle.getInt("returnCode");
+                        String returnMsg = bundle.getString("returnMsg");
+                        String returnData = bundle.getString("returnData");
+                        Map<String, Object> paramsMaps = (Map) msg.obj;
+                        onSuccessResult(requestCode, returnCode, returnMsg, returnData, paramsMaps);
+                        break;
+                }
+            }
+        });
+    }
     /**
      * POST网络请求
      * 请求头

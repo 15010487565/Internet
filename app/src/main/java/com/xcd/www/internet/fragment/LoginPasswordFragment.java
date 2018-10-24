@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
 /**
@@ -79,7 +80,7 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
                 map.put("account",phone);
                 map.put("password",password);
                 map.put("country ","86");
-                okHttpPostBody(100,"http://www.quantusd.com/robot/api/user/reg",map);
+                okHttpPostBody(100, GlobalParam.LOGIN,map);
                 break;
         }
     }
