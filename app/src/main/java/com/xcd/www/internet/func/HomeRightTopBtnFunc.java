@@ -9,7 +9,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.xcd.www.internet.R;
-import com.xcd.www.internet.activity.CreateGroupNextActivity;
+import com.xcd.www.internet.activity.GroupCreateNextActivity;
 import com.xcd.www.internet.activity.MainActivity;
 
 import www.xcd.com.mylibrary.action.QuickAction;
@@ -63,7 +63,7 @@ public class HomeRightTopBtnFunc extends BaseTopImageBtnFunc {
                 Intent intent = null;
                 switch (actionId) {
                     case 0://创建群组
-                        intent = new Intent(getActivity(), CreateGroupNextActivity.class);
+                        intent = new Intent(getActivity(), GroupCreateNextActivity.class);
                         getActivity().startActivity(intent);
                         break;
 

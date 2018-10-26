@@ -2,7 +2,6 @@ package com.xcd.www.internet.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,7 +152,6 @@ public class GroupinfoListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        Log.e("TAG_群组信息", "adapter=" + (mData == null ? 0 : mData.size()));
         return mData == null ? 0 : (mData.size());
     }
 

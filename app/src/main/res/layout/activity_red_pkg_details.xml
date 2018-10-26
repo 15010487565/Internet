@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:addStatesFromChildren="true"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:background="@color/black_ee">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,13 +44,15 @@
                     </android.support.design.widget.CollapsingToolbarLayout>
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_45"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:textColor="@color/black_66"
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="@dimen/margin_20"
                         android:layout_marginRight="@dimen/margin_20"
-                        android:textSize="@dimen/textsize_13"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_10"
+                        android:textSize="@dimen/textsize_12"
                         android:singleLine="true"
                         android:text="领取0/0个，剩余0元，"/>
                 </android.support.design.widget.AppBarLayout>
@@ -57,9 +60,10 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rc_OpenRedPkgDet"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="@dimen/margin_35"
-                    android:paddingRight="@dimen/margin_20"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_20"
+                    android:background="@color/white"
                     app:layout_anchor="@id/appbar"
                     app:layout_anchorGravity="bottom"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"

@@ -206,9 +206,16 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                     String sign = data.getSign();
                     String account = data.getAccount();
                     long id = data.getId();
-                    BaseApplication.getInstance().setAccount(account);
+                    BaseApplication.getInstance().setAccount(account);//帐号
                     BaseApplication.getInstance().setSign(sign);
                     BaseApplication.getInstance().setId(id);
+                    //头像
+                    String headportrait = data.getHeadportrait();
+                    BaseApplication.getInstance().setHeadportrait(headportrait);
+                    //区号
+                    String country = data.getCountry();
+                    BaseApplication.getInstance().setCountry(country);
+
                     String token = data.getToken();
                     connect(token);
                     Intent intent = new Intent(this, MainActivity.class);

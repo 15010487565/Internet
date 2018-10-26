@@ -17,8 +17,9 @@
     <string name="chat_message_close">关闭通知</string>
     <string name="chat_message_open">打开通知</string>
     <string name="chat_groupinfo">群组信息</string>
+    <string name="editor">编辑</string>
 
-
+    <string name="group_setting">群组设置</string>
     <!--系统依赖库-->
     <string name="ok">确认</string>
     <string name="next">下一步</string>
@@ -83,4 +84,5 @@
     <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
     <string name="cancel">取消</string>
     <string name="password">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM</string>
+    <string name="number">1234567890</string>
 </resources>

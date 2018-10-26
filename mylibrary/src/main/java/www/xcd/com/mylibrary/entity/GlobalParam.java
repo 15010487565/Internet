@@ -21,6 +21,8 @@ public class GlobalParam {
     public final static String RESETPWD=IP+"/robot/api/user/resetPwd";
     //创建群组
     public final static String CREATEGROUP=IP+"/robot/api/group/create";
+    //修改群组信息
+    public final static String GROUPUPDATE=IP+"/robot/api/group/update";
     //添加群成员
     public final static String ADDGROUPFRIEND=IP+"/robot/api/group/add";
     //好友信息
@@ -29,4 +31,11 @@ public class GlobalParam {
     public final static String GETGROUPINFO=IP+"/robot/api/group/info";
     //获取群组信息
     public final static String GETGROUPMEMBERLIST=IP+"/robot/api/group/member";
+
+    //发红包
+    public final static String SENDREDPACKET=IP+"/robot/api/redPacket/create";
+    //抢红包
+    public final static String GRAPREDPACKET=IP+"/robot/api/redPacket/grap";
+    //钱包记录
+    public final static String REDPACKETLIST=IP+"/robot/api/bag/list";
 }

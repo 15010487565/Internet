@@ -1,25 +1,32 @@
 package com.xcd.www.internet.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.RedPkgOpenDetAdapter;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.RedPkgRecordTopBtnFunc;
+import com.xcd.www.internet.model.RedPkgDetailsModel;
 import com.xcd.www.internet.view.CircleImageView;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
-public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   MultiSwipeRefreshLayout.OnLoadListener{
+public class RedPkgDetailsActivity extends SimpleTopbarActivity implements MultiSwipeRefreshLayout.OnLoadListener {
 
 
     private RecyclerView rcOpenRedPkgDet;
@@ -29,6 +36,7 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   Mul
     private RedPkgOpenDetAdapter adapter;
     private TextView tvOpenRedPkgDetName, tvOpenRedPkgDetRemark;
     private static Class<?> rightFuncArray[] = {RedPkgRecordTopBtnFunc.class};
+
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
         return rightFuncArray;
@@ -43,14 +51,25 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   Mul
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_red_pkg_details);
+        Intent intent = getIntent();
+        String redPkgId = intent.getStringExtra("redPkgId");
+        String sign = BaseApplication.getInstance().getSign();
+        long id = BaseApplication.getInstance().getId();
+        Map<String, String> map = new HashMap<>();
+        map.put("id", redPkgId);//红包id
+        map.put("userId", String.valueOf(id));//userId用户id
+        map.put("sign", sign);
+        okHttpPostBody(100, GlobalParam.GRAPREDPACKET, map);
     }
-    public void startRecord(){
-        ToastUtil.showToast("点击红包记录");
+
+    public void startRecord() {
+        startActivity(new Intent(this,MeRedPkgActivity.class));
     }
+
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
-        topbat_parent.setBackgroundResource(R.color.red);
+        topbat_parent.setBackgroundResource(R.color.redpkg);
         viewTitle.setTextColor(ContextCompat.getColor(this, R.color.orange_red));
         //头像
         ivOpenRedPkgDetHead = findViewById(R.id.iv_OpenRedPkgDetHead);
@@ -63,6 +82,7 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   Mul
         initSwipeRefreshLayout();
         initRecyclerView();
     }
+
     private void initRecyclerView() {
         //初始化tabRecyclerView
         rcOpenRedPkgDet = findViewById(R.id.rc_OpenRedPkgDet);
@@ -77,7 +97,7 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   Mul
 //        rcOpenRedPkgDet.setLoadingMoreEnabled(false);
         //rc线
         RecyclerViewDecoration recyclerViewDecoration = new RecyclerViewDecoration(
-                this, LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.line_c3));
+                this, LinearLayoutManager.HORIZONTAL, 15, getResources().getColor(R.color.black_ee));
         rcOpenRedPkgDet.addItemDecoration(recyclerViewDecoration);
         rcOpenRedPkgDet.setAdapter(adapter);
         rcOpenRedPkgDet.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -108,7 +128,7 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   Mul
                 } else {
                     if (visibleItemCount == totalItemCount) {
                         loadGroupInfo.setBottom(false);
-                        adapter.upFootText();
+//                        adapter.upFootText();
                     } else {
                         loadGroupInfo.setBottom(true);
                     }
@@ -127,28 +147,21 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements   Mul
         //设置样式刷新显示的位置
         loadGroupInfo.setProgressViewOffset(true, -20, 100);
         loadGroupInfo.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
-
-//        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
-//            @Override
-//            public void onStateChanged(AppBarLayout appBarLayout, State state) {
-////                Log.e("STATE", state.name());
-//                if (state == State.EXPANDED) {
-//                    //展开状态
-//                    loadGroupInfo.setEnabled(true);
-//                } else if (state == State.COLLAPSED) {
-//                    //折叠状态
-//                    loadGroupInfo.setEnabled(false);
-//                } else {
-//                    //中间状态
-//                    loadGroupInfo.setEnabled(false);
-//                }
-//            }
-//        });
     }
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-
+        if (returnCode == 200) {
+            switch (requestCode) {
+                case 100:
+                    RedPkgDetailsModel redPkgDetailsModel = JSON.parseObject(returnData, RedPkgDetailsModel.class);
+                    List<RedPkgDetailsModel.DataBean> data = redPkgDetailsModel.getData();
+                    adapter.setData(data);
+                    break;
+            }
+        } else {
+            ToastUtil.showToast(returnMsg);
+        }
     }
 
     @Override

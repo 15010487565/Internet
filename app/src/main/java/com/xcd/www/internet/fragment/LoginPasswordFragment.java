@@ -119,6 +119,13 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
                     BaseApplication.getInstance().setAccount(account);
                     BaseApplication.getInstance().setSign(sign);
                     BaseApplication.getInstance().setId(id);
+                    //头像
+                    String headportrait = data.getHeadportrait();
+                    BaseApplication.getInstance().setHeadportrait(headportrait);
+                    //区号
+                    String country = data.getCountry();
+                    BaseApplication.getInstance().setCountry(country);
+
                     String token = data.getToken();
                     connect(token);
                     Intent intent = new Intent(getActivity(), MainActivity.class);

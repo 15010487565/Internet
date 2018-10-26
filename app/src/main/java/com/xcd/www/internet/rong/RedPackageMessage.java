@@ -29,7 +29,7 @@ public class RedPackageMessage extends MessageContent {
     //自定义的属性
     private String sendRedType;
     private String sendName;
-    private String id;
+    private String id;//红包id
     private String remark;
 
     public RedPackageMessage() {

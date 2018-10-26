@@ -20,4 +20,5 @@
     <item name="next" type="id"/>
     <item name="confirm" type="id"/>
     <item name="redpkg_record" type="id"/>
+    <item name="editor" type="id"/>
 </resources>

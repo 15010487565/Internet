@@ -1,13 +1,15 @@
 package com.xcd.www.internet.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,51 +20,55 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.GroupinfoListAdapter;
 import com.xcd.www.internet.application.BaseApplication;
-import com.xcd.www.internet.func.GroupInfoTopBtnFunc;
+import com.xcd.www.internet.func.GroupUpdataTopBtnFunc;
 import com.xcd.www.internet.model.GroupInfoListModel;
 import com.xcd.www.internet.view.CircleImageView;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
+import www.xcd.com.mylibrary.PhotoActivity;
+import www.xcd.com.mylibrary.activity.PermissionsActivity;
+import www.xcd.com.mylibrary.activity.PermissionsChecker;
 import www.xcd.com.mylibrary.entity.GlobalParam;
+import www.xcd.com.mylibrary.utils.ToastUtil;
 import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
+public class GroupUpDataActivity extends PhotoActivity implements
+        MultiSwipeRefreshLayout.OnLoadListener {
 
-public class GroupInfoActivity extends SimpleTopbarActivity implements
-        CompoundButton.OnCheckedChangeListener
-        , MultiSwipeRefreshLayout.OnLoadListener
-{
-
-    private CircleImageView ivGroupInfoTopHead;
-    private Switch swGroupInfoMessage;
-    private TextView tvGroupInfoName, tvGroupInfoMemberNum, tvGroupInfoMember;
-    private int page = 1;//页数（默认从1开始）
-
-    private GroupinfoListAdapter adapter;
-
-    private AppBarLayout appBarLayout;
-
+    private CircleImageView ivUploadHead;
+    private LinearLayout llUploadHead;
+    private static final String[] AUTHORIMAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            , Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.CAMERA
+    };
+    private PermissionsChecker mChecker;
     private RecyclerView rcCreateGroup;
     private LinearLayoutManager mLinearLayoutManager;
     private MultiSwipeRefreshLayout loadGroupInfo;
-    private LinearLayout llAddMember;
+    private LinearLayout llAddMember, llGroupUpdataDes;
+    private EditText etGroupUpdataName;
+    private Switch swGroupUpdataMessage;
+    private TextView tvGroupUpdataDes, tvGroupInfoMemberNum, tvGroupInfoMember;
+    private GroupinfoListAdapter adapter;
+    private String targetId;
+    private int page = 1;//页数（默认从1开始）
     String groupInfoHead;
-    String groupInfoName;
-    String sign;
-    String targetId;
-    String groupInfoDes;//简介
-    int type;
-    int memberNum;
-    private static Class<?> rightFuncArray[] = {GroupInfoTopBtnFunc.class};
+    private String groupUpdataDes;
+
+    private static Class<?> rightFuncArray[] = {GroupUpdataTopBtnFunc.class};
+
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
         return rightFuncArray;
     }
+
     @Override
     protected Object getTopbarTitle() {
         return R.string.group_setting;
@@ -71,8 +77,10 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_info);
+        setContentView(R.layout.activity_updata_group);
+        mChecker = new PermissionsChecker(this);
         Intent intent = getIntent();
+        targetId = intent.getStringExtra("targetId");
         groupInfoHead = intent.getStringExtra("GroupInfoHead");
         Glide.with(this)
                 .load(groupInfoHead)
@@ -81,28 +89,28 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.mipmap.launcher_login)
                 .error(R.mipmap.launcher_login)
-                .into( ivGroupInfoTopHead);
+                .into(ivUploadHead);
 
-        groupInfoName = intent.getStringExtra("GroupInfoName");
-        tvGroupInfoName.setText(groupInfoName);
-        //简介
-        groupInfoDes = intent.getStringExtra("GroupInfoDes");
+        String groupInfoName = intent.getStringExtra("GroupInfoName");
+        etGroupUpdataName.setText(TextUtils.isEmpty(groupInfoName)?"":groupInfoName);
+        //描述
+        groupUpdataDes = intent.getStringExtra("GroupInfoDes");
+        tvGroupUpdataDes.setText(TextUtils.isEmpty(groupUpdataDes)?"":groupUpdataDes);
         //是否开始消息通知
-        type = intent.getIntExtra("GroupInfoType", 0);
-        if (type == 0){
-            swGroupInfoMessage.setChecked(false);
-        }else {
-            swGroupInfoMessage.setChecked(true);
+        int type = intent.getIntExtra("GroupInfoType", 0);
+        if (type == 0) {
+            swGroupUpdataMessage.setChecked(false);
+        } else {
+            swGroupUpdataMessage.setChecked(true);
         }
-        memberNum = intent.getIntExtra("memberNum", 0);
-        tvGroupInfoMemberNum.setText(memberNum+"位成员");
-        tvGroupInfoMember.setText(memberNum+"人");
-        sign = BaseApplication.getInstance().getSign();
-        targetId = intent.getStringExtra("targetId");
+        int memberNum = intent.getIntExtra("memberNum", 0);
+        tvGroupInfoMemberNum.setText(memberNum + "位成员");
+        tvGroupInfoMember.setText(memberNum + "人");
         getData();
     }
 
     private void getData() {
+        String sign = BaseApplication.getInstance().getSign();
         Map<String, String> map = new HashMap<>();
         map.put("id", targetId);
         map.put("page", String.valueOf(page));//页数（默认从1开始）
@@ -111,18 +119,21 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         okHttpPostBody(100, GlobalParam.GETGROUPMEMBERLIST, map);
     }
 
-
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
-        appBarLayout =  findViewById(R.id.appbar);
+        //群名称
+        etGroupUpdataName = findViewById(R.id.et_GroupUpdataName);
         //头像
-        ivGroupInfoTopHead = findViewById(R.id.iv_GroupInfoTopHead);
-        ivGroupInfoTopHead.setOnClickListener(this);
-        //群组名称
-        tvGroupInfoName = findViewById(R.id.tv_GroupInfoName);
-        swGroupInfoMessage = findViewById(R.id.sw_GroupInfoMessage);
-        swGroupInfoMessage.setOnCheckedChangeListener(this);
+        ivUploadHead = findViewById(R.id.iv_UploadHead);
+        llUploadHead = findViewById(R.id.ll_UploadHead);
+        llUploadHead.setOnClickListener(this);
+        //群简介
+        llGroupUpdataDes = findViewById(R.id.ll_GroupUpdataDes);
+        llGroupUpdataDes.setOnClickListener(this);
+        tvGroupUpdataDes = findViewById(R.id.tv_GroupUpdataDes);
+        //消息通知
+        swGroupUpdataMessage = findViewById(R.id.sw_GroupUpdataMessage);
         //成员数量
         tvGroupInfoMemberNum = findViewById(R.id.tv_GroupInfoMemberNum);
         tvGroupInfoMember = findViewById(R.id.tv_GroupInfoMember);
@@ -133,9 +144,10 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         initSwipeRefreshLayout();
         initRecyclerView();
     }
+
     private void initRecyclerView() {
         //初始化tabRecyclerView
-        rcCreateGroup = findViewById(R.id.rc_GroupInfo);
+        rcCreateGroup = findViewById(R.id.rc_GroupInfoUpdata);
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -197,69 +209,105 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         //设置样式刷新显示的位置
         loadGroupInfo.setProgressViewOffset(true, -20, 100);
         loadGroupInfo.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
-
-        appBarLayout = findViewById(R.id.appbar);
-
-//        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
-//            @Override
-//            public void onStateChanged(AppBarLayout appBarLayout, State state) {
-////                Log.e("STATE", state.name());
-//                if (state == State.EXPANDED) {
-//                    //展开状态
-//                    loadGroupInfo.setEnabled(true);
-//                } else if (state == State.COLLAPSED) {
-//                    //折叠状态
-//                    loadGroupInfo.setEnabled(false);
-//                } else {
-//                    //中间状态
-//                    loadGroupInfo.setEnabled(false);
-//                }
-//            }
-//        });
     }
-    //编辑
-    public void getEditorGroupInfo(){
-        Intent intent = new Intent(this,GroupUpDataActivity.class);
-        intent.putExtra("targetId",targetId);
-        intent.putExtra("GroupInfoHead",groupInfoHead);
-        intent.putExtra("GroupInfoName",groupInfoName);
-        intent.putExtra("GroupInfoDes",groupInfoDes);
-        intent.putExtra("GroupInfoType", type);
-        intent.putExtra("memberNum", memberNum);
-        startActivity(intent);
-    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
-            case R.id.ll_AddMember:
-                Intent intent = new Intent(this,InviteFriendActivity.class);
-                intent.putExtra("targetId",targetId);
-                startActivityForResult(intent,11000);
+        switch (v.getId()) {
+            case R.id.ll_UploadHead:
+                if (mChecker.lacksPermissions(AUTHORIMAGE)) {
+                    // 请求权限
+                    PermissionsActivity.startActivityForResult(this, 11000, AUTHORIMAGE);
+//                    ActivityCompat.requestPermissions(this, BaseActivity.WRITEREADPERMISSIONS, 11000);
+                } else {
+                    // 全部权限都已获取
+                    setShowViewid(R.id.iv_UploadHead);
+                    getChoiceDialog().show();
+                }
+                break;
+            case R.id.ll_GroupUpdataDes:
+                Intent intent1 = new Intent(this, GroupInfoDesActivity.class);
+
+                startActivityForResult(intent1, 10000);
                 break;
         }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case 11000:
-                if (resultCode == 1) {//保存
-                    page = 0;
-                    getData();
-                }
-                break;
-
+        if (data != null) {
+            switch (requestCode) {
+                case 10000:
+                    groupUpdataDes = data.getStringExtra("GroupInfoDes");
+                    tvGroupUpdataDes.setText(groupUpdataDes);
+                    break;
+            }
         }
     }
     @Override
+    public void uploadImage(List<File> list) {
+        super.uploadImage(list);
+        int showViewid = getShowViewid();
+        try {
+            for (File imagepath : list) {
+                groupInfoHead = imagepath.getPath();
+                switch (showViewid) {
+                    case R.id.iv_UploadHead://上传营业执照
+                        Glide.with(this)
+                                .load(groupInfoHead)
+                                .fitCenter()
+                                .dontAnimate()
+                                .placeholder(R.mipmap.launcher_login)
+                                .error(R.mipmap.launcher_login)
+                                .into(ivUploadHead);
+
+                        break;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //确定
+    public void createGroup() {
+
+        String groupName = etGroupUpdataName.getText().toString().trim();
+        if (TextUtils.isEmpty(groupName)) {
+            ToastUtil.showToast("群名称不能为空!");
+            return;
+        }
+        if (TextUtils.isEmpty(groupUpdataDes)) {
+            ToastUtil.showToast("群简介不能为空!");
+            return;
+        }
+        if (TextUtils.isEmpty(groupInfoHead)) {
+            ToastUtil.showToast("群头像不能为空!");
+            return;
+        }
+
+        String sign = BaseApplication.getInstance().getSign();
+        Map<String, String> params = new HashMap<>();
+        params.put("id", targetId);//群id
+        params.put("name", groupName);//群名称
+        params.put("des", groupUpdataDes);//描述
+
+        params.put("avatar", groupName);//头像
+        params.put("sign", sign);
+        okHttpPostBody(101, GlobalParam.GROUPUPDATE, params);
+    }
+
+    @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-        if (returnCode == 200 ){
-            switch (requestCode){
-                case 100:
+        if (returnCode == 200) {
+            switch (requestCode) {
+                case 100://修改群组信息
+
                     GroupInfoListModel groupInfoListModel = JSON.parseObject(returnData, GroupInfoListModel.class);
                     List<GroupInfoListModel.DataBean> data = groupInfoListModel.getData();
-                    Log.e("TAG_群组信息","data="+data.size());
+                    Log.e("TAG_群组修改信息", "data=" + data.size());
                     if (data == null || data.size() == 0) {
 //                        adapter.upFootText();
                     } else {
@@ -269,10 +317,15 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
                             adapter.setData(data);
                         }
                     }
-
                     loadGroupInfo.setLoading(false);
                     break;
+                case 101:
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                    break;
             }
+        } else {
+            ToastUtil.showToast(returnMsg);
         }
     }
 
@@ -295,18 +348,6 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     public void onFinishResult() {
 
     }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        if (isChecked) {
-            Log.e("TAG_SW", "开启");
-
-        } else {
-            Log.e("TAG_SW", "关闭");
-
-        }
-    }
-
 
     @Override
     public void onLoad() {

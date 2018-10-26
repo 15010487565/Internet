@@ -1,10 +1,16 @@
 package com.xcd.www.internet.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -14,12 +20,14 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.MeMoneyActivity;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
-import com.xcd.www.internet.func.MeLeftTopBtnFunc;
-import com.xcd.www.internet.func.MeRankingFunc;
+import com.xcd.www.internet.func.MeAboutFunc;
 import com.xcd.www.internet.func.MeFriendFunc;
 import com.xcd.www.internet.func.MeHelpFunc;
-import com.xcd.www.internet.func.MeAboutFunc;
+import com.xcd.www.internet.func.MeLeftTopBtnFunc;
+import com.xcd.www.internet.func.MeRankingFunc;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +60,12 @@ public class MeFragment extends SimpleTopbarFragment {
     private LinearLayout systemFuncList;
     private LinearLayout customFuncView;
     private LinearLayout customFuncList;
+
+    private ImageView ivMeTopHead;
+    private TextView tvMeTopName;
+    private TextView tvMeTopPhone;
+    //我的资产
+    private LinearLayout llMeMoney;
 
     /**
      * 获得系统功能列表
@@ -90,6 +104,11 @@ public class MeFragment extends SimpleTopbarFragment {
         systemFuncList = view.findViewById(R.id.me_system_func_list);
         customFuncView = view.findViewById(R.id.me_custom_func_view);
         customFuncList = view.findViewById(R.id.me_custom_func_view);
+        //顶部个人资料
+        initTopMember(view);
+        //我的资产
+        llMeMoney = view.findViewById(R.id.ll_MeMoney);
+        llMeMoney.setOnClickListener(this);
         //饼状图
         initPieChart(view);
         // 初始化自定义功能
@@ -98,6 +117,36 @@ public class MeFragment extends SimpleTopbarFragment {
         initSystemFunc();
         //模拟数据
         getData();
+    }
+
+    private void initTopMember(View view) {
+        //顶部个人资料
+        ivMeTopHead = view.findViewById(R.id.iv_MeTopHead);
+        tvMeTopName = view.findViewById(R.id.tv_MeTopName);
+        String name = BaseApplication.getInstance().getName();
+        String nick = BaseApplication.getInstance().getNick();
+        if (TextUtils.isEmpty(nick)){
+            if (TextUtils.isEmpty(name)){
+                tvMeTopName.setText("");
+            }else {
+                tvMeTopName.setText(name);
+            }
+        }else {
+            tvMeTopName.setText(nick);
+        }
+        tvMeTopPhone = view.findViewById(R.id.tv_MeTopPhone);
+        String account = BaseApplication.getInstance().getAccount();
+        String country = BaseApplication.getInstance().getCountry();
+        tvMeTopPhone.setText("+"+country+" "+account);
+        String headportrait = BaseApplication.getInstance().getHeadportrait();
+        Glide.with(getActivity())
+                .load(headportrait)
+                .fitCenter()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.mipmap.launcher_login)
+                .error(R.mipmap.launcher_login)
+                .into(ivMeTopHead);
     }
 
     private void getData() {
@@ -261,9 +310,9 @@ public class MeFragment extends SimpleTopbarFragment {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-//            case R.id.me_account_setting:
-//                startActivity(new Intent(getFragmentActivity(), AccountActivity.class));
-//                break;
+            case R.id.ll_MeMoney://我的总资产
+                startActivity(new Intent(getFragmentActivity(), MeMoneyActivity.class));
+                break;
             default:
                 // func
                 BaseFunc func = htFunc.get(v.getId());

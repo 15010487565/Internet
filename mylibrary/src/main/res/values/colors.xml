@@ -32,6 +32,8 @@
     <color name="background_f3f3f3">#f3f3f3</color>
     <color name="background_eaeaea">#eaeaea</color>
     <color name="blue_0d81de">#0d81de</color>
+
+    <color name="redpkg">#ec4949</color>
     <color name="red">#EB2C2B</color>
     <color name="red_login">#dd1818</color>
     <color name="line_gray">#EDF2F6</color>

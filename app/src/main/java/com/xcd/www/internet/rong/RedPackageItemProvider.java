@@ -85,7 +85,8 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
 
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        showOpenRedRkgDialog();
+        String id = redPackageMessage.getId();
+        showOpenRedRkgDialog(id);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     //打開紅包弹窗
     protected AlertDialog openRedPkgDialog;
 
-    private void showOpenRedRkgDialog() {
+    private void showOpenRedRkgDialog(final String redPkgId) {
         if (openRedPkgDialog != null && openRedPkgDialog.isShowing()) {
             return;
         }
@@ -136,6 +137,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
             public void onClick(View v) {
                 openRedPkgDialog.dismiss();
                 Intent intent = new Intent(context, RedPkgDetailsActivity.class);
+                intent.putExtra("redPkgId",redPkgId);
                 context.startActivity(intent);
             }
         });

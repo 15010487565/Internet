@@ -196,6 +196,9 @@ public class RongChatActivity extends BaseInternetActivity {
                             intent.putExtra("GroupInfoHead", TextUtils.isEmpty(avatar)?"":avatar);
                             String name = group.getName();
                             intent.putExtra("GroupInfoName", TextUtils.isEmpty(name)?"":name);
+                            //描述
+                            String des = group.getDes();
+                            intent.putExtra("GroupInfoDes", TextUtils.isEmpty(des)?"":des);
                             //是否开始消息通知
                             int type = group.getType();
                             intent.putExtra("GroupInfoType", type);

@@ -3,7 +3,7 @@ package com.xcd.www.internet.func;
 import android.app.Activity;
 import android.view.View;
 
-import com.xcd.www.internet.activity.CreateGroupNextActivity;
+import com.xcd.www.internet.activity.GroupCreateNextActivity;
 
 import www.xcd.com.mylibrary.R;
 import www.xcd.com.mylibrary.func.BaseTopTextViewFunc;
@@ -34,7 +34,7 @@ public class CreateGroupNextTopBtnFunc extends BaseTopTextViewFunc {
 
     @Override
     public void onclick(View v) {
-        ((CreateGroupNextActivity)getActivity()).createGroupNext();
+        ((GroupCreateNextActivity)getActivity()).createGroupNext();
 
     }
 }

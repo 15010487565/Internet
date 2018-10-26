@@ -58,11 +58,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="91px"
-                    android:text="币种"
+                    android:text="总金额"
                     android:textColor="@color/black_33"
                     android:textSize="@dimen/textsize_18" />
 
                 <EditText
+                    android:id="@+id/et_RedPkgAmount"
                     android:layout_width="0dp"
                     android:layout_height="91px"
                     android:layout_weight="1"
@@ -72,6 +73,7 @@
                     android:paddingRight="@dimen/margin_15"
                     android:textColor="@color/black_33"
                     android:textColorHint="@color/black_cc"
+                    android:inputType="number"
                     android:textSize="@dimen/textsize_17" />
 
                 <TextView
@@ -109,6 +111,7 @@
                     android:textSize="@dimen/textsize_18" />
 
                 <EditText
+                    android:id="@+id/et_RedPkgTotal"
                     android:layout_width="0dp"
                     android:layout_height="91px"
                     android:layout_weight="1"
@@ -116,6 +119,8 @@
                     android:gravity="center_vertical|right"
                     android:hint="请输入数量"
                     android:paddingRight="@dimen/margin_15"
+                    android:inputType="number"
+                    android:digits="@string/number"
                     android:textColor="@color/black_33"
                     android:textColorHint="@color/black_cc"
                     android:textSize="@dimen/textsize_17" />
@@ -154,6 +159,7 @@
                     android:textColor="@color/black_33"
                     android:textSize="@dimen/textsize_18" />
                 <EditText
+                    android:id="@+id/et_RedPkgContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"

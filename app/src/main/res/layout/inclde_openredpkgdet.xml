@@ -4,13 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_ee">
-    <com.xcd.www.internet.view.CircleImageView
-        android:id="@+id/iv_OpenRedPkgDetHead"
-        android:layout_width="107px"
-        android:layout_height="101px"
-        android:layout_marginTop="213px"
-        android:layout_gravity="center_horizontal"
-        android:background="@mipmap/ic_launcher"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250px"
+            android:background="@mipmap/redpkg_sector"/>
+        <com.xcd.www.internet.view.CircleImageView
+            android:id="@+id/iv_OpenRedPkgDetHead"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_marginTop="200px"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/launcher_login"/>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_OpenRedPkgDetName"
         android:layout_width="wrap_content"
@@ -32,7 +42,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72px"
+        android:layout_marginTop="60px"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
         <TextView
@@ -58,8 +68,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72px"
-        android:layout_marginBottom="@dimen/margin_30"
+        android:layout_marginTop="30px"
+        android:layout_marginBottom="40px"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
         <TextView

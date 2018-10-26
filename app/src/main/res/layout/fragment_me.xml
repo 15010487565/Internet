@@ -92,15 +92,19 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_20"
+                    android:paddingLeft="@dimen/margin_20"
+                    android:paddingRight="@dimen/margin_20"
+                    android:paddingBottom="@dimen/margin_20"
                     android:layout_marginLeft="@dimen/margin_20"
                     android:layout_marginRight="@dimen/margin_20"
                     android:orientation="vertical"
                     android:background="@drawable/shape_white">
                     <LinearLayout
+                        android:id="@+id/ll_MeMoney"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
+                        android:paddingTop="@dimen/margin_20"
                         android:orientation="horizontal">
 
                         <ImageView

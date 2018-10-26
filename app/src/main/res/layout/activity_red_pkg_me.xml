@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include layout="@layout/view_simple_topbar" />
+
+    <www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout
+        android:id="@+id/load_GroupInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:addStatesFromChildren="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="0dp">
+                <!--AppBarLayout 是继承LinerLayout实现的一个ViewGroup容器组件，它是为了Material Design设计的AppBar，支持手势滑动操作-->
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black_ee"
+                    app:elevation="0dp"
+                    app:layout_scrollFlags="scroll">
+
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_collapseParallaxMultiplier="0"
+                        app:layout_scrollFlags="scroll">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:orientation="vertical">
+                            <ImageView
+                                android:id="@+id/iv_MeHead"
+                                android:layout_width="140px"
+                                android:layout_height="140px"
+                                android:layout_marginTop="60px"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/ic_launcher"/>
+                           <TextView
+                               android:id="@+id/tv_MeName"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textColor="@color/black_66"
+                               android:gravity="center"
+                               android:layout_marginTop="26px"
+                               android:textSize="@dimen/textsize_14"
+                               android:singleLine="true"
+                               android:text="***的***红包"/>
+
+                       </LinearLayout>
+                    </android.support.design.widget.CollapsingToolbarLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="49px"
+                        android:layout_marginBottom="42px"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_66"
+                                android:textSize="@dimen/textsize_18"
+                                android:singleLine="true"
+                                android:text="000"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_99"
+                                android:textSize="@dimen/textsize_12"
+                                android:singleLine="true"
+                                android:text="收到红包"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_66"
+                                android:textSize="@dimen/textsize_18"
+                                android:singleLine="true"
+                                android:text="000"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_99"
+                                android:textSize="@dimen/textsize_12"
+                                android:singleLine="true"
+                                android:text="发出红包"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.design.widget.AppBarLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_OpenRedPkgDet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/margin_35"
+                    android:paddingRight="@dimen/margin_20"
+                    app:layout_anchor="@id/appbar"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_scrollFlags="scroll" />
+            </android.support.design.widget.CoordinatorLayout>
+        </RelativeLayout>
+
+    </www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout>
+
+</LinearLayout>

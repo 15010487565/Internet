@@ -72,7 +72,43 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
     private String account;
     private String sign;
     private long id;
+    private String headportrait;
     private String token;
+    private String name;
+    private String nick;
+    private String country;//区号
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getHeadportrait() {
+        return headportrait;
+    }
+
+    public void setHeadportrait(String headportrait) {
+        this.headportrait = headportrait;
+    }
 
     public String getToken() {
         return token;

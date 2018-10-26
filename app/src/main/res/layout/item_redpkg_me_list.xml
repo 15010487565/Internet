@@ -7,14 +7,15 @@
     android:minHeight="50dp"
     android:orientation="horizontal"
     android:gravity="center"
-    android:padding="30px"
-    >
+    android:paddingTop="@dimen/margin_20"
+    android:paddingBottom="@dimen/margin_20"
+    android:paddingLeft="@dimen/margin_15">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <com.xcd.www.internet.view.CircleImageView
-            android:id="@+id/iv_GroupInfologo"
+            android:id="@+id/iv_redPkgListHead"
             android:layout_width="80px"
             android:layout_height="80px"
             android:layout_centerInParent="true"
@@ -22,7 +23,7 @@
             android:src="@color/red"
             app:type="circle" />
         <TextView
-            android:id="@+id/tv_GroupInfologo"
+            android:id="@+id/tv_redPkgListHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textsize_15"
@@ -37,7 +38,7 @@
         android:paddingLeft="@dimen/margin_10"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_RedPkgName"
+            android:id="@+id/tv_RedPkgListName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -45,7 +46,7 @@
             android:textColor="@color/black_66"
             tools:text="****" />
         <TextView
-            android:id="@+id/tv_RedPkgTime"
+            android:id="@+id/tv_RedPkgListTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -53,26 +54,13 @@
             android:textColor="@color/black_99"
             android:text="00-00 00:00" />
     </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_RedPkgListMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_RedPkgMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:textSize="@dimen/textsize_14"
-            android:textColor="@color/black_33"
-            tools:text="****" />
-        <TextView
-            android:id="@+id/tv_RedPkgHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:textSize="@dimen/textsize_12"
-            android:textColor="@color/orange"
-            android:text="手气最佳" />
-    </LinearLayout>
+        android:layout_gravity="center_vertical|right"
+        android:textSize="@dimen/textsize_14"
+        android:textColor="@color/black_4e"
+        android:layout_marginRight="@dimen/margin_20"
+        tools:text="****" />
 </LinearLayout>

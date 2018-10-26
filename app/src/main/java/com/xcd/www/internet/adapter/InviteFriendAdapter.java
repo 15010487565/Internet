@@ -104,7 +104,7 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
             onItemEventClick(holder);
         }
 
-//        holder.tvName.setOnClickListener(new View.OnClickListener() {
+//        holder.tvRedPkgName.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
