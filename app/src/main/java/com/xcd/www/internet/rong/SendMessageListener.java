@@ -12,7 +12,7 @@ import io.rong.imlib.model.Message;
 public class SendMessageListener implements RongIM.OnSendMessageListener {
     @Override
     public Message onSend(Message message) {
-        Log.e("TAG_"," onSend "+message.getContent()+" id "+message.getSenderUserId()+"  "+message.getTargetId());
+        Log.e("TAG_"," onSend "+message.getContent().toString()+" id "+message.getSenderUserId()+"  "+message.getTargetId());
         return message;
     }
 

@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  */
 
 public class SharePrefHelper {
-    private static final String FILE_NAME = "yasnsp";
+    private static final String FILE_NAME = "internet";
     public static Context context;
     /**
      * 单例模式

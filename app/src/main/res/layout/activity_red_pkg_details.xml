@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.xcd.www.internet.activity.RedPkgDetailsActivity">
+    android:layout_height="wrap_content">
+    <include layout="@layout/view_simple_topbar" />
 
-</android.support.constraint.ConstraintLayout>
+    <www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout
+        android:id="@+id/load_GroupInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:addStatesFromChildren="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="0dp">
+                <!--AppBarLayout 是继承LinerLayout实现的一个ViewGroup容器组件，它是为了Material Design设计的AppBar，支持手势滑动操作-->
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black_ee"
+                    app:elevation="0dp"
+                    app:layout_scrollFlags="scroll">
+
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_collapseParallaxMultiplier="0"
+                        app:layout_scrollFlags="scroll">
+                        <include
+                            layout="@layout/inclde_openredpkgdet"/>
+                    </android.support.design.widget.CollapsingToolbarLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_45"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black_66"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:textSize="@dimen/textsize_13"
+                        android:singleLine="true"
+                        android:text="领取0/0个，剩余0元，"/>
+                </android.support.design.widget.AppBarLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_OpenRedPkgDet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/margin_35"
+                    android:paddingRight="@dimen/margin_20"
+                    app:layout_anchor="@id/appbar"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_scrollFlags="scroll" />
+            </android.support.design.widget.CoordinatorLayout>
+        </RelativeLayout>
+
+    </www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout>
+
+</LinearLayout>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import www.xcd.com.mylibrary.activity.CheckPermissionsActivity;
 import www.xcd.com.mylibrary.base.fragment.BaseFragment;
 
@@ -47,8 +44,7 @@ public class LoginActivity extends CheckPermissionsActivity implements CompoundB
         initFragments();
         initView();
         clickFragmentBtn(0);
-        String token = "ShOxt39edbtjIO9ybPvRR0r0hNRFLcpC+BXms/F6PiXF9w8IBAXSjiMIEnqgcbt9qvEU7GiPdNZO0XS/WakZv2e9MWJ63gAS";
-        connect(token);
+
     }
 
     /**
@@ -156,38 +152,5 @@ public class LoginActivity extends CheckPermissionsActivity implements CompoundB
                 break;
         }
     }
-    private void connect(String token) {
-        Log.e("TAG_融云", "连接="+token);
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
 
-            /**
-             * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
-             *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
-             */
-            @Override
-            public void onTokenIncorrect() {
-                Log.e("TAG_融云", "--onTokenIncorrect---");
-            }
-
-            /**
-             * 连接融云成功
-             * @param userid 当前 token 对应的用户 id
-             */
-            @Override
-            public void onSuccess(String userid) {
-                Log.e("TAG_融云", "--onSuccess---" + userid);
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                    finish();
-            }
-
-            /**
-             * 连接融云失败
-             * @param errorCode 错误码，可到官网 查看错误码对应的注释
-             */
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("TAG_融云", "--onError" + errorCode.getMessage());
-            }
-        });
-    }
 }

@@ -12,17 +12,21 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.view.View;
 
-import com.xcd.www.internet.R;
+import com.alibaba.fastjson.JSON;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.xcd.www.internet.model.ContactModel;
+import com.xcd.www.internet.model.GroupInfoModel;
 import com.xcd.www.internet.rong.BaseExtensionModule;
-import com.xcd.www.internet.rong.RedPackageMessage;
 import com.xcd.www.internet.rong.RedPackageItemProvider;
+import com.xcd.www.internet.rong.RedPackageMessage;
 import com.xcd.www.internet.rong.RongReceiveMessageListener;
 import com.xcd.www.internet.rong.SendMessageListener;
+import com.xcd.www.internet.rong.module.RongFriendsModel;
 import com.yonyou.sns.im.core.YYIMChat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +41,7 @@ import io.rong.imlib.model.UserInfo;
 import io.rong.push.RongPushClient;
 import www.xcd.com.mylibrary.base.application.XCDApplication;
 import www.xcd.com.mylibrary.config.HttpConfig;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.help.OkHttpHelper;
 import www.xcd.com.mylibrary.http.HttpInterface;
 import www.xcd.com.mylibrary.utils.AppManager;
@@ -64,6 +69,42 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
         return instance;
     }
     private List<ContactModel> listApp;
+    private String account;
+    private String sign;
+    private long id;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 
     public List<ContactModel> getListApp() {
         return listApp;
@@ -86,6 +127,7 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
         listApp = new ArrayList<ContactModel>();
         RongIM.init(this);
         try {
+            CrashReport.initCrashReport(getApplicationContext(), "7831d293a3", false);
 //            //初始化第三方jar
             YYIMChat.getInstance().init(getApplicationContext());
             YYIMChat.getInstance().configLogger(Log.VERBOSE, true, true, true);
@@ -271,39 +313,34 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
     @Override
     public UserInfo getUserInfo(String userid) {
         UserInfo  userInfo = null;
-        if (userid.indexOf("系统")!=-1){
-            userInfo =  new UserInfo(userid,
-                    "系统消息",
-                    Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.launcher_login));
-            Log.e("TAG_融云getUserInfo","系统消息="+userid);
-        }else {
-            userInfo =  new UserInfo(userid,
-                    userid,
-                    Uri.parse("https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=c1f24fd359e736d147138a08ab514ffc/241f95cad1c8a786b0eb4b016a09c93d71cf50ff.jpg"));
-        }
-        RongIM.getInstance().refreshUserInfoCache(userInfo);
+//        if (userid.indexOf("系统")!=-1){
+//            userInfo =  new UserInfo(userid,
+//                    "系统消息",
+//                    Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.launcher_login));
+//            Log.e("TAG_融云getUserInfo","系统消息="+userid);
+//        }else {
+//            userInfo =  new UserInfo(userid,
+//                    userid,
+//                    Uri.parse("https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=c1f24fd359e736d147138a08ab514ffc/241f95cad1c8a786b0eb4b016a09c93d71cf50ff.jpg"));
+//        }
+//        RongIM.getInstance().refreshUserInfoCache(userInfo);
         Log.e("TAG_融云getUserInfo","userid="+userid);
-//        Map<String, Object> params = new HashMap<String, Object>();
-//        params.put("id", userid);
-//        okHttpGet(100, GlobalParam.GETUSERINFOFORID, params);
+        Map<String, String> params = new HashMap<>();
+        params.put("id", userid);
+        params.put("sign", sign);
+        okHttpPostBody(100, GlobalParam.FRIENDSINFO, params);
         return null;
     }
 
-    /**
-     * GET网络请求
-     *
-     * @param url        地址
-     * @param paramsMaps 参数
-     */
-    private void okHttpGet(final int requestCode, String url, final Map<String, Object> paramsMaps) {
+    public void okHttpPostBody(final int requestCode, String url, final Map<String, String> paramsMaps) {
         if (NetUtil.getNetWorking(this) == false) {
             showToast("请检查网络。。。");
             return;
         }
-
-        OkHttpHelper.getInstance().getAsyncHttp(requestCode, url, paramsMaps, new Handler() {
+        OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps,new Handler() {
             @Override
             public void handleMessage(Message msg) {
+
                 switch (msg.what) {
                     //请求错误
                     case HttpConfig.REQUESTERROR:
@@ -313,11 +350,9 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
                     //解析错误
                     case HttpConfig.PARSEERROR:
                         onParseErrorResult(HttpConfig.PARSEERROR);
-
                         break;
                     //网络错误
                     case HttpConfig.NETERROR:
-
                         break;
                     //请求成功
                     case HttpConfig.SUCCESSCODE:
@@ -338,15 +373,30 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
         switch (requestCode) {
             case 100:
                 if (returnCode == 200) {
-//                    RongYunUserInfo result = JSON.parseObject(returnData, RongYunUserInfo.class);
-//                    RongYunUserInfo.DataBean userdata = result.getData();
-//                    String nickname = userdata.getName();
-//                    String image_head = userdata.getHeadimg();
-//                    String userid = userdata.getRonguserId();
-//                    Log.e("TAG_融云绘画列表", "nickname=" + nickname + "userid=" + userid);
-//                    if (nickname != null && !TextUtils.isEmpty(userid)) {
-//                        RongIM.getInstance().refreshUserInfoCache(new UserInfo(userid, nickname, Uri.parse(GlobalParam.IP + image_head)));
-//                    }
+                    String name = null;
+                    int id = 0;
+                    String avatar = null;
+                    if (returnData.indexOf("info")!=-1){//单人
+                        RongFriendsModel result = JSON.parseObject(returnData, RongFriendsModel.class);
+                        RongFriendsModel.DataBean userdata = result.getData();
+                        RongFriendsModel.DataBean.InfoBean info = userdata.getInfo();
+                        name = info.getN();
+                        avatar = info.getH();
+                        id = info.getId();
+                    }else if (returnData.indexOf("group")!=-1){
+                        GroupInfoModel groupInfoModel = JSON.parseObject(returnData, GroupInfoModel.class);
+                        GroupInfoModel.DataBean data = groupInfoModel.getData();
+                        GroupInfoModel.DataBean.GroupBean group = data.getGroup();
+                        name = group.getName();
+                        id = group.getId();
+                        //头像
+                        avatar = group.getAvatar();
+                    }
+
+                    Log.e("TAG_融云绘画列表", "nickname=" + name + "userid=" + id);
+                    if (name != null && id>0) {
+                        RongIM.getInstance().refreshUserInfoCache(new UserInfo(String.valueOf(id), name, Uri.parse(avatar)));
+                    }
                 }
                 break;
         }

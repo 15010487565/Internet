@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.SearchAdapter;
+import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
 
@@ -21,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
-public class SearchActivity extends SimpleTopbarActivity implements TextWatcher,SearchAdapter.OnItemClickListener {
+public class SearchActivity extends BaseInternetActivity implements TextWatcher,SearchAdapter.OnItemClickListener {
 
     private EditText etSearch;
     List<ContactModel> contactSearch;//模糊搜索集合

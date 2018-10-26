@@ -1,11 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
         layout="@layout/view_simple_topbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_bar_background"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/ll_Back"
+            android:layout_width="@dimen/top_bar_height"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal" >
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:background="@mipmap/icon_back_norma"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/margin_5"
+            android:paddingBottom="@dimen/margin_5"
+            android:gravity="center_vertical"
+            android:background="@color/blue">
+            <com.xcd.www.internet.view.CircleImageView
+                android:id="@+id/iv_ChatTopHead"
+                android:layout_width="71px"
+                android:layout_height="71px"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@color/red"
+                app:type="circle" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_ChatTopName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="X先生"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_15" />
+                <TextView
+                    android:id="@+id/tv_ChatTopNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:duplicateParentState="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="*位成员"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_12" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/tv_ChatTopMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingRight="@dimen/margin_20"
+                android:padding="@dimen/margin_15">
+                <ImageView
+                    android:layout_width="37px"
+                    android:layout_height="7px"
+                    android:contentDescription="@null"
+                    android:layout_gravity="center_vertical"
+                    android:background="@mipmap/more"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
     <fragment
         android:id="@+id/conversation"
         android:name="com.xcd.www.internet.rong.BaseConversationFragment"

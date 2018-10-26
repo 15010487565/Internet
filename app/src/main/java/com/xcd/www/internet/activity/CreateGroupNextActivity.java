@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
-import www.xcd.com.mylibrary.utils.ToastUtil;
 
 public class CreateGroupNextActivity extends SimpleTopbarActivity implements CreateGroupNextAdapter.OnItemClickListener{
 
@@ -111,7 +110,6 @@ public class CreateGroupNextActivity extends SimpleTopbarActivity implements Cre
     //下一步
     public void createGroupNext(){
         List<ContactModel> createGroupNextList = new ArrayList<>();
-        Log.e("TAG_创建","listApp="+listApp.size());
         for (int i = 0,j = listApp.size(); i < j; i++) {
             ContactModel contactModel = listApp.get(i);
             //是否选中
@@ -124,14 +122,6 @@ public class CreateGroupNextActivity extends SimpleTopbarActivity implements Cre
         Intent intent = new Intent(this, CreateGroupActivity.class);
         intent.putExtra("createGroupNextList", (Serializable)createGroupNextList);
         startActivity(intent);
-
-        ToastUtil.showToast("点击创建群组下一步");
-
-//        Map<String, String> params = new HashMap<>();
-//
-//        params.put("userId", userId);
-//        params.put("groupId", groupId);
-//        params.put("groupName", groupName);
-//        okHttpPost(100, "http://api.cn.ronghub.com/group/create.json", params);
+        finish();
     }
 }

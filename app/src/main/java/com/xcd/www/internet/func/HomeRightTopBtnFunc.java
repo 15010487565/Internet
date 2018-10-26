@@ -76,7 +76,7 @@ public class HomeRightTopBtnFunc extends BaseTopImageBtnFunc {
                         break;
 
                     case 3://扫一扫
-
+                        ((MainActivity)getActivity()).scanAQRCode();
                         break;
 
                     default:

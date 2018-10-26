@@ -8,4 +8,6 @@ package com.xcd.www.internet.common;
 public class Config {
 
     public static final int CODETIME = 60;//验证码倒计时
+    public final static int TYPE_ITEM = 1;
+    public final static int TYPE_FOOTER = 2;
 }

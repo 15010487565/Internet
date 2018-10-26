@@ -4,20 +4,25 @@ import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.CreateGroupAdapter;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.CreateGroupTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
+import com.xcd.www.internet.model.CreateGroupModel;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +30,7 @@ import io.rong.imkit.RongIM;
 import www.xcd.com.mylibrary.PhotoActivity;
 import www.xcd.com.mylibrary.activity.PermissionsActivity;
 import www.xcd.com.mylibrary.activity.PermissionsChecker;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.DialogUtil;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
@@ -41,7 +47,7 @@ public class CreateGroupActivity extends PhotoActivity implements CreateGroupAda
     private RecyclerView rcCreateGroup;
     private LinearLayoutManager mLinearLayoutManager;
     private CreateGroupAdapter adapter;
-    private EditText etGroupName;
+    private EditText etGroupName, etGroupDes;
     private static Class<?> rightFuncArray[] = {CreateGroupTopBtnFunc.class};
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
@@ -64,11 +70,14 @@ public class CreateGroupActivity extends PhotoActivity implements CreateGroupAda
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
+        //群名称
         etGroupName = findViewById(R.id.et_GroupName);
-
+        //描述
+        etGroupDes = findViewById(R.id.et_GroupDes);
+        //头像
         ivUploadHead = findViewById(R.id.iv_UploadHead);
         ivUploadHead.setOnClickListener(this);
-
+        //邀请人集合
         rcCreateGroup =  findViewById(R.id.rc_CreateGroup);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setAutoMeasureEnabled(true);
@@ -81,7 +90,9 @@ public class CreateGroupActivity extends PhotoActivity implements CreateGroupAda
         rcCreateGroup.addItemDecoration(recyclerViewDecoration);
         //实例化数据
         createGroupNextList = (List<ContactModel>) getIntent().getSerializableExtra("createGroupNextList");
-        Log.e("TAG_创建","list="+createGroupNextList.size());
+        if (createGroupNextList !=null){
+            Log.e("TAG_创建","list="+createGroupNextList.toString());
+        }
         adapter.setData(createGroupNextList);
     }
 
@@ -102,14 +113,14 @@ public class CreateGroupActivity extends PhotoActivity implements CreateGroupAda
                 break;
         }
     }
-
+    String  headUrl;
     @Override
     public void uploadImage(List<File> list) {
         super.uploadImage(list);
         int showViewid = getShowViewid();
         try {
             for (File imagepath : list) {
-                String  headUrl = imagepath.getPath();
+                headUrl = imagepath.getPath();
                 switch (showViewid) {
                     case R.id.iv_UploadHead://上传营业执照
                         Glide.with(this)
@@ -131,20 +142,67 @@ public class CreateGroupActivity extends PhotoActivity implements CreateGroupAda
 
     //确定
     public void createGroup(){
-        ToastUtil.showToast("点击创建群组");
-        String trim = etGroupName.getText().toString().trim();
-        RongIM.getInstance().startGroupChat(this,trim , trim);
-//        Map<String, String> params = new HashMap<>();
-//
-//        params.put("userId", userId);
-//        params.put("groupId", groupId);
-//        params.put("groupName", groupName);
-//        okHttpPost(100, "http://api.cn.ronghub.com/group/create.json", params);
+
+        String groupName = etGroupName.getText().toString().trim();
+        if (TextUtils.isEmpty(groupName)){
+            ToastUtil.showToast("群名称不能为空!");
+            return;
+        }
+        String groupDes = etGroupDes.getText().toString().trim();
+        if (TextUtils.isEmpty(groupDes)){
+            ToastUtil.showToast("群名称不能为空!");
+            return;
+        }
+        if (TextUtils.isEmpty(headUrl)){
+            ToastUtil.showToast("群头像不能为空!");
+            return;
+        }
+        long id = BaseApplication.getInstance().getId();
+        StringBuffer sb = new StringBuffer();
+        if (createGroupNextList.size()<=0){
+            sb.append(id);
+        }else {
+            sb.append(id);
+            sb.append(",");
+            for (int i = 0,j =createGroupNextList.size(); i < j ; i++) {
+                ContactModel contactModel = createGroupNextList.get(i);
+                String mobile = contactModel.getMobile();
+                sb.append(mobile);
+                if (i!=j-1){
+                    sb.append(",");
+                }
+            }
+        }
+        String sign = BaseApplication.getInstance().getSign();
+        Map<String, String> params = new HashMap<>();
+        params.put("name", groupName);//群名称
+        params.put("des", groupDes);//描述
+        params.put("ids", sb.toString());//群成员（id逗号分隔）
+        params.put("avatar", groupName);//头像
+        params.put("sign", sign);
+        okHttpPostBody(100, GlobalParam.CREATEGROUP, params);
     }
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-
+        switch (requestCode) {
+            case 100://注册
+                if (returnCode == 200){
+                    CreateGroupModel createGroupModel = JSON.parseObject(returnData, CreateGroupModel.class);
+                    CreateGroupModel.DataBean data = createGroupModel.getData();
+                    String targetGroupId = String.valueOf(data.getId());
+                    String title = data.getName();
+                    RongIM.getInstance().startGroupChat(this,targetGroupId , title);
+                    finish();
+//                    Map<String, String> params = new HashMap<>();
+//                    params.put("id ", targetGroupId);//群名称
+//                    params.put("friend ", friend );//描述
+//                    okHttpPostBody(100, GlobalParam.CREATEGROUP, params);
+                }else {
+                    ToastUtil.showToast(returnMsg);
+                }
+                break;
+        }
     }
 
     @Override

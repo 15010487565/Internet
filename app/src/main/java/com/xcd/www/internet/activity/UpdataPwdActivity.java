@@ -2,6 +2,7 @@ package com.xcd.www.internet.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -12,16 +13,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.util.CommonHelper;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
+import www.xcd.com.mylibrary.entity.GlobalParam;
+import www.xcd.com.mylibrary.help.HelpUtils;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
-public class UpdataPwdActivity extends SimpleTopbarActivity {
+public class UpdataPwdActivity extends BaseInternetActivity {
 
     private EditText etUpdataPwdPhone, etUpdataPwd, etUpdataPwdCode;
     private ImageView ivPswVisibleType;
@@ -30,6 +34,7 @@ public class UpdataPwdActivity extends SimpleTopbarActivity {
     private boolean isVisiblePws = false;//密码显示状态
     private TextView tvUpdataPwdGetCode;
     private int recLen = Config.CODETIME;//验证码倒计时
+    Thread thread;
     @Override
     public boolean isTopbarVisibility() {
         return false;
@@ -71,8 +76,8 @@ public class UpdataPwdActivity extends SimpleTopbarActivity {
                 setEtLoginPasswordVisible();
                 break;
             case R.id.tv_UpdataPwdGetCode://获取验证码
-                handler.postDelayed(runnable, 1000);
-                ToastUtil.showToast("获取验证码");
+                thread = new Thread(networkTask);
+                thread.start();
                 break;
             case R.id.tv_UpdataPwdOk://立即注册
                 //手机号
@@ -92,7 +97,12 @@ public class UpdataPwdActivity extends SimpleTopbarActivity {
                     ToastUtil.showToast("验证码不能为空！");
                     return;
                 }
-                ToastUtil.showToast("修改密码");
+                Map<String, String> map = new HashMap<>();
+                map.put("account", phone);
+                map.put("code", code);
+                map.put("country", "86");
+                map.put("password", password);
+                okHttpPostBody(100, GlobalParam.RESETPWD, map);
                 break;
             case R.id.ll_Back:
                 finish();
@@ -115,7 +125,25 @@ public class UpdataPwdActivity extends SimpleTopbarActivity {
         etUpdataPwdCode.clearFocus();
     }
 
-    Handler handler = new Handler();
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    //手机号
+                    String phone = etUpdataPwdPhone.getText().toString().trim();
+                    String timeStr = (String) msg.obj;
+                    Map<String, String> mapCode = new HashMap<>();
+                    mapCode.put("account", phone);
+                    mapCode.put("country", "86");
+                    mapCode.put("date", timeStr);
+                    okHttpPostBody(101, GlobalParam.GETCODE, mapCode);
+
+                    break;
+            }
+        }
+    };
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -137,9 +165,40 @@ public class UpdataPwdActivity extends SimpleTopbarActivity {
             }
         }
     };
+    Runnable networkTask = new Runnable() {
 
+        @Override
+        public void run() {
+            long networkTime = HelpUtils.getNetworkTime();
+            if (networkTime > 0) {
+                String timeStr = String.valueOf(networkTime);
+//                if (timeStr.length() == 13){
+//                    timeStr = timeStr.substring(0,10);
+//                }
+                Message message = handler.obtainMessage();
+                message.what = 0;
+                message.obj = timeStr;
+                handler.sendMessage(message);
+            } else {
+                ToastUtil.showToast("获取验证码失败，请检查网络！");
+            }
+        }
+    };
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
+        if (returnCode == 200) {
+            switch (requestCode) {
+                case 100://验证码登录
+                    ToastUtil.showToast(returnMsg);
+                    finish();
+                    break;
+                case 101://获取验证码
+                    handler.postDelayed(runnable, 1000);
+                    break;
+            }
+        } else {
+            ToastUtil.showToast(returnMsg);
+        }
 
     }
 

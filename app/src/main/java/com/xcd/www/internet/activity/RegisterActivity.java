@@ -1,8 +1,10 @@
 package com.xcd.www.internet.activity;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,19 +17,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.application.BaseApplication;
+import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.common.Config;
+import com.xcd.www.internet.model.LoginInfoModel;
 import com.xcd.www.internet.util.CommonHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
+import www.xcd.com.mylibrary.help.HelpUtils;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
-public class RegisterActivity extends SimpleTopbarActivity implements TextWatcher {
+public class RegisterActivity extends BaseInternetActivity implements TextWatcher {
 
     private EditText etRegisterPhone, etRegisterPassword, etRegisterCode;
     private ImageView ivPswVisibleType;
@@ -38,6 +44,7 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
     private boolean isVisiblePws = false;//密码显示状态
     private TextView tvRegisterGetCode;
     private int recLen = Config.CODETIME;//验证码倒计时
+    Thread thread;
 
     @Override
     public boolean isTopbarVisibility() {
@@ -87,6 +94,9 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
         llBack.setOnClickListener(this);
     }
 
+    //注册手机号
+    String phone;
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -104,31 +114,33 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
                 ToastUtil.showToast("查看协议");
                 break;
             case R.id.tv_RegisterGetCode://获取验证码
-                handler.postDelayed(runnable, 1000);
-                ToastUtil.showToast("获取验证码");
+                thread = new Thread(networkTask);
+                thread.start();
                 break;
             case R.id.tv_Register://立即注册
                 //手机号
-                String phone1 = etRegisterPhone.getText().toString().trim();
-                String password1 = etRegisterPassword.getText().toString().trim();
-                String code1 = etRegisterCode.getText().toString().trim();
+                phone = etRegisterPhone.getText().toString().trim();
+                String password = etRegisterPassword.getText().toString().trim();
+                String code = etRegisterCode.getText().toString().trim();
 
-                if (!CommonHelper.with().checkPhone(phone1)) {
+                if (!CommonHelper.with().checkPhone(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
-                if (TextUtils.isEmpty(password1) || password1.length() < 6) {
-
+                if (TextUtils.isEmpty(password) || password.length() < 6) {
+                    ToastUtil.showToast("请输入密码！");
+                    return;
                 }
-                if (TextUtils.isEmpty(code1)) {
-
+                if (TextUtils.isEmpty(code)) {
+                    ToastUtil.showToast("请输入验证码！");
+                    return;
                 }
-                Map<String,String> map = new HashMap<>();
-                map.put("account",phone1);
-                map.put("password",password1);
-                map.put("country ","86");
-                map.put("code ",code1);
-                okHttpPostBody(100, GlobalParam.REGISTER,map);
+                Map<String, String> map = new HashMap<>();
+                map.put("account", phone);
+                map.put("password", password);
+                map.put("country", "86");
+                map.put("code", code);
+                okHttpPostBody(100, GlobalParam.REGISTER, map);
                 break;
             case R.id.ll_Back:
                 finish();
@@ -137,7 +149,7 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
     }
 
     private void SettingAgreement() {
-        Log.e("TAG_协议","isSelectAgreement="+isSelectAgreement);
+        Log.e("TAG_协议", "isSelectAgreement=" + isSelectAgreement);
         if (!isSelectAgreement) {
             ivRegisterCheck.setImageResource(R.mipmap.checkbox_select);
             isSelectAgreement = true;
@@ -151,7 +163,7 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
         String code = etRegisterCode.getText().toString().trim();
         if (!TextUtils.isEmpty(phone) && phone.length() == 11) {
             if (!TextUtils.isEmpty(password) && password.length() >= 6) {
-                if (!TextUtils.isEmpty(code)&&isSelectAgreement) {
+                if (!TextUtils.isEmpty(code) && isSelectAgreement) {
                     tvRegister.setEnabled(true);
                     tvRegister.setBackgroundResource(R.drawable.shape_gradient);
                 } else {
@@ -186,6 +198,29 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
+        if (returnCode == 200) {
+            switch (requestCode) {
+                case 100://注册
+                    LoginInfoModel loginIndoModel = JSON.parseObject(returnData, LoginInfoModel.class);
+                    LoginInfoModel.DataBean data = loginIndoModel.getData();
+                    String sign = data.getSign();
+                    String account = data.getAccount();
+                    long id = data.getId();
+                    BaseApplication.getInstance().setAccount(account);
+                    BaseApplication.getInstance().setSign(sign);
+                    BaseApplication.getInstance().setId(id);
+                    String token = data.getToken();
+                    connect(token);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case 101://获取验证码
+                    handler.postDelayed(runnable, 1000);
+                    break;
+            }
+        } else {
+            ToastUtil.showToast(returnMsg);
+        }
 
     }
 
@@ -209,7 +244,25 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
 
     }
 
-    Handler handler = new Handler();
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    //手机号
+                    String phone = etRegisterPhone.getText().toString().trim();
+                    String timeStr = (String) msg.obj;
+                    Map<String, String> mapCode = new HashMap<>();
+                    mapCode.put("account", phone);
+                    mapCode.put("country", "86");
+                    mapCode.put("date", timeStr);
+                    okHttpPostBody(101, GlobalParam.GETCODE, mapCode);
+
+                    break;
+            }
+        }
+    };
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -231,6 +284,25 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
             }
         }
     };
+    Runnable networkTask = new Runnable() {
+
+        @Override
+        public void run() {
+            long networkTime = HelpUtils.getNetworkTime();
+            if (networkTime > 0) {
+                String timeStr = String.valueOf(networkTime);
+//                if (timeStr.length() == 13){
+//                    timeStr = timeStr.substring(0,10);
+//                }
+                Message message = handler.obtainMessage();
+                message.what = 0;
+                message.obj = timeStr;
+                handler.sendMessage(message);
+            } else {
+                ToastUtil.showToast("获取验证码失败，请检查网络！");
+            }
+        }
+    };
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -245,7 +317,7 @@ public class RegisterActivity extends SimpleTopbarActivity implements TextWatche
         String code = etRegisterCode.getText().toString().trim();
         if (!TextUtils.isEmpty(phone) && phone.length() == 11) {
             if (!TextUtils.isEmpty(password) && password.length() >= 6) {
-                if (!TextUtils.isEmpty(code)&&isSelectAgreement) {
+                if (!TextUtils.isEmpty(code) && isSelectAgreement) {
                     tvRegister.setEnabled(true);
                     tvRegister.setBackgroundResource(R.drawable.shape_gradient);
                 } else {

@@ -310,8 +310,12 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 	 * 显示请求中dialog
 	 */
 	protected void dialogshow() {
-		if (requestDialog != null && !requestDialog.isShowing()&&!getActivity().isFinishing()) {
+		if (requestDialog != null && !requestDialog.isShowing()) {
 			requestDialog.show();
+			Log.e("TAG_显示显dialog", (requestDialog != null) + "===" + !requestDialog.isShowing());
+		} else if (requestDialog == null) {
+			createDialog();
+			dialogshow();
 		}
 	}
 
@@ -455,9 +459,11 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 			showToast("请检查网络。。。");
 			return;
 		}
+		dialogshow();
 		OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps,new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
+				dialogDissmiss();
 				switch (msg.what) {
 					//请求错误
 					case HttpConfig.REQUESTERROR:

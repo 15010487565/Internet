@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_simple_topbar" />
+
+    <www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout
+        android:id="@+id/load_GroupInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:addStatesFromChildren="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="0dp">
+                <!--AppBarLayout 是继承LinerLayout实现的一个ViewGroup容器组件，它是为了Material Design设计的AppBar，支持手势滑动操作-->
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:elevation="0dp"
+                    app:layout_scrollFlags="scroll">
+
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_collapseParallaxMultiplier="0"
+                        app:layout_scrollFlags="scroll">
+
+                        <include layout="@layout/include_groupinfo" />
+                    </android.support.design.widget.CollapsingToolbarLayout>
+                    <TextView
+                        android:id="@+id/tv_GroupInfoMemberNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/background_f3f3f3"
+                        android:paddingBottom="@dimen/margin_5"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_15"
+                        android:text="*位成员"
+                        android:textColor="@color/black_66"
+                        android:textSize="@dimen/textsize_12" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_AddMember"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/margin_10"
+                        android:paddingLeft="@dimen/margin_35"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingTop="@dimen/margin_10">
+
+                        <ImageView
+                            android:layout_width="34px"
+                            android:layout_height="34px"
+                            android:layout_gravity="center_vertical"
+                            android:background="@mipmap/add_group_member" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text="添加成员"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/textsize_15" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_GroupInfoMember"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="*人"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/textsize_15" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/margin_1"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:background="@color/line_c3" />>
+                </android.support.design.widget.AppBarLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_GroupInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/margin_35"
+                    android:paddingRight="@dimen/margin_20"
+                    app:layout_anchor="@id/appbar"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_scrollFlags="scroll" />
+            </android.support.design.widget.CoordinatorLayout>
+        </RelativeLayout>
+
+    </www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout>
+</LinearLayout>

@@ -12,12 +12,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_adapter_banklist_item.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\w_textview.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\w_textview.xml"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_item_new_card.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_item_new_card.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\w_textview.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\w_textview.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_item_add_bank_card.xml",

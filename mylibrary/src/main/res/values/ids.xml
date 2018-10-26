@@ -19,4 +19,5 @@
     <item name="me_about" type="id"/>
     <item name="next" type="id"/>
     <item name="confirm" type="id"/>
+    <item name="redpkg_record" type="id"/>
 </resources>

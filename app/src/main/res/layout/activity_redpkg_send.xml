@@ -28,6 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="91px"
                     android:text="币种"
+                    android:gravity="center_vertical"
                     android:textColor="@color/black_33"
                     android:textSize="@dimen/textsize_18" />
 
@@ -40,6 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="91px"
                     android:text="USDT"
+                    android:gravity="center_vertical"
                     android:textColor="@color/black_33"
                     android:textSize="@dimen/textsize_18" />
             </LinearLayout>

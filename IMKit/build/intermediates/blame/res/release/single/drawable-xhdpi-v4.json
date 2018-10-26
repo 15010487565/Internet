@@ -16,20 +16,20 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f36b.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f615.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f615.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_cs_leave_message_bg_hover.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_leave_message_bg_hover.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_tab_setting.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_tab_setting.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f615.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f615.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u2615.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u2615.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_tab_setting.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_tab_setting.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u23f3.png",
@@ -56,12 +56,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_unread_count_bg.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_tab_add.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_tab_add.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_keyboard_hover.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_keyboard_hover.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_tab_add.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_tab_add.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_bubble_left.9.png",
@@ -136,36 +136,36 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f4e2.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_picsel_pictype_normal.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_picsel_pictype_normal.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_unread_remind_list_count.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_unread_remind_list_count.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f3b2.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f3b2.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_unread_remind_list_count.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_unread_remind_list_count.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_picsel_pictype_normal.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_picsel_pictype_normal.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_plugin_image_pressed.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_plugin_image_pressed.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f4a4.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f4a4.png"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f349.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f349.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_phone_normal.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_phone_normal.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ed_pub_service_search_hover.9.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ed_pub_service_search_hover.9.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_phone_normal.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_phone_normal.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f349.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f349.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f4a4.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f4a4.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_receive_voice_three.png",
@@ -180,12 +180,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_resolved.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_btn_send_hover.9.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_btn_send_hover.9.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f434.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f434.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_btn_send_hover.9.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_btn_send_hover.9.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_bubble_no_left.9.png",
@@ -204,12 +204,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f61a.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_cs_admin.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_admin.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f3e1.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f3e1.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_cs_admin.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_admin.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f607.png",
@@ -260,16 +260,16 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f611.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_send_voice_two.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_send_voice_two.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f484.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f484.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_rt_loc_myself.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_rt_loc_myself.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f484.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f484.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_send_voice_two.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_send_voice_two.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f636.png",
@@ -340,12 +340,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_unread_remind_without_count.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u23f0.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u23f0.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_setting_friends_delete.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_setting_friends_delete.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u23f0.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u23f0.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f612.png",
@@ -408,12 +408,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u261d.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_menu_trangle.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_menu_trangle.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_icon_emoji_delete.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_icon_emoji_delete.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_menu_trangle.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_menu_trangle.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_send_voice_one.png",
@@ -508,24 +508,24 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u26c4.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ed_pub_service_search_normal.9.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ed_pub_service_search_normal.9.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f4a3.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f4a3.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_volume_0.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_volume_0.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f4a3.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f4a3.png"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_plugin_location.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_plugin_location.png"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ed_pub_service_search_normal.9.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ed_pub_service_search_normal.9.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ad_list_pdf_icon.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ad_list_pdf_icon.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_plugin_location.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_plugin_location.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_location_normal.png",
@@ -708,12 +708,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ad_list_numbers_icon.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_cs_resolved_hover.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_resolved_hover.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_audio_toggle_hover.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_audio_toggle_hover.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_cs_resolved_hover.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_resolved_hover.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_volume_5.png",

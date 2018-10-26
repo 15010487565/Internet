@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
+import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.fragment.ContactFragment;
 import com.xcd.www.internet.fragment.FindFragment;
 import com.xcd.www.internet.fragment.HomeFragment;
@@ -34,10 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.base.fragment.BaseFragment;
+import www.xcd.com.mylibrary.utils.SharePrefHelper;
 import www.xcd.com.mylibrary.view.BadgeView;
 import www.xcd.com.mylibrary.widget.SnsTabWidget;
 
@@ -48,7 +47,7 @@ import www.xcd.com.mylibrary.widget.SnsTabWidget;
  * @version 1.0
  * @date 2014年9月23日
  */
-public class MainActivity extends SimpleTopbarActivity {
+public class MainActivity extends BaseInternetActivity {
 
     /**
      * 供应商
@@ -121,7 +120,8 @@ public class MainActivity extends SimpleTopbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        String account = SharePrefHelper.getInstance(this).getSpString("account");
+        Log.e("TAG_主界面","帐号="+account);
         initView();
         // 初始化fragments
         initFragments();
@@ -518,7 +518,11 @@ public class MainActivity extends SimpleTopbarActivity {
             }
         }
     }
-
+    //扫一扫功能
+    public void scanAQRCode(){
+        Intent intent = new Intent(MainActivity.this, WeChatCaptureActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);

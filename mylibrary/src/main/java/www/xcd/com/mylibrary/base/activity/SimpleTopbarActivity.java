@@ -512,9 +512,11 @@ public abstract class SimpleTopbarActivity extends BaseActivity implements OnCli
             showToast("请检查网络。。。");
             return;
         }
+        dialogshow();
         OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps,new Handler() {
             @Override
             public void handleMessage(Message msg) {
+                dialogDissmiss();
                 switch (msg.what) {
                     //请求错误
                     case HttpConfig.REQUESTERROR:

@@ -2,85 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_gradient_redpkg">
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="541px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_gradient_redpkg">
+        android:orientation="vertical"
+        android:paddingBottom="45px">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="45px">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingLeft="@dimen/margin_10"
-                android:paddingTop="33px"
-                android:paddingRight="33px"
-                android:paddingBottom="36px">
-                <ImageView
-                    android:id="@+id/tv_OpenRedPkgClose"
-                    android:layout_width="30px"
-                    android:layout_height="30px"
-                    android:background="@mipmap/clean"/>
-            </LinearLayout>
-
+            android:layout_gravity="right"
+            android:paddingLeft="@dimen/margin_10"
+            android:paddingTop="33px"
+            android:paddingRight="33px"
+            android:paddingBottom="36px">
             <ImageView
-                android:id="@+id/iv_OpenRedPkgHead"
-                android:layout_width="101px"
-                android:layout_height="101px"
-                android:layout_gravity="center_horizontal"
-                android:background="@mipmap/ic_launcher"/>
-            <TextView
-                android:id="@+id/iv_OpenRedPkgName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="19px"
-                android:textColor="@color/orange_red"
-                android:textSize="@dimen/textsize_14"
-                android:text="何夏夏"/>
-            <TextView
-                android:id="@+id/iv_OpenRedPkgType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="19px"
-                android:textColor="@color/orange_red"
-                android:textSize="@dimen/textsize_12"
-                android:text="发了一个USDT拼手气红包"/>
-            <TextView
-                android:id="@+id/iv_OpenRedPkgRemark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="34px"
-                android:textColor="@color/orange_red"
-                android:textSize="@dimen/textsize_19"
-                android:singleLine="true"
-                android:text="恭喜发财 大吉大利"/>
+                android:id="@+id/tv_OpenRedPkgClose"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:background="@mipmap/clean"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <ImageView
+            android:id="@+id/iv_OpenRedPkgHead"
+            android:layout_width="107px"
+            android:layout_height="101px"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/ic_launcher"/>
+        <TextView
+            android:id="@+id/iv_OpenRedPkgName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/redpkg_chatitem_dialog_bg"
-            android:gravity="center_horizontal">
-            <TextView
-                android:id="@+id/iv_OpenRedPkgBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_round_orange_redpkg"
-                android:padding="60px"
-                android:textColor="@color/black"
-                android:textSize="38.5sp"
-                android:gravity="center"
-                android:layout_marginBottom="116px"
-                android:text="開"/>
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="19px"
+            android:textColor="#F4CD81"
+            android:textSize="@dimen/textsize_14"
+            android:text="何夏夏"/>
+        <TextView
+            android:id="@+id/iv_OpenRedPkgType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="19px"
+            android:textColor="#E1AC46"
+            android:textSize="@dimen/textsize_12"
+            android:text="发了一个USDT拼手气红包"/>
+        <TextView
+            android:id="@+id/iv_OpenRedPkgRemark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="34px"
+            android:textColor="#FFC85C"
+            android:textSize="@dimen/textsize_19"
+            android:singleLine="true"
+            android:text="恭喜发财 大吉大利"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/redpkg_chatitem_dialog_bg"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="40px"/>
+        <TextView
+            android:id="@+id/iv_OpenRedPkgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_round_orange_redpkg"
+            android:textColor="@color/black"
+            android:textSize="38sp"
+            android:gravity="center"
+            android:layout_marginBottom="116px"
+            android:text="開"/>
     </LinearLayout>
 
 

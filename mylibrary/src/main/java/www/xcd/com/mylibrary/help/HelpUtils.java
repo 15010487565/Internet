@@ -350,26 +350,18 @@ public class HelpUtils {
     }
 
     //获取网络时间
-    public static boolean getNetworkTime(String time) {
+    public static long getNetworkTime() {
         try {
             URL url = new URL("http://www.baidu.com");
             URLConnection conn = url.openConnection();
             conn.connect();
             long nowTime = conn.getDate();
-            Log.e("TAG_js", "resetTokenTime=" + time + "nowTime=" + nowTime);
-            if (time == null || "".equals(time)) {
-                return false;
-            } else {
-                if (Long.valueOf(time) * 1000 > nowTime) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+
+            return nowTime;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
 
     /**

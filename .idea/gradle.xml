@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/mylibrary" />
             <option value="$PROJECT_DIR$/shareLibrary" />
+            <option value="$PROJECT_DIR$/zxinglite" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

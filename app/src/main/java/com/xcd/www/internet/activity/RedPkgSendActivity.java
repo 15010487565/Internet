@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.application.BaseApplication;
+import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.rong.RedPackageMessage;
 
 import java.io.IOException;
@@ -18,9 +20,8 @@ import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 
-public class RedPkgSendActivity extends SimpleTopbarActivity {
+public class RedPkgSendActivity extends BaseInternetActivity {
 
     private TextView tvRedSend;
 
@@ -48,11 +49,14 @@ public class RedPkgSendActivity extends SimpleTopbarActivity {
                 Intent intent = getIntent();
                 String targetId = intent.getStringExtra("targetId");
                 RedPackageMessage c= new RedPackageMessage();
-                c.setSendName("我的昵称");
-                c.setFromUserId("我的帐号");
+                String account = BaseApplication.getInstance().getAccount();
+                c.setSendName(account);
+                long id = BaseApplication.getInstance().getId();
+                c.setId(String.valueOf(id));
                 c.setSendRedType("USDT");
+                c.setRemark("我的备注");
                 byte[] b=c.encode();
-                Log.e("TAG_紅包","b="+b.toString());
+                Log.e("TAG_紅包","b="+new String(b));
                 RedPackageMessage myTextMessage = new RedPackageMessage(b);
                 /* 生成 Message 对象。
                 * "12345678" 为目标 Id。根据不同的 conversationType，可能是用户 Id、群组 Id 或聊天室 Id。
@@ -89,8 +93,8 @@ public class RedPkgSendActivity extends SimpleTopbarActivity {
                     @Override
                     public void onError(Message message, RongIMClient.ErrorCode errorCode) {
                         //消息发送失败的回调
-                        Log.e("TAG_红包发送","message="+message.toString());
-                        Log.e("TAG_红包发送","errorCode="+errorCode.toString());
+                        Log.e("TAG_紅包失败","message="+message.toString());
+                        Log.e("TAG_紅包失败","errorCode="+errorCode.toString());
                     }
                 });
                 break;

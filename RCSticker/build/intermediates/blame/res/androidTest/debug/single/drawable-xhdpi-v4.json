@@ -92,12 +92,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\u2744.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u261d.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\u261d.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_voice_unread.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_voice_unread.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u261d.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\u261d.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f6b2.png",
@@ -116,12 +116,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_ic_voice_sent.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_picsel_back_pressed.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_picsel_back_pressed.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_picsel_catalog_pic_shadow.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_picsel_catalog_pic_shadow.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_picsel_back_pressed.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_picsel_back_pressed.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_file_icon_ppt.png",
@@ -184,12 +184,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_real_time_location_exit.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f4da.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\u1f4da.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_btn_download_cancel.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_btn_download_cancel.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f4da.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\u1f4da.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_select_check_sel.png",
@@ -280,12 +280,12 @@
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_menu_keyboard_hover.png",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_menu_keyboard_hover.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ic_bubble_right.9.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_ic_bubble_right.9.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_menu_keyboard_hover.png",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_menu_keyboard_hover.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_voide_message_unread.png",
@@ -604,12 +604,12 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_edit_text_background.9.png"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_bg_voice_popup.9.png",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable-xhdpi-v4\\rc_bg_voice_popup.9.png"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_icon_recommend.png",

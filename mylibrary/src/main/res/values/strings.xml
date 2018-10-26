@@ -7,18 +7,22 @@
     <string name="me_friend">邀请朋友</string>
     <string name="me_help">帮助与反馈</string>
     <string name="me_about">关于传智</string>
+
     <string name="home_create">创建群组</string>
     <string name="home_share">邀请朋友</string>
     <string name="home_chat">加密私聊</string>
     <string name="home_scanqrcode">扫一扫</string>
 
-
+    <string name="chat_search">搜索</string>
+    <string name="chat_message_close">关闭通知</string>
+    <string name="chat_message_open">打开通知</string>
+    <string name="chat_groupinfo">群组信息</string>
 
 
     <!--系统依赖库-->
     <string name="ok">确认</string>
     <string name="next">下一步</string>
-
+    <string name="redpkg_record">红包记录</string>
 
     <string name="setting">设置</string>
     <string name="save">保存</string>

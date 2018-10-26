@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.base.BaseInternetActivity;
 
 import java.io.IOException;
 import java.util.Map;
 
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
-
 /**
  * 设置页
  */
-public class SettingActivity extends SimpleTopbarActivity {
+public class SettingActivity extends BaseInternetActivity {
 
     @Override
     protected Object getTopbarTitle() {

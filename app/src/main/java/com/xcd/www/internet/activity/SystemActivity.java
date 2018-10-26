@@ -3,18 +3,17 @@ package com.xcd.www.internet.activity;
 import android.os.Bundle;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.base.BaseInternetActivity;
 
 import java.io.IOException;
 import java.util.Map;
-
-import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 
 /**
  * 系统消息
  * Created by gs on 2018/10/19.
  */
 
-public class SystemActivity extends SimpleTopbarActivity{
+public class SystemActivity extends BaseInternetActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

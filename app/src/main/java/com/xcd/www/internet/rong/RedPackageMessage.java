@@ -27,29 +27,32 @@ import io.rong.imlib.model.MessageContent;
 public class RedPackageMessage extends MessageContent {
 
     //自定义的属性
-    private String remark;//红包备注
-    private String sendName;//发送人的名字
-    private String fromUserId;//发送人用户 Id
-    private String sendRedType;//发送红包类型
+    private String sendRedType;
+    private String sendName;
+    private String id;
+    private String remark;
+
     public RedPackageMessage() {
+        super();
     }
+
     /*
-    *
-    * 实现 encode() 方法，该方法的功能是将消息属性封装成 json 串，
-    * 再将 json 串转成 byte 数组，该方法会在发消息时调用，如下面示例代码：
-    * */
+        *
+        * 实现 encode() 方法，该方法的功能是将消息属性封装成 json 串，
+        * 再将 json 串转成 byte 数组，该方法会在发消息时调用，如下面示例代码：
+        * */
     @Override
     public byte[] encode() {
-        Log.e("TAG_紅包","encode()");
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("remark", this.getRemark());
+            jsonObj.put("sendRedType", this.getSendRedType());
             jsonObj.put("sendName",this.getSendName());
-            jsonObj.put("fromUserId",this.getFromUserId());
-            jsonObj.put("sendRedType",this.getSendRedType());
+            jsonObj.put("id",this.getId());
+            jsonObj.put("remark",this.getRemark());
+
         } catch (Exception e) {
-            Log.e("TAG_紅包encode", e.getMessage());
+            Log.e("JSONException", e.getMessage());
         }
 
         try {
@@ -68,9 +71,7 @@ public class RedPackageMessage extends MessageContent {
         String jsonStr = null;
 
         try {
-            Log.e("TAG_紅包String","data="+data.length+";data="+data.toString());
             jsonStr = new String(data, "UTF-8");
-            Log.e("TAG_紅包String","jsonStr="+jsonStr);
         } catch (UnsupportedEncodingException e1) {
             e1.printStackTrace();
         }
@@ -78,33 +79,31 @@ public class RedPackageMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
-            if (jsonObj.has("remark"))
-                setRemark(jsonObj.optString("remark"));
-
+            if (jsonObj.has("sendRedType"))
+                setSendRedType(jsonObj.optString("sendRedType"));
 
             if (jsonObj.has("sendName"))
                 setSendName(jsonObj.optString("sendName"));
 
-            if (jsonObj.has("fromUserId"))
-                setFromUserId(jsonObj.optString("fromUserId"));
+            if (jsonObj.has("id"))
+                setId(jsonObj.optString("id"));
 
-            if (jsonObj.has("sendRedType"))
-                setSendRedType(jsonObj.optString("sendRedType"));
+            if (jsonObj.has("remark"))
+                setRemark(jsonObj.optString("remark"));
+
         } catch (Exception e) {
-            Log.e("TAG_紅包byte1", e.getMessage());
+            Log.d("JSONException", e.getMessage());
         }
     }
 
     //给消息赋值。
     public RedPackageMessage(Parcel in) {
-        String parcel = ParcelUtils.readFromParcel(in);
-        setRemark(parcel);
-        setSendName(parcel);
-        setFromUserId(parcel);
-//        setRemark(remark);//该类为工具类，消息属性
-//        //这里可继续增加你消息的属性
-//        setSendName(sendName);//该类为工具类，消息属性
-//        setFromUserId(fromUserId);//该类为工具类，消息属性
+
+        setSendRedType(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        //这里可继续增加你消息的属性
+        setSendName(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setId(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setRemark(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
     }
 
     /**
@@ -135,17 +134,18 @@ public class RedPackageMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, getRemark());
+        ParcelUtils.writeToParcel(dest, getSendRedType());
         ParcelUtils.writeToParcel(dest, getSendName());
-        ParcelUtils.writeToParcel(dest, getFromUserId());
+        ParcelUtils.writeToParcel(dest, getId());
+        ParcelUtils.writeToParcel(dest, getRemark());
     }
 
-    public String getRemark() {
-        return remark;
+    public String getSendRedType() {
+        return sendRedType;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setSendRedType(String sendRedType) {
+        this.sendRedType = sendRedType;
     }
 
     public String getSendName() {
@@ -156,19 +156,19 @@ public class RedPackageMessage extends MessageContent {
         this.sendName = sendName;
     }
 
-    public String getFromUserId() {
-        return fromUserId;
+    public String getId() {
+        return id;
     }
 
-    public void setFromUserId(String fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getSendRedType() {
-        return sendRedType;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setSendRedType(String sendRedType) {
-        this.sendRedType = sendRedType;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

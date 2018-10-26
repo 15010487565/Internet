@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -174,7 +176,16 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
     private void initContactData() {
         try {
             ContactUtil contactUtil = new ContactUtil(getActivity());
-           contactInfo = contactUtil.getContactInfo();
+            List<ContactModel> contactInfo = contactUtil.getContactInfo();
+            Iterator it=contactInfo.iterator();
+            while(it.hasNext()){
+                ContactModel contactModel = (ContactModel) it.next();
+                String mobile = contactModel.getMobile();
+                if(TextUtils.isEmpty(mobile)||"null".equals(mobile)){
+                    it.remove();
+                }
+            }
+            this.contactInfo = contactInfo;
             // 根据a-z进行排序源数据
             Collections.sort(contactInfo, mComparator);
             mAdapter.setData(contactInfo);
@@ -183,6 +194,7 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
             rcContact.addItemDecoration(mDecoration);
             rcContact.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
             //保存到Application中
+
             BaseApplication.getInstance().setListApp(contactInfo);
         } catch (JSONException e) {
             e.printStackTrace();
