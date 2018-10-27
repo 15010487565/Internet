@@ -178,7 +178,7 @@ public class MeFragment extends SimpleTopbarFragment {
     }
 
     private void initPieChart(View view) {
-        mPieChart = (PieChart) view.findViewById(R.id.mPieChart);
+        mPieChart =  view.findViewById(R.id.mPieChart);
         mPieChart.setUsePercentValues(true);
         mPieChart.getDescription().setEnabled(false);
         mPieChart.setExtraOffsets(5, 10, 5, 5);

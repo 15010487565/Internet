@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/black_ee">
+    <include
+        layout="@layout/view_simple_topbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转出币种"
+            android:layout_marginLeft="52px"
+            android:layout_marginTop="52px"
+            android:layout_marginBottom="52px"
+            android:gravity="center_vertical"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="91px"
+            android:text="USDT"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="84px"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_1"
+            android:layout_weight="1" />
+        <ImageView
+            android:layout_width="@dimen/margin_15"
+            android:layout_height="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@mipmap/back_black"
+            android:contentDescription="@null"
+            android:duplicateParentState="true" />
+        </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1"
+        android:background="@color/black_ee"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"/>
+    <LinearLayout
+        android:id="@+id/ll_CashUsdtAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="钱包地址"
+            android:layout_marginLeft="52px"
+            android:layout_marginTop="52px"
+            android:layout_marginBottom="52px"
+            android:gravity="center_vertical"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15" />
+        <TextView
+            android:id="@+id/tv_CashUsdtAddress"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="91px"
+            android:text=""
+            android:singleLine="true"
+            android:gravity="center_vertical|right"
+            android:layout_marginLeft="84px"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15"/>
+        <ImageView
+            android:layout_width="@dimen/margin_15"
+            android:layout_height="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@mipmap/back_black"
+            android:contentDescription="@null"
+            android:duplicateParentState="true" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1"
+        android:background="@color/black_ee"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拥有数量"
+            android:layout_marginLeft="52px"
+            android:layout_marginTop="52px"
+            android:layout_marginBottom="52px"
+            android:gravity="center_vertical"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="91px"
+            android:text="0000"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="84px"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_1"
+            android:layout_weight="1" />
+        <ImageView
+            android:layout_width="@dimen/margin_15"
+            android:layout_height="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@mipmap/back_black"
+            android:contentDescription="@null"
+            android:duplicateParentState="true" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1"
+        android:background="@color/black_ee"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现数量"
+            android:layout_marginLeft="52px"
+            android:layout_marginTop="52px"
+            android:layout_marginBottom="52px"
+            android:gravity="center_vertical"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="84px"
+            android:hint="请输入提现数量"
+            android:textColorHint="@color/black_99"
+            android:textColor="#454545"
+            android:background="@null"
+            android:textSize="@dimen/textsize_15"/>
+        <ImageView
+            android:layout_width="@dimen/margin_15"
+            android:layout_height="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:layout_marginRight="@dimen/margin_15"
+            android:background="@mipmap/back_black"
+            android:contentDescription="@null"
+            android:duplicateParentState="true" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/usdt_remark"
+        android:layout_marginLeft="52px"
+        android:layout_marginTop="14px"
+        android:layout_marginBottom="52px"
+        android:gravity="center_vertical"
+        android:textColor="#7E7E7E"
+        android:textSize="@dimen/textsize_12" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+       />
+    <TextView
+        android:id="@+id/tv_CashUsdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_18"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="确定提现"/>
+</LinearLayout>

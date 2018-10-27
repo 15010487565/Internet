@@ -4,10 +4,63 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fillViewport="false"
-    android:background="@color/line_gray"
+    android:background="@color/black_ee"
     android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true">
     <include layout="@layout/view_simple_topbar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_20"
+        android:paddingRight="@dimen/margin_20"
+        android:paddingTop="@dimen/margin_25"
+        android:paddingBottom="@dimen/margin_25"
+        android:orientation="vertical"
+        android:background="@color/blue">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_15"
+            android:textColor="@color/white"
+            android:text="总资产（USD）"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@color/blue">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_22"
+                android:textColor="@color/white"
+                android:text="$00.00"/>
+            <TextView
+                android:id="@+id/tv_Cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textsize_12"
+                android:textColor="@color/blue"
+                android:background="@drawable/shape_white_cash"
+                android:paddingTop="@dimen/margin_2"
+                android:paddingBottom="@dimen/margin_2"
+                android:text="提现"/>
+        </LinearLayout>
+    </LinearLayout>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_MeMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:background="@color/white"/>
 </LinearLayout>

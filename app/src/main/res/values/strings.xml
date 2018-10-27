@@ -3,4 +3,9 @@
     <string name="red_packet">红包</string>
     <string name="file">文件</string>
     <string name="location">位置</string>
+    <string name="usdt_remark">注：USDT提现最高只能提现USDT数额的50%，并在本次
+提现发起后余下数额进行清空！</string>
+    <string name="usdt_address">注：请输入准确提现收款地址，USDT币种一旦转出将无法
+追回！</string>
+    <string name="udt_remark">您输入的数额超出可提现数额，请重新计算后输入！</string>
 </resources>

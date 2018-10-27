@@ -87,7 +87,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
             holder.tvName.setText(name);
         }
 //
-//        holder.tvRedPkgName.setOnClickListener(new View.OnClickListener() {
+//        holder.tvMeMoneyType.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();

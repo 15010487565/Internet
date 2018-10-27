@@ -38,4 +38,9 @@ public class GlobalParam {
     public final static String GRAPREDPACKET=IP+"/robot/api/redPacket/grap";
     //钱包记录
     public final static String REDPACKETLIST=IP+"/robot/api/bag/list";
+
+    //提现检测
+    public final static String CASHCHECK=IP+"/robot/api/withdraw/check";
+    //提现
+    public final static String CASH=IP+"/robot/api/withdraw/check";
 }

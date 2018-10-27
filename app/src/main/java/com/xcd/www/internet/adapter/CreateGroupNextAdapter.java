@@ -104,7 +104,7 @@ public class CreateGroupNextAdapter extends RecyclerView.Adapter<CreateGroupNext
             onItemEventClick(holder);
         }
 
-//        holder.tvRedPkgName.setOnClickListener(new View.OnClickListener() {
+//        holder.tvMeMoneyType.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
