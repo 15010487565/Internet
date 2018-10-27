@@ -21,7 +21,7 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
 
     @Override
     protected Object getTopbarTitle() {
-        return "资产";
+        return "资产1";
     }
 
     @Override
