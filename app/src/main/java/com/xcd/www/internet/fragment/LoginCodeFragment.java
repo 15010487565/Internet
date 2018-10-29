@@ -70,14 +70,12 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                 break;
             case R.id.tv_LoginCode:
                 //手机号
-                etLoginPhone.setText("15010487565");
                 String phone = etLoginPhone.getText().toString().trim();
                 if (!CommonHelper.with().checkPhone(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
                 String code = etLoginCode.getText().toString().trim();
-//                code = "111111";
                 if (TextUtils.isEmpty(code)) {
                     ToastUtil.showToast("验证码不能为空！");
                     return;
@@ -101,15 +99,24 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                     String sign = data.getSign();
                     String account = data.getAccount();
                     long id = data.getId();
-                    BaseApplication.getInstance().setAccount(account);
-                    BaseApplication.getInstance().setSign(sign);
-                    BaseApplication.getInstance().setId(id);
+                    BaseApplication instance = BaseApplication.getInstance();
+                    instance.setAccount(account);
+                    instance.setSign(sign);
+                    instance.setId(id);
                     //头像
                     String headportrait = data.getHeadportrait();
-                    BaseApplication.getInstance().setHeadportrait(headportrait);
+                    instance.setHeadportrait(headportrait);
                     //区号
                     String country = data.getCountry();
-                    BaseApplication.getInstance().setCountry(country);
+                    instance.setCountry(country);
+                    String nick = data.getNick();
+                    instance.setNick(nick);
+                    //名字
+                    String name = data.getName();
+                    instance.setName(name);
+
+                    String passwordPay = data.getPasswordPay();
+                    instance.setPasswordPay(passwordPay);
 
                     String token = data.getToken();
                     connect(token);
@@ -158,7 +165,7 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                     Map<String, String> mapCode = new HashMap<>();
                     mapCode.put("account", phone);
                     mapCode.put("country ", "86");
-                    mapCode.put("date ", timeStr);
+                    mapCode.put("date", timeStr);
                     okHttpPostBody(101, GlobalParam.GETCODE, mapCode);
 
                     break;

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.model.RedPkgDetailsListModel;
-import com.xcd.www.internet.view.CircleImageView;
 
 import java.util.List;
 
@@ -70,7 +69,8 @@ public class RedPkgListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //            case TYPE_ITEM:
         final ViewHolder holderItem = (ViewHolder) holder;
         RedPkgDetailsListModel.DataBean dataBean = mData.get(position);
-
+        String content = dataBean.getContent();
+        holderItem.tvRedPkgName.setText(content);
 //        String logo = dataBean.get();
 //
 //        Glide.with(context.getApplicationContext())
@@ -126,8 +126,8 @@ public class RedPkgListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     //**************************************************************
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvRedPkgName, tvRedPkgListTime, tvRedPkgListMoney, tvRedPkgListHead;
-        CircleImageView ivredPkgListHead;
+        TextView tvRedPkgName, tvRedPkgListTime, tvRedPkgListMoney;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -135,8 +135,6 @@ public class RedPkgListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             tvRedPkgListTime = itemView.findViewById(R.id.tv_RedPkgListTime);
             tvRedPkgListMoney = itemView.findViewById(R.id.tv_RedPkgListMoney);
 
-            ivredPkgListHead = itemView.findViewById(R.id.iv_redPkgListHead);
-            tvRedPkgListHead = itemView.findViewById(R.id.tv_redPkgListHead);
         }
     }
 

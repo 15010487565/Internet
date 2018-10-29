@@ -29,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/black_ee"
+                    android:visibility="gone"
                     app:elevation="0dp"
                     app:layout_scrollFlags="scroll">
 

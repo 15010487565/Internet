@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.RedPkgOpenDetAdapter;
 import com.xcd.www.internet.application.BaseApplication;
@@ -17,6 +21,7 @@ import com.xcd.www.internet.view.CircleImageView;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +30,8 @@ import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
+
+import static com.xcd.www.internet.R.id.iv_OpenRedPkgDetHead;
 
 public class RedPkgDetailsActivity extends SimpleTopbarActivity implements MultiSwipeRefreshLayout.OnLoadListener {
 
@@ -35,6 +42,14 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
     private CircleImageView ivOpenRedPkgDetHead;
     private RedPkgOpenDetAdapter adapter;
     private TextView tvOpenRedPkgDetName, tvOpenRedPkgDetRemark;
+    private TextView tvOpenRedPkgbagNum, ivOpenRedPkgDetNumber, tvGo,tvOpemRedPkgHint;
+    //总个数
+    String total;
+    //总金额
+    String amout;
+    long accountId;
+    String sign;
+    String redPkgId;
     private static Class<?> rightFuncArray[] = {RedPkgRecordTopBtnFunc.class};
 
     @Override
@@ -51,13 +66,32 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_red_pkg_details);
+        //账号id
+        accountId = BaseApplication.getInstance().getId();
         Intent intent = getIntent();
-        String redPkgId = intent.getStringExtra("redPkgId");
-        String sign = BaseApplication.getInstance().getSign();
-        long id = BaseApplication.getInstance().getId();
+        redPkgId = intent.getStringExtra("redPkgId");
+        String headUrl = intent.getStringExtra("headUrl");
+        Glide.with(this)
+                .load(headUrl)
+                .fitCenter()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(ivOpenRedPkgDetHead);
+        String sendName = intent.getStringExtra("sendName");
+        tvOpenRedPkgDetName.setText(sendName);
+        String contentStr = intent.getStringExtra("content");
+        tvOpenRedPkgDetRemark.setText(contentStr);
+        //总个数
+        total = intent.getStringExtra("total");
+        //总金额
+        amout = intent.getStringExtra("amout");
+
+        sign = BaseApplication.getInstance().getSign();
         Map<String, String> map = new HashMap<>();
         map.put("id", redPkgId);//红包id
-        map.put("userId", String.valueOf(id));//userId用户id
+        map.put("userId", String.valueOf(accountId));//userId用户id
         map.put("sign", sign);
         okHttpPostBody(100, GlobalParam.GRAPREDPACKET, map);
     }
@@ -72,12 +106,21 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
         topbat_parent.setBackgroundResource(R.color.redpkg);
         viewTitle.setTextColor(ContextCompat.getColor(this, R.color.orange_red));
         //头像
-        ivOpenRedPkgDetHead = findViewById(R.id.iv_OpenRedPkgDetHead);
+        ivOpenRedPkgDetHead = findViewById(iv_OpenRedPkgDetHead);
         ivOpenRedPkgDetHead.setOnClickListener(this);
         //群组名称
         tvOpenRedPkgDetName = findViewById(R.id.tv_OpenRedPkgDetName);
         //备注
         tvOpenRedPkgDetRemark = findViewById(R.id.tv_OpenRedPkgDetRemark);
+        //剩余次数
+        tvOpenRedPkgbagNum = findViewById(R.id.tv_OpenRedPkgbagNum);
+        //抢到的金额
+        ivOpenRedPkgDetNumber = findViewById(R.id.iv_OpenRedPkgDetNumber);
+        //继续
+        tvGo = findViewById(R.id.tv_Go);
+        tvGo.setOnClickListener(this);
+        tvOpemRedPkgHint = findViewById(R.id.tv_OpemRedPkgHint);
+
         //分页加载
         initSwipeRefreshLayout();
         initRecyclerView();
@@ -150,6 +193,20 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
     }
 
     @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.tv_Go:
+                Map<String, String> map = new HashMap<>();
+                map.put("id", redPkgId);//红包id
+                map.put("userId", String.valueOf(accountId));//userId用户id
+                map.put("sign", sign);
+                okHttpPostBody(100, GlobalParam.GRAPREDPACKET, map);
+                break;
+        }
+    }
+
+    @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         if (returnCode == 200) {
             switch (requestCode) {
@@ -157,6 +214,29 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
                     RedPkgDetailsModel redPkgDetailsModel = JSON.parseObject(returnData, RedPkgDetailsModel.class);
                     List<RedPkgDetailsModel.DataBean> data = redPkgDetailsModel.getData();
                     adapter.setData(data);
+                    int bagNum = redPkgDetailsModel.getBagNum();
+                    tvOpenRedPkgbagNum.setText(String.valueOf("您还有"+bagNum+"次抢红包机会，"));
+                    int openSize = data.size();
+                    //所有人钱数
+                    double openAllMoney = 0;
+                    for (int i = 0; i < openSize; i++) {
+                        RedPkgDetailsModel.DataBean dataBean = data.get(i);
+                        int userId = dataBean.getUserId();
+                        double amount = dataBean.getAmount();
+                        Log.e("TAG_accountId","accountId="+accountId);
+                        Log.e("TAG_accountId","userId="+userId);
+                        if (accountId == userId){
+                            ivOpenRedPkgDetNumber.setText(String.valueOf(amount));
+                        }
+                        BigDecimal b1 = new BigDecimal(openAllMoney);
+                        BigDecimal b2 = new BigDecimal(Double.toString(amount));
+
+                        openAllMoney = b1.add(b2).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    }
+                    BigDecimal b3 = new BigDecimal(openAllMoney);
+                    BigDecimal b4 = new BigDecimal(amout);
+                    openAllMoney = b4.subtract(b3).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    tvOpemRedPkgHint.setText("领取"+openSize+"/"+total+"个，剩余"+openAllMoney+"元");
                     break;
             }
         } else {

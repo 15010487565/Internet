@@ -9,5 +9,112 @@
     android:background="@color/black_ee">
     <include
         layout="@layout/view_simple_topbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_marginTop="10px"
+        android:paddingLeft="52px"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购买数量(个)"
+            android:layout_marginTop="52px"
+            android:layout_marginBottom="52px"
+            android:gravity="center_vertical"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15" />
+
+        <EditText
+            android:id="@+id/tv_CashOkdBuyNum"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="91px"
+            android:hint="请输入购买数量"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="84px"
+            android:textColor="#454545"
+            android:inputType="number|numberDecimal"
+            android:textSize="@dimen/textsize_15"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="okd"
+            android:gravity="center_vertical"
+            android:textColor="#AFAFAF"
+            android:textSize="@dimen/textsize_15"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1"
+        android:background="@color/black_ee"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingLeft="52px"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="赠送数量(个)"
+            android:layout_marginTop="52px"
+            android:layout_marginBottom="52px"
+            android:gravity="center_vertical"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15" />
+
+        <TextView
+            android:id="@+id/tv_CashOkdGiveNum"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="91px"
+            android:text="000"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="84px"
+            android:textColor="#454545"
+            android:textSize="@dimen/textsize_15"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  lit"
+            android:gravity="center_vertical"
+            android:textColor="#AFAFAF"
+            android:textSize="@dimen/textsize_15"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_1"
+        android:background="@color/black_ee"
+        android:layout_marginLeft="26px"
+        android:layout_marginRight="26px"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="52px"
+        android:layout_marginTop="14px"
+        android:layout_marginBottom="52px"
+        android:gravity="center_vertical"
+        android:textColor="@color/black_99"
+        android:textSize="@dimen/textsize_12"
+        android:text="@string/okd_remark"/>
+    <TextView
+        android:id="@+id/tv_CashOkd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_18"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="@string/confirm"/>
 </LinearLayout>

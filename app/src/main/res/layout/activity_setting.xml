@@ -74,7 +74,7 @@
                     android:singleLine="true"
                     android:textColor="@color/black_33"
                     android:textSize="@dimen/textsize_15"
-                    android:text="隐私与安全"/>
+                    android:text="@string/setting_safety"/>
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.util.CommonHelper;
@@ -97,12 +98,13 @@ public class UpdataPwdActivity extends BaseInternetActivity {
                     ToastUtil.showToast("验证码不能为空！");
                     return;
                 }
+                String country = BaseApplication.getInstance().getCountry();
                 Map<String, String> map = new HashMap<>();
                 map.put("account", phone);
                 map.put("code", code);
-                map.put("country", "86");
+                map.put("country", country);
                 map.put("password", password);
-                okHttpPostBody(100, GlobalParam.RESETPWD, map);
+                okHttpPostBody(100, GlobalParam.RESETPWDLOGIN, map);
                 break;
             case R.id.ll_Back:
                 finish();
@@ -132,11 +134,12 @@ public class UpdataPwdActivity extends BaseInternetActivity {
             switch (msg.what) {
                 case 0:
                     //手机号
+                    String country = BaseApplication.getInstance().getCountry();
                     String phone = etUpdataPwdPhone.getText().toString().trim();
                     String timeStr = (String) msg.obj;
                     Map<String, String> mapCode = new HashMap<>();
                     mapCode.put("account", phone);
-                    mapCode.put("country", "86");
+                    mapCode.put("country", country);
                     mapCode.put("date", timeStr);
                     okHttpPostBody(101, GlobalParam.GETCODE, mapCode);
 

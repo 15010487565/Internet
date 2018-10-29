@@ -43,6 +43,7 @@
                             layout="@layout/inclde_openredpkgdet"/>
                     </android.support.design.widget.CollapsingToolbarLayout>
                     <TextView
+                        android:id="@+id/tv_OpemRedPkgHint"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -54,7 +55,7 @@
                         android:paddingTop="@dimen/margin_10"
                         android:textSize="@dimen/textsize_12"
                         android:singleLine="true"
-                        android:text="领取0/0个，剩余0元，"/>
+                        android:text="领取0/0个，剩余0元"/>
                 </android.support.design.widget.AppBarLayout>
 
                 <android.support.v7.widget.RecyclerView

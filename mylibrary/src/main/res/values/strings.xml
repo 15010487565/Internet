@@ -1,7 +1,7 @@
 <resources>
     <string name="home">社团</string>
     <string name="contact">联系人</string>
-    <string name="find">发现</string>
+    <string name="find">咨询</string>
     <string name="me">我的</string>
     <string name="me_ranking">排行榜</string>
     <string name="me_friend">邀请朋友</string>
@@ -17,10 +17,10 @@
     <string name="chat_message_close">关闭通知</string>
     <string name="chat_message_open">打开通知</string>
     <string name="chat_groupinfo">群组信息</string>
+    <string name="chat_friendfo">好友组信息</string>
     <string name="editor">编辑</string>
 
     <string name="group_setting">群组设置</string>
-    <!--系统依赖库-->
     <string name="ok">确认</string>
     <string name="next">下一步</string>
     <string name="redpkg_record">红包记录</string>
@@ -28,6 +28,10 @@
     <string name="setting">设置</string>
     <string name="save">保存</string>
     <string name="screen">筛选</string>
+    <string name="setting_safety">隐私与安全</string>
+    <string name="updata_codehint">我们向您的手机尾号%s发送了一条验证码</string>
+    <!--系统依赖库-->
+
 
 
     <string name="select_album">选择相册</string>
@@ -85,4 +89,5 @@
     <string name="cancel">取消</string>
     <string name="password">qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM</string>
     <string name="number">1234567890</string>
+    <string name="number_">1234567890</string>
 </resources>

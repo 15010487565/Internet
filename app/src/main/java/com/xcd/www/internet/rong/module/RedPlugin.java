@@ -42,9 +42,12 @@ public class RedPlugin implements IPluginModule {
              * 根据不同的 conversationType，可能是用户 Id、群组 Id 或聊天室 Id。
              */
             this.conversationType = extension.getConversationType();
+            String nameType = conversationType.getName();
+            Log.e("TAG_nameType","nameType="+nameType);
             this.targetId = extension.getTargetId();
             Intent intent = new Intent(currentFragment.getActivity(), RedPkgSendActivity.class);
             intent.putExtra("targetId",targetId);
+            intent.putExtra("conversationType",nameType);
             extension.startActivityForPluginResult(intent, 110, this);
 
         }

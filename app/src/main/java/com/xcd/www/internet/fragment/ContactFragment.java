@@ -8,17 +8,21 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.activity.SearchActivity;
+import com.xcd.www.internet.adapter.FriendAdapter;
 import com.xcd.www.internet.adapter.SortAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.func.ContactRightTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
+import com.xcd.www.internet.model.FriendModel;
 import com.xcd.www.internet.util.ContactUtil;
 import com.xcd.www.internet.util.PinyinComparator;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
@@ -28,39 +32,48 @@ import com.xcd.www.internet.view.WaveSideBar;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
 import www.xcd.com.mylibrary.activity.PermissionsActivity;
 import www.xcd.com.mylibrary.activity.PermissionsChecker;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
 /**
  * Created by gs on 2018/10/16.
  */
 
-public class ContactFragment extends SimpleTopbarFragment implements SortAdapter.OnItemClickListener{
+public class ContactFragment extends SimpleTopbarFragment implements FriendAdapter.OnItemClickListener{
 
     private static final String[] AUTHORIMAGE = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ,Manifest.permission.READ_EXTERNAL_STORAGE
-            ,Manifest.permission.WRITE_CONTACTS
-            ,Manifest.permission.READ_CONTACTS
+            , Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.WRITE_CONTACTS
+            , Manifest.permission.READ_CONTACTS
     };
-    private PermissionsChecker mChecker ;
+    private PermissionsChecker mChecker;
 
-    private RecyclerView rcContact;
+    private RecyclerView rcContact,rcFriend;
     private LinearLayoutManager mLinearLayoutManager;
     private WaveSideBar mSideBar;
     private PinyinComparator mComparator;
     private SortAdapter mAdapter;
-   private RelativeLayout reSearch;
+    private FriendAdapter friendAdapter;
+    private RelativeLayout reSearch;
     List<ContactModel> contactInfo;//联系人数据
-
+    String sign;
     private static Class<?> rightFuncArray[] = {ContactRightTopBtnFunc.class};
+
+    @Override
+    protected Object getTopbarTitle() {
+        return R.string.contact;
+    }
 
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
@@ -74,14 +87,16 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
 
     @Override
     protected void initView(LayoutInflater inflater, View view) {
+        sign = BaseApplication.getInstance().getSign();
         initRecyclerView(view);
         reSearch = view.findViewById(R.id.re_Search);
         reSearch.setOnClickListener(this);
+
         try {
             mChecker = new PermissionsChecker(getActivity());
             if (mChecker.lacksPermissions(AUTHORIMAGE)) {
                 // 请求权限
-                PermissionsActivity.startActivityForResult(getActivity(),11000,AUTHORIMAGE);
+                PermissionsActivity.startActivityForResult(getActivity(), 11000, AUTHORIMAGE);
 //                    ActivityCompat.requestPermissions(this, BaseActivity.WRITEREADPERMISSIONS, 11000);
             } else {
                 // 全部权限都已获取
@@ -95,15 +110,16 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
     }
 
     private void initRecyclerView(View view) {
-
-        rcContact =  view.findViewById(R.id.rc_Contact);
+        //好友
+        rcFriend = view.findViewById(R.id.rc_Friend);
+        //联系人
+        rcContact = view.findViewById(R.id.rc_Contact);
         mComparator = new PinyinComparator();
-        mSideBar =  view.findViewById(R.id.sideBar);
+        mSideBar = view.findViewById(R.id.sideBar);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setAutoMeasureEnabled(true);
         rcContact.setLayoutManager(mLinearLayoutManager);
         mAdapter = new SortAdapter(getActivity());
-        mAdapter.setOnItemClickListener(this);
         rcContact.setAdapter(mAdapter);
         RecyclerViewDecoration recyclerViewDecoration = new RecyclerViewDecoration(
                 getActivity(), LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.line_c3));
@@ -124,10 +140,10 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.re_Search:
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
-                intent.putExtra("list", (Serializable)contactInfo);
+//                intent.putExtra("list", (Serializable) contactInfo);
                 startActivity(intent);
                 break;
 
@@ -136,7 +152,52 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
+        if (returnCode == 200) {
+            switch (requestCode) {
+                case 100:
+                    List<ContactModel> rongFrieng = new ArrayList<>();
+                    FriendModel friendModel = JSON.parseObject(returnData, FriendModel.class);
+                    List<FriendModel.DataBean> data = friendModel.getData();
+                    Iterator it = contactInfo.iterator();
+                    for (int i = 0, j = data.size(); i < j; i++) {
+                        FriendModel.DataBean dataBean = data.get(i);
+                        String p = dataBean.getP();
+                        while (it.hasNext()) {
+                            ContactModel contactModel = (ContactModel) it.next();
+                            String mobile = contactModel.getMobile();
+                            if (p.equals(mobile)) {
+                                it.remove();
+                            }
+                        }
+                        ContactModel model = new ContactModel();
+                        model.setMobile(p);
+                        model.setName(dataBean.getN());
+                        model.setLogo(dataBean.getH());
+                        model.setUserId(String.valueOf(dataBean.getId()));
+                        rongFrieng.add(model);
+                    }
+                    BaseApplication.getInstance().setFriendList(rongFrieng);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    linearLayoutManager.setAutoMeasureEnabled(true);
+                    rcFriend.setLayoutManager(linearLayoutManager);
+                    friendAdapter = new FriendAdapter(getActivity());
+                    friendAdapter.setOnItemClickListener(this);
+                    rcFriend.setAdapter(friendAdapter);
+                    RecyclerViewDecoration recyclerViewDecoration = new RecyclerViewDecoration(
+                            getActivity(), LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.line_c3));
+                    rcFriend.addItemDecoration(recyclerViewDecoration);
+                    friendAdapter.setData(rongFrieng);
 
+                    BaseApplication.getInstance().setPhoneList(contactInfo);
+                    mAdapter.setData(contactInfo);
+                    break;
+                case 101:
+                    Map<String, String> params = new HashMap<>();
+                    params.put("sign", sign);
+                    okHttpPostBody(100, GlobalParam.FRIENDSLIST, params);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -162,40 +223,47 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
+        switch (requestCode) {
             case 11000:
-                if (hasAllPermissionsGranted(grantResults)){
+                if (hasAllPermissionsGranted(grantResults)) {
                     initContactData();
-                }else {
+                } else {
                     ToastUtil.showToast("请在应用管理中打开“相机”访问权限！");
                 }
                 break;
         }
     }
-    
+
     private void initContactData() {
         try {
             ContactUtil contactUtil = new ContactUtil(getActivity());
             List<ContactModel> contactInfo = contactUtil.getContactInfo();
-            Iterator it=contactInfo.iterator();
-            while(it.hasNext()){
+            Iterator it = contactInfo.iterator();
+            StringBuffer sb = new StringBuffer();
+            while (it.hasNext()) {
                 ContactModel contactModel = (ContactModel) it.next();
                 String mobile = contactModel.getMobile();
-                if(TextUtils.isEmpty(mobile)||"null".equals(mobile)){
+                if (TextUtils.isEmpty(mobile) || "null".equals(mobile)) {
                     it.remove();
+                }else {
+                    sb.append(mobile);
+                    sb.append(",");
                 }
             }
             this.contactInfo = contactInfo;
             // 根据a-z进行排序源数据
             Collections.sort(contactInfo, mComparator);
-            mAdapter.setData(contactInfo);
             //如果add两个，那么按照先后顺序，依次渲染。
             TitleItemDecoration mDecoration = new TitleItemDecoration(getActivity(), contactInfo);
             rcContact.addItemDecoration(mDecoration);
             rcContact.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-            //保存到Application中
+            //保存到Application中\
+            Log.e("TAG_好友","sb="+sb.toString());
+            Map<String, String> params = new HashMap<>();
+            params.put("phoneBook ", sb.toString());
+            params.put("sign", sign);
+            okHttpPostBody(101, GlobalParam.FRIENDSUPDATE, params);
 
-            BaseApplication.getInstance().setListApp(contactInfo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -213,19 +281,10 @@ public class ContactFragment extends SimpleTopbarFragment implements SortAdapter
 
     @Override
     public void onItemClick(View view, int position) {
-//        for (int i = 0; i < mDateList.size(); i++) {
-//            SortModel sortModel = mDateList.get(i);
-//            if (i == position) {
-//                carTypeId = sortModel.getCarTypeId();
-//                sortModel.setChecked(true);
-//                cartype = sortModel.getName();
-//                sortModel.getLetters();
-//                seclectName.setText(cartype);
-//            } else {
-//                sortModel.setChecked(false);
-//            }
-//        }
-//        mAdapter.notifyDataSetChanged();
+        List<ContactModel> data = friendAdapter.getData();
+        ContactModel contactModel = data.get(position);
+        String userId = contactModel.getUserId();
+        String name = contactModel.getName();
+        RongIM.getInstance().startPrivateChat(getActivity(),userId, TextUtils.isEmpty(name)?"":name);
     }
-
 }

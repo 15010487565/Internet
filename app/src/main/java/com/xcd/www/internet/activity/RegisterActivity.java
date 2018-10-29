@@ -205,17 +205,25 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                     LoginInfoModel.DataBean data = loginIndoModel.getData();
                     String sign = data.getSign();
                     String account = data.getAccount();
+                    BaseApplication instance = BaseApplication.getInstance();
                     long id = data.getId();
-                    BaseApplication.getInstance().setAccount(account);//帐号
-                    BaseApplication.getInstance().setSign(sign);
-                    BaseApplication.getInstance().setId(id);
+                   instance.setAccount(account);//帐号
+                   instance.setSign(sign);
+                   instance.setId(id);
                     //头像
                     String headportrait = data.getHeadportrait();
-                    BaseApplication.getInstance().setHeadportrait(headportrait);
+                   instance.setHeadportrait(headportrait);
                     //区号
                     String country = data.getCountry();
-                    BaseApplication.getInstance().setCountry(country);
-
+                   instance.setCountry(country);
+                    String nick = data.getNick();
+                   instance.setNick(nick);
+                    //名字
+                    String name = data.getName();
+                   instance.setName(name);
+                    //支付
+                    String passwordPay = data.getPasswordPay();
+                    instance.setPasswordPay(passwordPay);
                     String token = data.getToken();
                     connect(token);
                     Intent intent = new Intent(this, MainActivity.class);

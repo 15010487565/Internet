@@ -1,5 +1,6 @@
 package www.xcd.com.mylibrary;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -31,6 +32,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import www.xcd.com.mylibrary.activity.AlbumPhotoActivity;
+import www.xcd.com.mylibrary.activity.PermissionsChecker;
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.YYStorageUtil;
@@ -70,9 +72,16 @@ public class PhotoActivity extends SimpleTopbarActivity {
     public String photoPath;
     public File photoFile;
     public String photoName;
+    public static final String[] AUTHORIMAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ,Manifest.permission.READ_EXTERNAL_STORAGE
+            ,Manifest.permission.CAMERA
+    };
+    public PermissionsChecker mChecker ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mChecker = new PermissionsChecker(this);
         if (savedInstanceState!=null){
             photoPath = savedInstanceState.getString("photoPath");
             photoName = savedInstanceState.getString("photoName");

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/view_simple_topbar" />
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fillViewport="false"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true" >-->
+
+    <TextView
+        android:id="@+id/tv_UpdataPayTopHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64px"
+        android:layout_marginLeft="131px"
+        android:layout_marginRight="131px"
+        android:gravity="center"
+        android:textColor="@color/black_33"
+        android:textSize="@dimen/textsize_13"
+        android:text="@string/updata_codehint"/>
+    <EditText
+        android:id="@+id/et_UpdataPayCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39px"
+        android:paddingLeft="19px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:gravity="center_vertical"
+        android:textColor="@color/black_66"
+        android:textColorHint="@color/black_99"
+        android:textSize="@dimen/textsize_17"
+        android:inputType="number"
+        android:hint="验证码"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39px"
+        android:layout_marginLeft="49px"
+        android:layout_marginRight="49px"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_66"
+            android:textSize="@dimen/textsize_13"
+            android:text="收不到验证码？"/>
+        <TextView
+            android:id="@+id/tv_UpdataPayCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textsize_13"
+            android:text="获取验证码"/>
+    </LinearLayout>
+
+    <!--</ScrollView>-->
+
+</LinearLayout>

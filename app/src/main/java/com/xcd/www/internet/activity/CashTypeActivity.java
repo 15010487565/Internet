@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class CashTypeActivity extends SimpleTopbarActivity implements CashTypeAd
     private TextView tvCashType;
     private List<CashTypeModel> list;
     String sign;
+    String cardNum;
     @Override
     protected Object getTopbarTitle() {
         return "红包提现";
@@ -39,7 +41,9 @@ public class CashTypeActivity extends SimpleTopbarActivity implements CashTypeAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash);
-        sign = BaseApplication.getInstance().getSign();
+        BaseApplication instance = BaseApplication.getInstance();
+        cardNum = instance.getCardNum();
+        sign = instance.getSign();
         list = new ArrayList<>();
 
         CashTypeModel cashTypeModel =  new CashTypeModel();
@@ -121,8 +125,16 @@ public class CashTypeActivity extends SimpleTopbarActivity implements CashTypeAd
                     }else if ("okd".equals(coin)){
                         intent.setClass(this, CashInfoOKDActivity.class);
                     }else if ("dollar".equals(coin)){
+                        if (TextUtils.isEmpty(cardNum)){
+                            ToastUtil.showToast("请先绑定银行卡！");
+                            return;
+                        }
                         intent.setClass(this, CashInfoDollarActivity.class);
                     }else if ("rmb".equals(coin)){
+                        if (TextUtils.isEmpty(cardNum)){
+                            ToastUtil.showToast("请先绑定银行卡！");
+                            return;
+                        }
                         intent.setClass(this, CashInfoRmbActivity.class);
                     }
                     startActivity(intent);

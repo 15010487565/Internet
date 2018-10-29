@@ -3,6 +3,8 @@ package com.xcd.www.internet.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,6 +20,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.king.zxing.CaptureActivity;
+import com.king.zxing.Intents;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
@@ -30,15 +34,23 @@ import com.xyzlf.share.library.interfaces.ShareConstant;
 import com.xyzlf.share.library.util.ShareUtil;
 import com.yonyou.sns.im.util.common.ToastUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
 import www.xcd.com.mylibrary.base.fragment.BaseFragment;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.SharePrefHelper;
 import www.xcd.com.mylibrary.view.BadgeView;
 import www.xcd.com.mylibrary.widget.SnsTabWidget;
+
+import static io.rong.eventbus.util.ErrorDialogManager.KEY_TITLE;
 
 /**
  * 主页面
@@ -116,12 +128,13 @@ public class MainActivity extends BaseInternetActivity {
     Dialog mShareDialog;
     TextView share_wexin, share_wexinfriends, share_qq, share_qzone;
     private ShareEntity testBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String account = SharePrefHelper.getInstance(this).getSpString("account");
-        Log.e("TAG_主界面","帐号="+account);
+        Log.e("TAG_主界面", "帐号=" + account);
         initView();
         // 初始化fragments
         initFragments();
@@ -298,8 +311,18 @@ public class MainActivity extends BaseInternetActivity {
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         switch (requestCode) {
             case 100:
-                Log.e("TAG_融云", "连接onSuccessResult="+returnData);
+                Log.e("TAG_融云", "连接onSuccessResult=" + returnData);
 
+                break;
+            case 101:
+                try {
+                    JSONObject jsonObject = new JSONObject(returnData);
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    int id = data.optInt("id");
+                    RongIM.getInstance().startGroupChat(MainActivity.this,String.valueOf(id), "");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
 
         }
@@ -451,13 +474,14 @@ public class MainActivity extends BaseInternetActivity {
 
     //分享
     public void onClickShare() {
-       ToastUtil.showShort(this,"暂不支持分享功能！");
+        ToastUtil.showShort(this, "暂不支持分享功能！");
 //        if (dialogIsActivity()) {
 //            initShareDialog();
 //        }
     }
+
     public void initShareDialog() {
-        if (mShareDialog !=null && mShareDialog.isShowing()){
+        if (mShareDialog != null && mShareDialog.isShowing()) {
             return;
         }
         mShareDialog = new Dialog(this, R.style.dialog_bottom_full);
@@ -467,11 +491,11 @@ public class MainActivity extends BaseInternetActivity {
         window.setGravity(Gravity.BOTTOM);
         window.setWindowAnimations(R.style.share_animation);
         View view = View.inflate(this, R.layout.dialog_lay_share, null);
-        share_wexin =  view.findViewById(R.id.share_wexin);
+        share_wexin = view.findViewById(R.id.share_wexin);
         share_wexin.setOnClickListener(this);
-        share_wexinfriends =  view.findViewById(R.id.share_wexinfriends);
+        share_wexinfriends = view.findViewById(R.id.share_wexinfriends);
         share_wexinfriends.setOnClickListener(this);
-        share_qq =  view.findViewById(R.id.share_qq);
+        share_qq = view.findViewById(R.id.share_qq);
         share_qq.setOnClickListener(this);
 //        share_qzone =  view.findViewById(R.id.share_qzone);
 //        share_qzone.setOnClickListener(this);
@@ -487,6 +511,7 @@ public class MainActivity extends BaseInternetActivity {
         window.setContentView(view);
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);//设置横向全屏
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -516,17 +541,53 @@ public class MainActivity extends BaseInternetActivity {
                         break;
                 }
             }
+        } else {
+            if (resultCode == RESULT_OK && data != null) {
+                switch (requestCode) {
+                    case REQUEST_CODE_SCAN:
+                        String result = data.getStringExtra(Intents.Scan.RESULT);
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            String type = jsonObject.optString("type");
+                            String userId = jsonObject.optString("userId");
+                            String code = jsonObject.optString("code");
+                            Log.e("TAG_二维码", "result=" + result);
+                            if ("1".equals(type)){//群二维码
+                                Map<String, String> map = new HashMap<>();
+                                map.put("id", userId );
+                                map.put("code", code );
+                                map.put("sign", BaseApplication.getInstance().getSign());
+                                okHttpPostBody(101, GlobalParam.GROUPINVITE, map);
+                            }else {
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                }
+
+            }
         }
     }
+
     //扫一扫功能
-    public void scanAQRCode(){
-        Intent intent = new Intent(MainActivity.this, WeChatCaptureActivity.class);
-        startActivity(intent);
+    public static final int REQUEST_CODE_SCAN = 0X01;
+
+    public void scanAQRCode() {
+//        Intent intent = new Intent(MainActivity.this, WeChatCaptureActivity.class);
+//        startActivity(intent);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.in, R.anim.out);
+        Intent intent = new Intent(this, CaptureActivity.class);
+        intent.putExtra(KEY_TITLE, "扫一扫");
+        ActivityCompat.startActivityForResult(this, intent, REQUEST_CODE_SCAN, optionsCompat.toBundle());
     }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.share_qq:
                 tempSaveFragmentShare();
                 ShareUtil.startShare(this, ShareConstant.SHARE_CHANNEL_QQ, testBean, ShareConstant.REQUEST_CODE);
@@ -545,6 +606,7 @@ public class MainActivity extends BaseInternetActivity {
                 break;
         }
     }
+
     public void tempSaveFragmentShare() {
         testBean = new ShareEntity("传智", "嗨，我正在使用传智聊天，方便快捷，快\n" +
                 "来试试！从这里下载");

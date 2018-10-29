@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import io.rong.common.ParcelUtils;
 import io.rong.imlib.MessageTag;
 import io.rong.imlib.model.MessageContent;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by gs on 2018/10/21.
@@ -23,14 +24,20 @@ import io.rong.imlib.model.MessageContent;
  MessageTag.ISPERSISTED	表示客户端收到消息后，要进行存储，并在之后可以通过接口查询，存储后会在会话界面中显示。
  MessageTag.STATUS	在本地不存储，不计入未读数，并且如果对方不在线，服务器会直接丢弃该消息，对方如果之后再上线也不会再收到此消息(聊天室类型除外，此类消息聊天室会视为普通消息)。
  */
-@MessageTag(value = "app:RedPkgMsg", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
+@MessageTag(value = "RCD:RedPacketMsg", flag = MessageTag.ISCOUNTED | MessageTag.ISPERSISTED)
 public class RedPackageMessage extends MessageContent {
 
+    private String extra;
     //自定义的属性
-    private String sendRedType;
-    private String sendName;
-    private String id;//红包id
-    private String remark;
+    private String headUrl;//发送人头像url
+    private String redPacketId;//红包id
+    private String content;//红包描述
+    private String amout;//红包金额
+
+    private String coin;//红包种类
+    private String total;//红包个数
+    private String sendName;//红包发送者名字
+    private String sendID;//红包发送者id
 
     public RedPackageMessage() {
         super();
@@ -46,21 +53,28 @@ public class RedPackageMessage extends MessageContent {
         JSONObject jsonObj = new JSONObject();
 
         try {
-            jsonObj.put("sendRedType", this.getSendRedType());
+            jsonObj.put("headUrl", this.getHeadUrl());
+            jsonObj.put("redPacketId",this.getRedPacketId());
+            jsonObj.put("content",this.getContent());
+            jsonObj.put("amout", this.getAmout());
+            jsonObj.put("coin", this.getCoin());
+            jsonObj.put("sendID", this.getSendID());
             jsonObj.put("sendName",this.getSendName());
-            jsonObj.put("id",this.getId());
-            jsonObj.put("remark",this.getRemark());
+            jsonObj.put("total", this.getTotal());
 
+            jsonObj.put("extra", jsonObj.toString());
+            Log.e("TAG_JSONException===", jsonObj.toString());
         } catch (Exception e) {
-            Log.e("JSONException", e.getMessage());
+            Log.e("TAG_JSONException", e.getMessage());
         }
 
         try {
             return jsonObj.toString().getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            Log.e("TAG_JSONException", e.getMessage());
+            return null;
         }
-        return null;
     }
 
     /*
@@ -79,17 +93,33 @@ public class RedPackageMessage extends MessageContent {
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
 
-            if (jsonObj.has("sendRedType"))
-                setSendRedType(jsonObj.optString("sendRedType"));
+            if (jsonObj.has("headUrl"))
+                setHeadUrl(jsonObj.optString("headUrl"));
+
+            if (jsonObj.has("redPacketId"))
+                setRedPacketId(jsonObj.optString("redPacketId"));
+
+            if (jsonObj.has("content"))
+                setContent(jsonObj.optString("content"));
+
+            if (jsonObj.has("amout"))
+                setAmout(jsonObj.optString("amout"));
+
+            if (jsonObj.has("coin"))
+                setCoin(jsonObj.optString("coin"));
 
             if (jsonObj.has("sendName"))
                 setSendName(jsonObj.optString("sendName"));
 
-            if (jsonObj.has("id"))
-                setId(jsonObj.optString("id"));
+            if (jsonObj.has("sendID"))
+                setSendID(jsonObj.optString("sendID"));
 
-            if (jsonObj.has("remark"))
-                setRemark(jsonObj.optString("remark"));
+            if (jsonObj.has("total"))
+                setTotal(jsonObj.optString("total"));
+
+            if (jsonObj.has("extra"))
+                setExtra(jsonObj.optString("extra"));
+
 
         } catch (Exception e) {
             Log.d("JSONException", e.getMessage());
@@ -98,12 +128,20 @@ public class RedPackageMessage extends MessageContent {
 
     //给消息赋值。
     public RedPackageMessage(Parcel in) {
+        //自定义的属性
 
-        setSendRedType(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setHeadUrl(ParcelUtils.readFromParcel(in));
+        setRedPacketId(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+
+        setContent(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setAmout(ParcelUtils.readFromParcel(in));
+        setCoin(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         //这里可继续增加你消息的属性
         setSendName(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
-        setId(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
-        setRemark(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
+        setSendID(ParcelUtils.readFromParcel(in));
+        setTotal(ParcelUtils.readFromParcel(in));
+//        setExtra(ParcelUtils.readFromParcel(in));
+        setUserInfo(ParcelUtils.readFromParcel(in, UserInfo.class));
     }
 
     /**
@@ -134,18 +172,27 @@ public class RedPackageMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        ParcelUtils.writeToParcel(dest, getSendRedType());
+        ParcelUtils.writeToParcel(dest, getHeadUrl());
+        ParcelUtils.writeToParcel(dest, getRedPacketId());
+        ParcelUtils.writeToParcel(dest, getContent());
+        ParcelUtils.writeToParcel(dest, getAmout());
+        ParcelUtils.writeToParcel(dest, getCoin());
         ParcelUtils.writeToParcel(dest, getSendName());
-        ParcelUtils.writeToParcel(dest, getId());
-        ParcelUtils.writeToParcel(dest, getRemark());
+        ParcelUtils.writeToParcel(dest, getSendID()
+        );
+        ParcelUtils.writeToParcel(dest, getTotal());
+//        ParcelUtils.writeToParcel(dest, getExtra());
+
+
+        ParcelUtils.writeToParcel(dest, getUserInfo());
     }
 
-    public String getSendRedType() {
-        return sendRedType;
+    public String getCoin() {
+        return coin;
     }
 
-    public void setSendRedType(String sendRedType) {
-        this.sendRedType = sendRedType;
+    public void setCoin(String coin) {
+        this.coin = coin;
     }
 
     public String getSendName() {
@@ -156,19 +203,73 @@ public class RedPackageMessage extends MessageContent {
         this.sendName = sendName;
     }
 
-    public String getId() {
-        return id;
+    public String getRedPacketId() {
+        return redPacketId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRedPacketId(String redPacketId) {
+        this.redPacketId = redPacketId;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getContent() {
+        return content;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getSendID() {
+        return sendID;
+    }
+
+    public void setSendID(String sendID) {
+        this.sendID = sendID;
+    }
+
+    public String getAmout() {
+        return amout;
+    }
+
+    public void setAmout(String amout) {
+        this.amout = amout;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    @Override
+    public String toString() {
+        return "RedPackageMessage{" +
+                "headUrl='" + headUrl + '\'' +
+                ", redPacketId='" + redPacketId + '\'' +
+                ", content='" + content + '\'' +
+                ", amout='" + amout + '\'' +
+                ", coin='" + coin + '\'' +
+                ", total='" + total + '\'' +
+                ", sendName='" + sendName + '\'' +
+                ", sendID='" + sendID + '\'' +
+                '}';
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 }

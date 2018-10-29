@@ -68,7 +68,8 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
         }
         return instance;
     }
-    private List<ContactModel> listApp;
+    private List<ContactModel> phoneList;
+    private List<ContactModel> friendList;
     private String account;
     private String sign;
     private long id;
@@ -77,6 +78,25 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
     private String name;
     private String nick;
     private String country;//区号
+    private String passwordPay;
+
+    private String cardNum;
+
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
+    public String getPasswordPay() {
+        return passwordPay;
+    }
+
+    public void setPasswordPay(String passwordPay) {
+        this.passwordPay = passwordPay;
+    }
 
     public String getCountry() {
         return country;
@@ -142,12 +162,30 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
         this.sign = sign;
     }
 
-    public List<ContactModel> getListApp() {
-        return listApp;
+    public List<ContactModel> getPhoneList() {
+        return phoneList;
     }
 
-    public void setListApp(List<ContactModel> listApp) {
-        this.listApp = listApp;
+    public void setPhoneList(List<ContactModel> phoneList) {
+        this.phoneList = phoneList;
+    }
+
+    public List<ContactModel> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<ContactModel> friendList) {
+        this.friendList = friendList;
+    }
+
+    private String usdt;
+
+    public String getUsdt() {
+        return usdt;
+    }
+
+    public void setUsdt(String usdt) {
+        this.usdt = usdt;
     }
 
     @Override
@@ -160,7 +198,7 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
     public void onCreate() {
         super.onCreate();
         instance = this;
-        listApp = new ArrayList<ContactModel>();
+        phoneList = new ArrayList<ContactModel>();
         RongIM.init(this);
         try {
             CrashReport.initCrashReport(getApplicationContext(), "7831d293a3", false);
@@ -297,9 +335,9 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
      * @param uiConversation 会话条目。
      * @return 如果用户自己处理了点击会话后的逻辑处理，则返回 true， 否则返回 false，false 走融云默认处理方式。
      */
-    public String uid;
-    private String conversationTargetId;
-    private String uiConversationTitle;
+//    public String uid;
+//    private String conversationTargetId;
+//    private String uiConversationTitle;
 
     @Override
     public boolean onConversationClick(Context context, View view, UIConversation uiConversation) {

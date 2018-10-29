@@ -1,5 +1,61 @@
 [
     {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_seek_thumb.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_search_url_text.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\rc_btn_file_list_send.xml",
+        "source": "D:\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\color\\rc_btn_file_list_send.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_light.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_dark.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_tint_default.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_primary_text_material_light.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_search_url_text.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_search_url_text.xml"
     },
@@ -8,12 +64,24 @@
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_seek_thumb.xml"
     },
     {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_btn_colored_text_material.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_spinner.xml"
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_secondary_text_material_dark.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_secondary_text_material_dark.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_switch_track.xml",
@@ -36,40 +104,48 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\color\\rc_btn_file_list_send.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_primary_text_material_light.xml"
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\switch_thumb_material_light.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\switch_thumb_material_dark.xml"
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_light.xml",
+        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_primary_text_material_light.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_btn_checkable.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_light.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_hint_foreground_material_light.xml"
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_edittext.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_tint_edittext.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_hint_foreground_material_dark.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_hint_foreground_material_dark.xml"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_default.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_tint_default.xml"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_light.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\switch_thumb_material_light.xml"
     },
     {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_spinner.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_tint_btn_checkable.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_disable_only_material_light.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\abc_primary_text_disable_only_material_light.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_primary_text_material_dark.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color\\abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\switch_thumb_material_dark.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color\\switch_thumb_material_dark.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color\\abc_btn_colored_text_material.xml",

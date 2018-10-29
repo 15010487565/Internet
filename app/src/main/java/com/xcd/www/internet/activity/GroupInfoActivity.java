@@ -35,8 +35,7 @@ import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
 public class GroupInfoActivity extends SimpleTopbarActivity implements
         CompoundButton.OnCheckedChangeListener
-        , MultiSwipeRefreshLayout.OnLoadListener
-{
+        , MultiSwipeRefreshLayout.OnLoadListener {
 
     private CircleImageView ivGroupInfoTopHead;
     private Switch swGroupInfoMessage;
@@ -50,19 +49,22 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     private RecyclerView rcCreateGroup;
     private LinearLayoutManager mLinearLayoutManager;
     private MultiSwipeRefreshLayout loadGroupInfo;
-    private LinearLayout llAddMember;
+    private LinearLayout llAddMember, llGroupQRCode;
     String groupInfoHead;
     String groupInfoName;
     String sign;
     String targetId;
     String groupInfoDes;//简介
+    String groupInfoCode;//群Code;
     int type;
     int memberNum;
     private static Class<?> rightFuncArray[] = {GroupInfoTopBtnFunc.class};
+
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
         return rightFuncArray;
     }
+
     @Override
     protected Object getTopbarTitle() {
         return R.string.group_setting;
@@ -81,7 +83,7 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.mipmap.launcher_login)
                 .error(R.mipmap.launcher_login)
-                .into( ivGroupInfoTopHead);
+                .into(ivGroupInfoTopHead);
 
         groupInfoName = intent.getStringExtra("GroupInfoName");
         tvGroupInfoName.setText(groupInfoName);
@@ -89,16 +91,17 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         groupInfoDes = intent.getStringExtra("GroupInfoDes");
         //是否开始消息通知
         type = intent.getIntExtra("GroupInfoType", 0);
-        if (type == 0){
+        if (type == 0) {
             swGroupInfoMessage.setChecked(false);
-        }else {
+        } else {
             swGroupInfoMessage.setChecked(true);
         }
         memberNum = intent.getIntExtra("memberNum", 0);
-        tvGroupInfoMemberNum.setText(memberNum+"位成员");
-        tvGroupInfoMember.setText(memberNum+"人");
+        tvGroupInfoMemberNum.setText(memberNum + "位成员");
+        tvGroupInfoMember.setText(memberNum + "人");
         sign = BaseApplication.getInstance().getSign();
         targetId = intent.getStringExtra("targetId");
+        groupInfoCode = intent.getStringExtra("GroupInfoCode");
         getData();
     }
 
@@ -115,7 +118,7 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
-        appBarLayout =  findViewById(R.id.appbar);
+        appBarLayout = findViewById(R.id.appbar);
         //头像
         ivGroupInfoTopHead = findViewById(R.id.iv_GroupInfoTopHead);
         ivGroupInfoTopHead.setOnClickListener(this);
@@ -123,6 +126,9 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         tvGroupInfoName = findViewById(R.id.tv_GroupInfoName);
         swGroupInfoMessage = findViewById(R.id.sw_GroupInfoMessage);
         swGroupInfoMessage.setOnCheckedChangeListener(this);
+        //群二维码
+        llGroupQRCode = findViewById(R.id.ll_GroupQRCode);
+        llGroupQRCode.setOnClickListener(this);
         //成员数量
         tvGroupInfoMemberNum = findViewById(R.id.tv_GroupInfoMemberNum);
         tvGroupInfoMember = findViewById(R.id.tv_GroupInfoMember);
@@ -133,6 +139,7 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         initSwipeRefreshLayout();
         initRecyclerView();
     }
+
     private void initRecyclerView() {
         //初始化tabRecyclerView
         rcCreateGroup = findViewById(R.id.rc_GroupInfo);
@@ -217,28 +224,39 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
 //            }
 //        });
     }
+
     //编辑
-    public void getEditorGroupInfo(){
-        Intent intent = new Intent(this,GroupUpDataActivity.class);
-        intent.putExtra("targetId",targetId);
-        intent.putExtra("GroupInfoHead",groupInfoHead);
-        intent.putExtra("GroupInfoName",groupInfoName);
-        intent.putExtra("GroupInfoDes",groupInfoDes);
+    public void getEditorGroupInfo() {
+        Intent intent = new Intent(this, GroupUpDataActivity.class);
+        intent.putExtra("targetId", targetId);
+        intent.putExtra("GroupInfoHead", groupInfoHead);
+        intent.putExtra("GroupInfoName", groupInfoName);
+        intent.putExtra("GroupInfoDes", groupInfoDes);
         intent.putExtra("GroupInfoType", type);
         intent.putExtra("memberNum", memberNum);
         startActivity(intent);
     }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_AddMember:
-                Intent intent = new Intent(this,InviteFriendActivity.class);
-                intent.putExtra("targetId",targetId);
-                startActivityForResult(intent,11000);
+                Intent intent = new Intent(this, InviteFriendActivity.class);
+                intent.putExtra("targetId", targetId);
+                startActivityForResult(intent, 11000);
+                break;
+            case R.id.ll_GroupQRCode:
+                Intent intent1 = new Intent(this, GroupCodeActivity.class);
+                intent1.putExtra("GroupInfoHead", groupInfoHead);
+                intent1.putExtra("GroupInfoName", groupInfoName);
+                intent1.putExtra("GroupInfoDes", groupInfoDes);
+                intent1.putExtra("GroupInfoCode", groupInfoCode);
+                startActivity(intent1);
                 break;
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -252,14 +270,15 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
 
         }
     }
+
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-        if (returnCode == 200 ){
-            switch (requestCode){
+        if (returnCode == 200) {
+            switch (requestCode) {
                 case 100:
                     GroupInfoListModel groupInfoListModel = JSON.parseObject(returnData, GroupInfoListModel.class);
                     List<GroupInfoListModel.DataBean> data = groupInfoListModel.getData();
-                    Log.e("TAG_群组信息","data="+data.size());
+                    Log.e("TAG_群组信息", "data=" + data.size());
                     if (data == null || data.size() == 0) {
 //                        adapter.upFootText();
                     } else {

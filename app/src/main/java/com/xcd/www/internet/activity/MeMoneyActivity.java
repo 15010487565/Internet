@@ -7,16 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.MeMoneyAdapter;
 import com.xcd.www.internet.func.MeMoneyRightTopBtnFunc;
-import com.xcd.www.internet.util.LineChartUtil;
 import com.xcd.www.internet.view.RecyclerViewDecoration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
@@ -26,7 +22,7 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
     private RecyclerView rcMeMoney;
     private LinearLayoutManager linearLayoutManager;
     private MeMoneyAdapter adapter;
-    private TextView tvCash;
+    private TextView tvBag,tvCash;
 
     private static Class<?> rightFuncArray[] = {MeMoneyRightTopBtnFunc.class};
 
@@ -44,6 +40,9 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me_money);
+        Intent intent = getIntent();
+        String usdt = intent.getStringExtra("usdt");
+        tvBag.setText(usdt);
     }
 
     @Override
@@ -53,25 +52,8 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
         initRecyclerView();
         tvCash = findViewById(R.id.tv_Cash);
         tvCash.setOnClickListener(this);
-        //
-        LineChart lineChart = findViewById(R.id.lineChart);//绑定控件
-        LineChart lineChart1 = LineChartUtil.initChart(lineChart);
-        List<String> listLin= new ArrayList<>();
-        for (int j = 0; j < 10; j++) {
-            listLin.add(String.valueOf( ((Math.random() * 9 + 1) * 100)));
-        }
-        LineChartUtil.showLineChart(lineChart1 , listLin, "测试", R.color.blue);
-//        List<Map<String,List<String>>> list = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            Map<String,List<String>> map = new HashMap<>();
-//            for (int j = 0; j < 10; j++) {
-//                List<String> listLin= new ArrayList<>();
-//                listLin.add(String.valueOf( ((Math.random() * 9 + 1) * 100)));
-//                map.put("line",listLin);
-//            }
-//            list.add(map);
-//        }
-//        adapter.setData(list);
+        //总资产
+        tvBag = findViewById(R.id.tv_Bag);
     }
     private void initRecyclerView() {
         //初始化tabRecyclerView

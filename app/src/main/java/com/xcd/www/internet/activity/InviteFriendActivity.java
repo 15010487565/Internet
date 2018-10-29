@@ -31,6 +31,7 @@ public class InviteFriendActivity extends SimpleTopbarActivity implements Invite
     private InviteFriendAdapter adapter;
     List<ContactModel> listApp;
     private String targetId;
+    private String friendId;
     private static Class<?> rightFuncArray[] = {InviteFriendTopBtnFunc.class};
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
@@ -64,37 +65,18 @@ public class InviteFriendActivity extends SimpleTopbarActivity implements Invite
                 this, LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.line_c3));
         rcCreateGroup.addItemDecoration(recyclerViewDecoration);
         //判断是否能邀请到群主
-       listApp = BaseApplication.getInstance().getListApp();
-        for (int i = 0; i < listApp.size(); i++) {
-            ContactModel contactModel = listApp.get(i);
-            String mobile = contactModel.getMobile();
-            if (i%3==0||i%5==0){
-                contactModel.setEnable(true);
-            }else {
-                contactModel.setEnable(false);
-            }
-        }
+       listApp = BaseApplication.getInstance().getFriendList();
         adapter.setData(listApp);
     }
     public void getInviteFriend(){
-//       StringBuffer sb = new StringBuffer();
-//        for (int i = 0,j = listApp.size(); i < j; i++) {
-//            ContactModel contactModel = listApp.get(i);
-//            //是否选中
-//            boolean select = contactModel.isSelect();
-//            if (select){
-//                String mobile = contactModel.getMobile();
-//                sb.append(mobile);
-//            }
-//        }
-//        Log.e("TAG_邀请","sb="+sb.toString());
-        String sign = BaseApplication.getInstance().getSign();
-        Map<String, String> map = new HashMap<>();
-        map.put("id", targetId );//群id
-        map.put("friend", "34");//好友id 临时默认id=34
-        map.put("sign", sign);
-        okHttpPostBody(100, GlobalParam.ADDGROUPFRIEND, map);
-        ToastUtil.showToast("点击邀请好友");
+        if (!"0".equals(friendId)){
+            String sign = BaseApplication.getInstance().getSign();
+            Map<String, String> map = new HashMap<>();
+            map.put("id", targetId );//群id
+            map.put("friend", friendId);//好友id 临时默认id=34
+            map.put("sign", sign);
+            okHttpPostBody(100, GlobalParam.ADDGROUPFRIEND, map);
+        }
     }
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
@@ -102,6 +84,7 @@ public class InviteFriendActivity extends SimpleTopbarActivity implements Invite
             switch (requestCode){
                 case 100:
                     ToastUtil.showToast(returnMsg);
+                    setResult(1);
                     finish();
                     break;
             }
@@ -136,7 +119,12 @@ public class InviteFriendActivity extends SimpleTopbarActivity implements Invite
         ContactModel contactModel = listApp.get(position);
         boolean select = contactModel.isSelect();
         contactModel.setSelect(!select);
-
+        boolean select1 = contactModel.isSelect();
+        if (select1){
+            friendId = contactModel.getUserId();
+        }else {
+            friendId = "0";
+        }
         adapter.setData(listApp);
     }
 

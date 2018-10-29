@@ -60,16 +60,7 @@ public class GroupCreateNextActivity extends SimpleTopbarActivity implements Cre
                 this, LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.line_c3));
         rcCreateGroup.addItemDecoration(recyclerViewDecoration);
         //判断是否能邀请到群主
-       listApp = BaseApplication.getInstance().getListApp();
-        for (int i = 0; i < listApp.size(); i++) {
-            ContactModel contactModel = listApp.get(i);
-            String mobile = contactModel.getMobile();
-            if (i%3==0||i%5==0){
-                contactModel.setEnable(true);
-            }else {
-                contactModel.setEnable(false);
-            }
-        }
+       listApp = BaseApplication.getInstance().getFriendList();
         adapter.setData(listApp);
     }
 

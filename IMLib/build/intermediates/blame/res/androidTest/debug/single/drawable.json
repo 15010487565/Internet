@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable\\notification_bg.xml"
     },
@@ -8,11 +12,23 @@
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable\\notification_bg_low.xml"
     },
     {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_icon_background.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable\\notification_icon_background.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_tile_bg.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable\\notification_bg.xml"
     }
 ]

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black_ee">
+
+    <include layout="@layout/view_simple_topbar" />
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fillViewport="false"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true" >-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="32px"
+        android:paddingTop="19px"
+        android:paddingBottom="13px"
+        android:gravity="center_vertical"
+        android:textColor="@color/black_99"
+        android:textSize="@dimen/textsize_12"
+        android:text="账户"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_ee"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/ll_SettingCall"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_50"
+            android:paddingLeft="45px"
+            android:gravity="center"
+            android:background="@color/white"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:duplicateParentState="true"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/textsize_15"
+                android:text="已屏蔽的用户"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+            </LinearLayout>
+            <!--箭头-->
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@mipmap/back_black"
+                android:contentDescription="@null"
+                android:duplicateParentState="true" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="32px"
+            android:paddingTop="19px"
+            android:paddingBottom="13px"
+            android:gravity="center_vertical"
+            android:textColor="@color/black_99"
+            android:textSize="@dimen/textsize_12"
+            android:text="隐私"/>
+        <LinearLayout
+            android:id="@+id/ll_SettingUpdataPay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_50"
+            android:paddingLeft="45px"
+            android:gravity="center"
+            android:background="@color/white"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:duplicateParentState="true"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/textsize_15"
+                android:text="支付密码"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+            </LinearLayout>
+            <!--箭头-->
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@mipmap/back_black"
+                android:contentDescription="@null"
+                android:duplicateParentState="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_SettingUpdataLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_50"
+            android:gravity="center"
+            android:paddingLeft="45px"
+            android:background="@color/white"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:duplicateParentState="true"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/textsize_15"
+                android:text="登陆密码"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:duplicateParentState="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+            </LinearLayout>
+            <!--箭头-->
+            <ImageView
+                android:layout_width="@dimen/margin_15"
+                android:layout_height="@dimen/margin_15"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@mipmap/back_black"
+                android:contentDescription="@null"
+                android:duplicateParentState="true" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_45"
+            android:text="安全退出"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_15"
+            android:gravity="center"
+            android:background="@color/blue"/>
+    </LinearLayout>
+    <!--</ScrollView>-->
+
+</LinearLayout>

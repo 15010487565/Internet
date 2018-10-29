@@ -104,7 +104,7 @@ public class MeMoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tvMeMoneyRightTop = itemView.findViewById(R.id.tv_MeMoneyRightTop);
             tvMeMoneyRightBottom = itemView.findViewById(R.id.tv_MeMoneyRightBottom);
             lineChart = itemView.findViewById(R.id.lineChart);//绑定控件
-
+            lineChart.setVisibility(View.GONE);
         }
     }
 

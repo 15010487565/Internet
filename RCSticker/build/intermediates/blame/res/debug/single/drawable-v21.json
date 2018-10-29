@@ -1,7 +1,15 @@
 [
     {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-v21\\notification_action_background.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
@@ -12,7 +20,15 @@
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable-v21\\notification_action_background.xml"
     },
     {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
         "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
     }
 ]

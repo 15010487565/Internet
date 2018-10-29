@@ -1,6 +1,5 @@
 package com.xcd.www.internet.activity;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +28,6 @@ import java.util.Map;
 import io.rong.imkit.RongIM;
 import www.xcd.com.mylibrary.PhotoActivity;
 import www.xcd.com.mylibrary.activity.PermissionsActivity;
-import www.xcd.com.mylibrary.activity.PermissionsChecker;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.DialogUtil;
 import www.xcd.com.mylibrary.utils.ToastUtil;
@@ -37,12 +35,6 @@ import www.xcd.com.mylibrary.utils.ToastUtil;
 public class GroupCreateActivity extends PhotoActivity implements CreateGroupAdapter.OnItemClickListener{
 
     private ImageView ivUploadHead;
-    private static final String[] AUTHORIMAGE = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ,Manifest.permission.READ_EXTERNAL_STORAGE
-            ,Manifest.permission.CAMERA
-    };
-    private PermissionsChecker mChecker ;
     private List<ContactModel> createGroupNextList;
     private RecyclerView rcCreateGroup;
     private LinearLayoutManager mLinearLayoutManager;
@@ -63,7 +55,7 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-        mChecker = new PermissionsChecker(this);
+
     }
 
     @Override
@@ -159,7 +151,7 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
         long id = BaseApplication.getInstance().getId();
         StringBuffer sb = new StringBuffer();
         if (createGroupNextList.size()<=0){
-            sb.append(id);
+            sb.append(34);
         }else {
             sb.append(id);
             sb.append(",");
@@ -177,7 +169,7 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
         params.put("name", groupName);//群名称
         params.put("des", groupDes);//描述
         params.put("ids", sb.toString());//群成员（id逗号分隔）
-        params.put("avatar", groupName);//头像
+        params.put("avatar", headUrl);//头像
         params.put("sign", sign);
         okHttpPostBody(100, GlobalParam.CREATEGROUP, params);
     }
@@ -232,9 +224,10 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
                 .title("温馨提示")
                 .message("您确定要删除这位即将进群的好友？")
                 .sureText("确定")
-                .setSureOnClickListener(new View.OnClickListener() {
+                .cancelText("取消")
+                .setSureOnClickListener(new DialogUtil.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view,String message) {
                         createGroupNextList.remove(position);
                         adapter.setData(createGroupNextList);
                     }

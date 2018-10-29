@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\androidprject\CanvasFinal-master\Internet\RCSticker\src\main\assets"/><source path="E:\androidprject\CanvasFinal-master\Internet\RCSticker\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\androidprject\CanvasFinal-master\Internet\RCSticker\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Internet\RCSticker\src\main\assets"/><source path="D:\Internet\RCSticker\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\Internet\RCSticker\src\debug\assets"/></dataSet></merger>

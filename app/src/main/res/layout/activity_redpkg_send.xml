@@ -73,7 +73,7 @@
                     android:paddingRight="@dimen/margin_15"
                     android:textColor="@color/black_33"
                     android:textColorHint="@color/black_cc"
-                    android:inputType="number"
+                    android:inputType="number|numberDecimal"
                     android:textSize="@dimen/textsize_17" />
 
                 <TextView
@@ -85,6 +85,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_MonetHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_20"
@@ -134,6 +135,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_NumHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_20"

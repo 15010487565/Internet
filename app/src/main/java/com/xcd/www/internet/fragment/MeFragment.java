@@ -3,12 +3,14 @@ package com.xcd.www.internet.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.mikephil.charting.animation.Easing;
@@ -20,6 +22,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.AccountActivity;
 import com.xcd.www.internet.activity.MeMoneyActivity;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
@@ -28,12 +31,15 @@ import com.xcd.www.internet.func.MeFriendFunc;
 import com.xcd.www.internet.func.MeHelpFunc;
 import com.xcd.www.internet.func.MeLeftTopBtnFunc;
 import com.xcd.www.internet.func.MeRankingFunc;
+import com.xcd.www.internet.model.MeBagModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.func.BaseFunc;
 
 /**
@@ -65,7 +71,8 @@ public class MeFragment extends SimpleTopbarFragment {
     private TextView tvMeTopName;
     private TextView tvMeTopPhone;
     //我的资产
-    private LinearLayout llMeMoney;
+    private LinearLayout llMeMoney,llMeTop;
+    String sign;
 
     /**
      * 获得系统功能列表
@@ -100,6 +107,7 @@ public class MeFragment extends SimpleTopbarFragment {
 
     @Override
     protected void initView(LayoutInflater inflater, View view) {
+        sign = BaseApplication.getInstance().getSign();
         systemFuncView = view.findViewById(R.id.me_system_func_view);
         systemFuncList = view.findViewById(R.id.me_system_func_list);
         customFuncView = view.findViewById(R.id.me_custom_func_view);
@@ -115,11 +123,14 @@ public class MeFragment extends SimpleTopbarFragment {
         initCustomFunc();
         // 初始化系统功能
         initSystemFunc();
-        //模拟数据
-        getData();
+        Map<String, String> params = new HashMap<>();
+        params.put("sign", sign);
+        okHttpPostBody(100, GlobalParam.MEBAG, params);
     }
 
     private void initTopMember(View view) {
+        llMeTop = view.findViewById(R.id.ll_MeTop);
+        llMeTop.setOnClickListener(this);
         //顶部个人资料
         ivMeTopHead = view.findViewById(R.id.iv_MeTopHead);
         tvMeTopName = view.findViewById(R.id.tv_MeTopName);
@@ -149,14 +160,15 @@ public class MeFragment extends SimpleTopbarFragment {
                 .into(ivMeTopHead);
     }
 
-    private void getData() {
+    private void getData(double usdtNum) {
+
         //模拟数据
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        entries.add(new PieEntry(50, "LIT"));
-        entries.add(new PieEntry(18, "LTC"));
-        entries.add(new PieEntry(15, "BTC"));
-        entries.add(new PieEntry(10, "ETH"));
-        entries.add(new PieEntry(7, "USDT"));
+//        entries.add(new PieEntry(0, "LIT"));
+//        entries.add(new PieEntry(0, "LTC"));
+//        entries.add(new PieEntry(0, "BTC"));
+//        entries.add(new PieEntry(0, "ETH"));
+        entries.add(new PieEntry((float) usdtNum, "USDT"));
 
         //设置数据
         setData(entries);
@@ -185,7 +197,7 @@ public class MeFragment extends SimpleTopbarFragment {
 
         mPieChart.setDragDecelerationFrictionCoef(0.95f);
         //设置中间文件
-        mPieChart.setCenterText("$123456780");
+//        mPieChart.setCenterText("");
 
         mPieChart.setDrawHoleEnabled(true);
         mPieChart.setHoleColor(Color.WHITE);
@@ -311,7 +323,14 @@ public class MeFragment extends SimpleTopbarFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_MeMoney://我的总资产
-                startActivity(new Intent(getFragmentActivity(), MeMoneyActivity.class));
+                double usdt = data.getUsdt();
+                double ltc = data.getLtc();
+                Intent intent = new Intent(getFragmentActivity(), MeMoneyActivity.class);
+                intent.putExtra("usdt",String.valueOf(usdt));
+                startActivity(intent);
+                break;
+            case R.id.ll_MeTop:
+                startActivity(new Intent(getActivity(), AccountActivity.class));
                 break;
             default:
                 // func
@@ -324,10 +343,30 @@ public class MeFragment extends SimpleTopbarFragment {
                 break;
         }
     }
-
+    MeBagModel.DataBean data;
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-
+        if (returnCode == 200){
+            switch (requestCode){
+                case 100:
+                    MeBagModel mebagModel = JSON.parseObject(returnData, MeBagModel.class);
+                    data = mebagModel.getData();
+                    double usdt = data.getUsdt();
+                    BaseApplication instance = BaseApplication.getInstance();
+                    instance.setUsdt(String.valueOf(usdt));
+                    //设置中间
+                    // 文件
+                    mPieChart.setCenterText(String.valueOf(usdt));
+                    Log.e("TAG_usdt","usdt="+usdt);
+                    //银行卡
+                    String cardNum = data.getCardNum();
+                    if (!TextUtils.isEmpty(cardNum)){
+                        instance.setCardNum(cardNum);
+                    }
+                    getData(usdt);
+                    break;
+            }
+        }
     }
 
     @Override

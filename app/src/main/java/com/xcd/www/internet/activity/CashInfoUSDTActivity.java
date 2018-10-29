@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
+import com.xcd.www.internet.model.PasswordVerifyModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
+import www.xcd.com.mylibrary.utils.DialogUtil;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
 public class CashInfoUSDTActivity extends SimpleTopbarActivity {
@@ -23,6 +26,8 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
     private LinearLayout llCashUsdtAddress;
     private TextView tvCashUsdtAddress;
     private TextView tv_CashUsdt;
+    private TextView tvCashUsdtNum, tvCashUsdtConversion;
+    String sign;
     String cashUsdtAddress;//地址
     @Override
     protected Object getTopbarTitle() {
@@ -39,6 +44,15 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
+        //USDT数量
+        tvCashUsdtNum = findViewById(R.id.tv_CashUsdtNum);
+        BaseApplication instance = BaseApplication.getInstance();
+        String usdt = instance.getUsdt();
+        tvCashUsdtNum.setText(usdt);
+        //可兑换数量
+        tvCashUsdtConversion = findViewById(R.id.tv_CashUsdtConversion);
+        tvCashUsdtConversion.setText(String.valueOf(Double.valueOf(usdt)*0.5));
+
         llCashUsdtAddress = findViewById(R.id.ll_CashUsdtAddress);
         llCashUsdtAddress.setOnClickListener(this);
         tvCashUsdtAddress = findViewById(R.id.tv_CashUsdtAddress);
@@ -55,16 +69,30 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
                 startActivityForResult(intent1, 10000);
                 break;
             case R.id.tv_CashUsdt:
-                String sign = BaseApplication.getInstance().getSign();
+                sign = BaseApplication.getInstance().getSign();
                 if (TextUtils.isEmpty(cashUsdtAddress)){
                     ToastUtil.showToast("提现地址不能为空");
                     return;
                 }
-                Map<String, String> params = new HashMap<>();
-                params.put("coin", "usdt");
-                params.put("sign", sign);
-                params.put("url", cashUsdtAddress);//  "url": 币种为usdt时的提现地址
-                okHttpPostBody(100, GlobalParam.CASH, params);
+                DialogUtil.getInstance()
+                        .setContext(this)
+                        .setCancelable(true)
+                        .title("温馨提示")
+                        .hint("请输入支付密码")
+                        .sureText("确定")
+                        .cancelText("取消")
+                        .setSureOnClickListener(new DialogUtil.OnClickListener() {
+                            @Override
+                            public void onClick(View view, String message) {
+                                Map<String, String> map = new HashMap<>();
+                                map.put("password", message );
+                                map.put("sign", sign);
+                                okHttpPostBody(101, GlobalParam.VERIFYPASSWORD, map);
+
+                            }
+                        }).showEditDialog();
+
+
                 break;
         }
     }
@@ -88,6 +116,22 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
             switch (requestCode){
                 case 100:
                     finish();
+                    ToastUtil.showToast(returnMsg);
+                    break;
+                case 101:
+                    if (TextUtils.isEmpty(cashUsdtAddress)){
+                        ToastUtil.showToast("提现地址不能为空");
+                        return;
+                    }
+                    PasswordVerifyModel passwordVerifyModel = JSON.parseObject(returnData, PasswordVerifyModel.class);
+                    PasswordVerifyModel.DataBean data = passwordVerifyModel.getData();
+                    String code = data.getSign();
+                    Map<String, String> params = new HashMap<>();
+                    params.put("coin", "usdt");
+                    params.put("sign", sign);
+                    params.put("code", code );
+                    params.put("url", cashUsdtAddress);//  "url": 币种为usdt时的提现地址
+                    okHttpPostBody(100, GlobalParam.CASH, params);
                     break;
             }
         }

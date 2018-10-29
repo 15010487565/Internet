@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_ee"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_simple_topbar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_50"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/margin_20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="原登录密码"
+            android:textColor="@color/black_33"
+            android:textSize="@dimen/textsize_14" />
+
+        <EditText
+            android:id="@+id/et_OldPaypassword"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:inputType="numberPassword"
+            android:textColor="@color/black_66"
+            android:layout_marginLeft="46px"
+            android:textColorHint="@color/black_99"
+            android:textSize="@dimen/textsize_15"
+            android:hint="请输入6位纯数字支付密码"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_50"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="新登录密码"
+            android:textColor="@color/black_33"
+            android:textSize="@dimen/textsize_14" />
+
+        <EditText
+            android:id="@+id/et_Paypassword1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:inputType="numberPassword"
+            android:textColor="@color/black_66"
+            android:layout_marginLeft="46px"
+            android:textColorHint="@color/black_99"
+            android:textSize="@dimen/textsize_15"
+            android:hint="请输入6位纯数字支付密码"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_50"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="确认登录密码"
+            android:textColor="@color/black_33"
+            android:singleLine="true"
+            android:textSize="@dimen/textsize_14" />
+
+        <EditText
+            android:id="@+id/et_Paypassword2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@null"
+            android:textColor="@color/black_66"
+            android:layout_marginLeft="46px"
+            android:gravity="center_vertical"
+            android:inputType="numberPassword"
+            android:textColorHint="@color/black_99"
+            android:textSize="@dimen/textsize_15"
+            android:singleLine="true"
+            android:hint="请再次输入6位纯数字支付密码"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_PaypasswordOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_18"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"
+        android:layout_margin="@dimen/margin_20"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="@string/confirm"/>
+</LinearLayout>

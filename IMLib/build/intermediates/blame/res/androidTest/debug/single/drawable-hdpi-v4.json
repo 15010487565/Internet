@@ -4,8 +4,20 @@
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-hdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-hdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_normal.9.png",
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable-hdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_normal.9.png",
@@ -14,6 +26,14 @@
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png",
         "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-hdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notify_panel_notification_icon_bg.png",

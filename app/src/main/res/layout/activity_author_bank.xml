@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/black_ee">
+    <include
+        layout="@layout/view_simple_topbar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="请绑定持卡人本人的银行卡"
+                android:layout_marginLeft="52px"
+                android:layout_marginTop="20px"
+                android:layout_marginBottom="20px"
+                android:gravity="center_vertical"
+                android:textColor="#7E7E7E"
+                android:textSize="@dimen/textsize_12" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="持卡人"
+                    style="@style/author_bank_left" />
+
+                <EditText
+                    android:id="@+id/et_AuthotBankName"
+                    android:hint="请输入持卡人姓名"
+                    style="@style/author_bank_right" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/black_ee"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/author_bank_left"
+                    android:text="卡号" />
+
+                <EditText
+                    android:id="@+id/et_AuthotBankNumber"
+                    style="@style/author_bank_right"
+                    android:inputType="number"
+                    android:hint="卡号"
+                   />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/black_ee"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/author_bank_left"
+                    android:text="国家" />
+
+                <EditText
+                    android:id="@+id/et_AuthotBankCountry"
+                    style="@style/author_bank_right"
+                    android:hint="请输入开户行所属的国家"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/black_ee"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/author_bank_left"
+                    android:text="开户行" />
+
+                <EditText
+                    android:id="@+id/et_AuthotBankDeposit"
+                    style="@style/author_bank_right"
+                    android:hint="请输入开户行"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/black_ee"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/author_bank_left"
+                    android:text="手机号" />
+
+                <EditText
+                    android:id="@+id/et_AuthotBankPhone"
+                    style="@style/author_bank_right"
+                    android:inputType="phone"
+                    android:hint="请输入银行预留手机号"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/black_ee"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20px"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/author_bank_left"
+                    android:text="身份证号" />
+
+                <EditText
+                    android:id="@+id/et_AuthotBankCard"
+                    style="@style/author_bank_right"
+                    android:hint="请输入身份证号"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_1"
+                android:background="@color/black_ee"
+                android:layout_marginLeft="26px"
+                android:layout_marginRight="26px"/>
+            <TextView
+                android:id="@+id/tv_AuthorBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_18"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingBottom="@dimen/margin_10"
+                android:layout_margin="@dimen/margin_20"
+                android:background="@color/blue"
+                android:gravity="center"
+                android:text="绑定"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

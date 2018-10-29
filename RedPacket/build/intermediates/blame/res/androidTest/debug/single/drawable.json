@@ -1,15 +1,15 @@
 [
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_white_round.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_white_round.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_cursor.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_cursor.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_cb_protocol.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_cb_protocol.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_unbind.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_unbind.xml"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_normal_item_bg.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_normal_item_bg.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_red_click_round.xml",
@@ -20,56 +20,60 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_round_btn.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jrmf_selector_transfer_account.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\jrmf_selector_transfer_account.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_red_round.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_red_round.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_round_white.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_round_white.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_gray_round.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_gray_round.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_common_btn.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_common_btn.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_normal_round_btn_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_normal_round_btn_bg.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_hongbao.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_hongbao.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_white_round_stroke.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_white_round_stroke.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_click_item_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_click_item_bg.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_common_progress_bg.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_common_progress_bg.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_progress_medium_holo.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_progress_medium_holo.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_item.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_item.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\round_spinner_fade.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\round_spinner_fade.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_normal_item_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_normal_item_bg.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jrmf_dialog_paytype_bg.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\jrmf_dialog_paytype_bg.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_red_round.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_red_round.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_hongbao.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_hongbao.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_forget_pwd.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_forget_pwd.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_click_round_btn_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_click_round_btn_bg.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_normal_round_btn_bg.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_normal_round_btn_bg.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_bribery_open.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_bribery_open.xml"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\dialog_paytype_bg.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\dialog_paytype_bg.xml"
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\dialog_background.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\dialog_background.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\dialog_background.xml",
@@ -80,12 +84,124 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\round_spinner_fade.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_gray_round.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_gray_round.xml"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_cb_protocol.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_cb_protocol.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_forget_pwd.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_forget_pwd.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_click_item_bg.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_click_item_bg.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_click_round_btn_bg.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_click_round_btn_bg.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_white_round_stroke.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_white_round_stroke.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_common_progress_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_common_progress_bg.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_white_round.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_white_round.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jrmf_dialog_paytype_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\jrmf_dialog_paytype_bg.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_normal_item_bg.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_normal_item_bg.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jrmf_selector_transfer_account.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\jrmf_selector_transfer_account.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_round_white.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_round_white.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_unbind.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_unbind.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_common_btn.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_common_btn.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\jrmf_selector_transfer_account.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\jrmf_selector_transfer_account.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\dialog_paytype_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\dialog_paytype_bg.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_bribery_open.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_bribery_open.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_round_white.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_round_white.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_white_round_stroke.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_white_round_stroke.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_progress_medium_holo.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_progress_medium_holo.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_red_round.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_red_round.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_forget_pwd.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_forget_pwd.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_white_round.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_white_round.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_round_btn.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_round_btn.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_common_btn.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_common_btn.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_progress_medium_holo.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_progress_medium_holo.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_red_click_round.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_red_click_round.xml"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_code_bg.xml",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_code_bg.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_bribery_open.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_bribery_open.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\dialog_paytype_bg.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\dialog_paytype_bg.xml"
+    },
+    {
+        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\_bg_gray_round.xml",
+        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\_bg_gray_round.xml"
     },
     {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_item.xml",
@@ -96,15 +212,7 @@
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_code_bg.xml"
     },
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_click_item_bg.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_click_item_bg.xml"
-    },
-    {
         "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\selector_cursor.xml",
         "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\selector_cursor.xml"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_click_round_btn_bg.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable\\shape_click_round_btn_bg.xml"
     }
 ]

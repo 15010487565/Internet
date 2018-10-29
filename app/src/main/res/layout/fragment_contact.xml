@@ -42,31 +42,71 @@
 
     </RelativeLayout>
 
-
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rc_Contact"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp">
+        <!--AppBarLayout 是继承LinerLayout实现的一个ViewGroup容器组件，它是为了Material Design设计的AppBar，支持手势滑动操作-->
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            app:layout_scrollFlags="scroll">
 
-        <com.xcd.www.internet.view.WaveSideBar
-            android:id="@+id/sideBar"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseParallaxMultiplier="0"
+                app:layout_scrollFlags="scroll">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rc_Friend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            android:background="@color/black_f7" />
+
+                </android.support.v4.widget.NestedScrollView>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:backgroundColor="@color/blue"
-            app:chooseTextColor="@android:color/white"
-            app:circleRadius="24dp"
-            app:hintTextSize="32sp"
-            app:radius="20dp"
-            app:textColor="#969696"
-            app:textSize="10sp" />
+            app:layout_anchor="@id/appbar"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_scrollFlags="scroll">
 
-    </FrameLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_Contact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_anchor="@id/appbar"
+                app:layout_anchorGravity="bottom"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_scrollFlags="scroll"/>
+            <com.xcd.www.internet.view.WaveSideBar
+                android:id="@+id/sideBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:backgroundColor="@color/blue"
+                app:chooseTextColor="@android:color/white"
+                app:circleRadius="24dp"
+                app:hintTextSize="32sp"
+                app:radius="20dp"
+                app:textColor="#969696"
+                app:textSize="10sp" />
+        </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
 
 </LinearLayout>

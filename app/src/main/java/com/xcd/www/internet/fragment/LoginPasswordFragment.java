@@ -109,22 +109,32 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         if (returnCode == 200) {
             switch (requestCode) {
-                case 100://注册
+                case 100:
 
                     LoginInfoModel loginIndoModel = JSON.parseObject(returnData, LoginInfoModel.class);
                     LoginInfoModel.DataBean data = loginIndoModel.getData();
                     String sign = data.getSign();
                     String account = data.getAccount();
                     long id = data.getId();
-                    BaseApplication.getInstance().setAccount(account);
-                    BaseApplication.getInstance().setSign(sign);
-                    BaseApplication.getInstance().setId(id);
+                    BaseApplication instance = BaseApplication.getInstance();
+                    instance.setAccount(account);
+                    instance.setSign(sign);
+                    instance.setId(id);
                     //头像
                     String headportrait = data.getHeadportrait();
-                    BaseApplication.getInstance().setHeadportrait(headportrait);
+                    instance.setHeadportrait(headportrait);
                     //区号
                     String country = data.getCountry();
-                    BaseApplication.getInstance().setCountry(country);
+                    instance.setCountry(country);
+                    //昵称
+                    String nick = data.getNick();
+                    instance.setNick(nick);
+                    //名字
+                    String name = data.getName();
+                    instance.setName(name);
+
+                    String passwordPay = data.getPasswordPay();
+                    instance.setPasswordPay(passwordPay);
 
                     String token = data.getToken();
                     connect(token);

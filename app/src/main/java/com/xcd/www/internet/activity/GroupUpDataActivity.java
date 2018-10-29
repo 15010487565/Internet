@@ -294,7 +294,7 @@ public class GroupUpDataActivity extends PhotoActivity implements
         params.put("name", groupName);//群名称
         params.put("des", groupUpdataDes);//描述
 
-        params.put("avatar", groupName);//头像
+        params.put("avatar", groupInfoHead);//头像
         params.put("sign", sign);
         okHttpPostBody(101, GlobalParam.GROUPUPDATE, params);
     }

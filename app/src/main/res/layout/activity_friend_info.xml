@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_ee"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_simple_topbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/margin_15"
+        android:paddingLeft="@dimen/margin_30"
+        android:paddingRight="@dimen/margin_20"
+        android:paddingTop="@dimen/margin_15">
+
+        <com.xcd.www.internet.view.CircleImageView
+            android:id="@+id/iv_ChatInfoTopHead"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/photo"
+            app:type="circle" />
+
+        <TextView
+            android:id="@+id/tv_ChatInfoName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:hint="请输入群组名称"
+            android:textColor="@color/black_66"
+            android:textColorHint="@color/black_99"
+            android:textSize="@dimen/textsize_16" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/height_20"
+        android:paddingBottom="@dimen/margin_15"
+        android:paddingLeft="@dimen/margin_30"
+        android:paddingRight="@dimen/margin_20"
+        android:paddingTop="@dimen/margin_15">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="手机"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textsize_14" />
+
+        <TextView
+            android:id="@+id/tv_ChatInfoPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:hint="请输入群组名称"
+            android:textColor="@color/black_66"
+            android:textColorHint="@color/black_99"
+            android:textSize="@dimen/textsize_16" />
+    </LinearLayout>
+</LinearLayout>

@@ -24,17 +24,17 @@ public class BaseExtensionModule extends DefaultExtensionModule {
 //        IPluginModule location = new BaseLocationPlugin();
 //        IPluginModule file = new BaseFilePlugin();
         IPluginModule red = new RedPlugin();
-        if (
-                conversationType.equals(Conversation.ConversationType.GROUP)
+//        if (
+//                conversationType.equals(Conversation.ConversationType.GROUP)
 //                        ||
 //                conversationType.equals(Conversation.ConversationType.DISCUSSION) ||
 //                conversationType.equals(Conversation.ConversationType.PRIVATE)
-                ) {
+//                ) {
 //            pluginModuleList.add(image);
 //            pluginModuleList.add(location);
 //            pluginModuleList.add(file);
             pluginModuleList.add(red);
-        }
+//        }
 //        else {
 //            pluginModuleList.add(image);
 //        }

@@ -30,6 +30,15 @@ public class ContactModel implements Serializable {
     private String name;
     private boolean enable;//是都可選擇
     private boolean isSelect;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public boolean isSelect() {
         return isSelect;

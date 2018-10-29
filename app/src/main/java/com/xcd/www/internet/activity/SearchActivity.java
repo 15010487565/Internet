@@ -43,6 +43,7 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        contactInfo = (List<ContactModel>) getIntent().getSerializableExtra("list");
     }
 
     @Override
@@ -53,7 +54,7 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
         ivClean =findViewById(R.id.iv_Clean);
         ivClean.setVisibility(View.GONE);
         ivClean.setOnClickListener(this);
-        contactInfo = (List<ContactModel>) getIntent().getSerializableExtra("list");
+
         etSearch = findViewById(R.id.et_Search);
         etSearch.addTextChangedListener(this);
         rcSearch =  findViewById(R.id.rc_Search);
@@ -115,17 +116,18 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         //如果长度为0
-        if (charSequence.length() > 0) {
-            String trim = etSearch.getText().toString().trim();
-            if (!TextUtils.isEmpty(trim)){
-                contactSearch = new ArrayList<>();//模糊搜索集合
-                for (int j = 0, k = contactInfo.size(); j < k; j++) {
-                    ContactModel contactModel = contactInfo.get(j);
-                    String name = contactModel.getName();
-                    String letters = contactModel.getLetters();
-                    if (name.indexOf(trim)!=-1){//匹配文字
-                        contactSearch.add(contactModel);
-                    }
+        if (contactInfo != null&&contactInfo.size()>0){
+            if (charSequence.length() > 0) {
+                String trim = etSearch.getText().toString().trim();
+                if (!TextUtils.isEmpty(trim)){
+                    contactSearch = new ArrayList<>();//模糊搜索集合
+                    for (int j = 0, k = contactInfo.size(); j < k; j++) {
+                        ContactModel contactModel = contactInfo.get(j);
+                        String name = contactModel.getName();
+                        String letters = contactModel.getLetters();
+                        if (name.indexOf(trim)!=-1){//匹配文字
+                            contactSearch.add(contactModel);
+                        }
 //                    else {//匹配首字母
 //                        String pinyin = PinyinUtils.getPingYin(trim);
 //                        String sortString = pinyin.substring(0, 1);
@@ -133,18 +135,20 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
 //                            contactSearch.add(contactModel);
 //                        }
 //                    }
+                    }
+                    ivClean.setVisibility(View.VISIBLE);
+                    rcSearch.setVisibility(View.VISIBLE);
+                    adapter.setData(contactSearch);
+                }else {
+                    ivClean.setVisibility(View.GONE);
+                    rcSearch.setVisibility(View.GONE);
                 }
-                ivClean.setVisibility(View.VISIBLE);
-                rcSearch.setVisibility(View.VISIBLE);
-                adapter.setData(contactSearch);
             }else {
                 ivClean.setVisibility(View.GONE);
                 rcSearch.setVisibility(View.GONE);
             }
-        }else {
-            ivClean.setVisibility(View.GONE);
-            rcSearch.setVisibility(View.GONE);
         }
+
     }
 
     @Override

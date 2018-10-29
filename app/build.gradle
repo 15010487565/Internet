@@ -19,15 +19,47 @@ android {
         jniLibs.srcDir 'libs'
         jni.srcDirs = []
     }
+    signingConfigs {
+
+        config {
+            storePassword 'chuanzhi123456'
+            keyAlias 'chuanzhi'
+            keyPassword 'chuanzhi123456'
+            storeFile file('D:/signature/chuanzhi.jks')
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled true
+            // 打包时混淆
             minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled true
+            //是否混淆
+            minifyEnabled false
+            // 打包去除没有用到的资源
+            shrinkResources false
+            signingConfig signingConfigs.config
+            // 打包时混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -44,7 +76,6 @@ dependencies {
     compile project(':IMKit')
     compile files('libs/pinyin4j-2.5.0.jar')
     compile project(':shareLibrary')
-    compile project(':zxinglite')
     compile 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:multidex:1.0.1'
@@ -54,5 +85,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:27.0.2'
     compile 'com.jcodecraeer:xrecyclerview:1.3.2'
     compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.king.zxing:zxing-lite:1.0.2'
     testCompile 'junit:junit:4.12'
 }

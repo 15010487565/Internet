@@ -32,16 +32,18 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
         mInflater = LayoutInflater.from(context);
         this.mContext = context;
     }
-    public void setData(List<ContactModel> data){
+
+    public void setData(List<ContactModel> data) {
         mData = data;
         notifyDataSetChanged();
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_creategroupnext, parent,false);
+        View view = mInflater.inflate(R.layout.item_creategroupnext, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.tvName =  view.findViewById(R.id.tvName);
-        viewHolder.ivSortlogo =  view.findViewById(R.id.iv_Sortlogo);
+        viewHolder.tvName = view.findViewById(R.id.tvName);
+        viewHolder.ivSortlogo = view.findViewById(R.id.iv_Sortlogo);
         viewHolder.tvSortlogo = view.findViewById(R.id.tv_Sortlogo);
         viewHolder.ivSelectBlue = view.findViewById(R.id.iv_SelectBlue);
         return viewHolder;
@@ -52,22 +54,22 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
         ContactModel contactModel = mData.get(position);
 
         String logo = contactModel.getLogo();
-        if (logo.indexOf("http")!=-1){
+        if (logo.indexOf("http") != -1) {
             Glide.with(mContext.getApplicationContext())
                     .load(logo)
                     .fitCenter()
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into( holder.ivSortlogo);
+                    .into(holder.ivSortlogo);
             holder.tvSortlogo.setText("");
 
-        }else {
+        } else {
             holder.tvSortlogo.setText(logo);
-            if (position%3==0){
+            if (position % 3 == 0) {
                 holder.ivSortlogo.setImageResource(R.drawable.shape_round_blue);
-            }else if (position%3==1){
+            } else if (position % 3 == 1) {
                 holder.ivSortlogo.setImageResource(R.drawable.shape_round_red);
-            }else {
+            } else {
                 holder.ivSortlogo.setImageResource(R.drawable.shape_round_orange);
             }
 
@@ -83,26 +85,22 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 
         }
         String name = contactModel.getName();
-        if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             String mobile = contactModel.getMobile();
             holder.tvName.setText(mobile);
-        }else {
+        } else {
             holder.tvName.setText(name);
         }
-        boolean enable = contactModel.isEnable();
-        if (enable){//是都可邀請
-            holder.ivSelectBlue.setVisibility(View.VISIBLE);
-            onItemEventClick(holder);
-            boolean select = contactModel.isSelect();
-            if (select){
-                holder.ivSelectBlue.setBackgroundResource(R.mipmap.select_blue);
-            }else {
-                holder.ivSelectBlue.setBackgroundResource(R.mipmap.select_white);
-            }
-        }else {
-            holder.ivSelectBlue.setVisibility(View.GONE);
-            onItemEventClick(holder);
+
+        holder.ivSelectBlue.setVisibility(View.VISIBLE);
+        onItemEventClick(holder);
+        boolean select = contactModel.isSelect();
+        if (select) {
+            holder.ivSelectBlue.setBackgroundResource(R.mipmap.select_blue);
+        } else {
+            holder.ivSelectBlue.setBackgroundResource(R.mipmap.select_white);
         }
+
 
 //        holder.tvMeMoneyType.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -112,6 +110,7 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 //        });
 
     }
+
     private void onItemEventClick(RecyclerView.ViewHolder holder) {
         final int position = holder.getLayoutPosition();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -128,9 +127,10 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 //            }
 //        });
     }
+
     @Override
     public int getItemCount() {
-        return mData == null?0:mData.size();
+        return mData == null ? 0 : mData.size();
     }
 
     //**********************itemClick************************
@@ -146,9 +146,10 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
     //**************************************************************
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName,tvSortlogo;
+        TextView tvName, tvSortlogo;
         CircleImageView ivSortlogo;
         ImageView ivSelectBlue;
+
         public ViewHolder(View itemView) {
             super(itemView);
         }
@@ -156,9 +157,10 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
 
     /**
      * 提供给Activity刷新数据
+     *
      * @param list
      */
-    public void updateList(List<ContactModel> list){
+    public void updateList(List<ContactModel> list) {
         this.mData = list;
         notifyDataSetChanged();
     }

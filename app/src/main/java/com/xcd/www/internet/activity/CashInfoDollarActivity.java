@@ -1,9 +1,14 @@
 package com.xcd.www.internet.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
+import com.xcd.www.internet.model.PasswordVerifyModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,9 +16,16 @@ import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
+import www.xcd.com.mylibrary.utils.DialogUtil;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 
 public class CashInfoDollarActivity extends SimpleTopbarActivity {
+
+    private TextView tvCashDollarNum;
+    private TextView tvCashDollarMomey;
+    private EditText etCashDollarMomey;
+    private TextView tvCashDollar;
+    String sign;
 
     @Override
     protected Object getTopbarTitle() {
@@ -24,11 +36,51 @@ public class CashInfoDollarActivity extends SimpleTopbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash_info_dollar);
-        String sign = BaseApplication.getInstance().getSign();
-        Map<String, String> params = new HashMap<>();
-        params.put("coin", "usdt");
-        params.put("sign", sign);
-        okHttpPostBody(100, GlobalParam.CASH, params);
+        sign = BaseApplication.getInstance().getSign();
+
+    }
+
+    @Override
+    protected void afterSetContentView() {
+        super.afterSetContentView();
+        //可兑换数量
+        tvCashDollarNum = findViewById(R.id.tv_CashDollarNum);
+        String usdt = BaseApplication.getInstance().getUsdt();
+        tvCashDollarNum.setText(usdt);
+        //可兑换美金
+        tvCashDollarMomey = findViewById(R.id.tv_CashDollarMomey);
+        //
+        etCashDollarMomey = findViewById(R.id.et_CashDollarMomey);
+        tvCashDollar = findViewById(R.id.tv_CashDollar);
+        tvCashDollar.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+
+            case R.id.tv_CashDollar:
+                DialogUtil.getInstance()
+                        .setContext(this)
+                        .setCancelable(true)
+                        .title("温馨提示")
+                        .hint("请输入支付密码")
+                        .sureText("确定")
+                        .cancelText("取消")
+                        .setSureOnClickListener(new DialogUtil.OnClickListener() {
+                            @Override
+                            public void onClick(View view, String message) {
+                                Map<String, String> map = new HashMap<>();
+                                map.put("password", message );
+                                map.put("sign", sign);
+                                okHttpPostBody(101, GlobalParam.VERIFYPASSWORD, map);
+
+                            }
+                        }).showEditDialog();
+
+
+                break;
+        }
     }
 
     @Override
@@ -36,7 +88,18 @@ public class CashInfoDollarActivity extends SimpleTopbarActivity {
         if (returnCode == 200){
             switch (requestCode){
                 case 100:
+                    ToastUtil.showToast(returnMsg);
                     finish();
+                    break;
+                case 101:
+                    PasswordVerifyModel passwordVerifyModel = JSON.parseObject(returnData, PasswordVerifyModel.class);
+                    PasswordVerifyModel.DataBean data = passwordVerifyModel.getData();
+                    String code = data.getSign();
+                    Map<String, String> params = new HashMap<>();
+                    params.put("coin", "dollar");
+                    params.put("sign", sign);
+                    params.put("code", code );
+                    okHttpPostBody(100, GlobalParam.CASH, params);
                     break;
             }
         }

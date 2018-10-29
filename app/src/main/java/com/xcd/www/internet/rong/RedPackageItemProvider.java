@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.activity.RedPkgDetailsActivity;
 
@@ -52,7 +55,8 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
 
     @Override
     public void bindView(View view, int i, RedPackageMessage redPackageMessage, UIMessage message) {
-
+        Log.e("TAG_紅包接收=============", "RedPackageMessage=" + redPackageMessage.toString());
+        Log.e("TAG_紅包接收============", "UIMessage=" + message.getContent().toString());
         //根据需求，适配数据
         ViewHolder holder = (ViewHolder) view.getTag();
 //        int messageId = message.getMessageId();
@@ -63,10 +67,10 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
             //holder.message.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_left);
         }
         //AndroidEmoji.ensure((Spannable) holder.message.getText());//显示消息中的 Emoji 表情。
-        String remark = redPackageMessage.getRemark();
+        String remark = redPackageMessage.getContent();
         holder.tvRedPkgRemark.setText(TextUtils.isEmpty(remark) ? "恭喜发财，大吉大利" : remark);
         String sendName = redPackageMessage.getSendName();
-        String sendRedType = redPackageMessage.getSendRedType();
+        String sendRedType = redPackageMessage.getCoin();
         String minNumberString = String.format("来自%s的%s红包", sendName, sendRedType);
         holder.tvRedPkgName.setText(minNumberString);
     }
@@ -74,7 +78,7 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     //列表页消息显示内容
     @Override
     public Spannable getContentSummary(RedPackageMessage redPackageMessage) {
-        String sendRedType = redPackageMessage.getSendRedType();
+        String sendRedType = redPackageMessage.getCoin();
         if ("USDT".equals(sendRedType)) {
             return new SpannableString("【红包】");
         } else {
@@ -85,8 +89,8 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
 
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
-        String id = redPackageMessage.getId();
-        showOpenRedRkgDialog(id);
+        if (context !=null)
+        showOpenRedRkgDialog(redPackageMessage);
     }
 
     @Override
@@ -116,14 +120,39 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     //打開紅包弹窗
     protected AlertDialog openRedPkgDialog;
 
-    private void showOpenRedRkgDialog(final String redPkgId) {
+    private void showOpenRedRkgDialog(final RedPackageMessage redPackageMessage) {
         if (openRedPkgDialog != null && openRedPkgDialog.isShowing()) {
             return;
         }
+        final String redPkgId = redPackageMessage.getRedPacketId();
+
         LayoutInflater factor = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View serviceView = factor.inflate(R.layout.dialog_openredrkg, null);
 
+        final String headUrl = redPackageMessage.getHeadUrl();
+
+        //头像
+        ImageView ivOpenRedPkgHead = serviceView.findViewById(R.id.iv_OpenRedPkgHead);
+        //关闭
         ImageView tvRedPkgClose = serviceView.findViewById(R.id.tv_OpenRedPkgClose);
+        //昵称
+        TextView tvOpenRedPkgName = serviceView.findViewById(R.id.tv_OpenRedPkgName);
+        final String sendName = redPackageMessage.getSendName();
+        tvOpenRedPkgName.setText(TextUtils.isEmpty(sendName)?"":sendName);
+        //备注
+        TextView tvOpenRedPkgRemark = serviceView.findViewById(R.id.tv_OpenRedPkgRemark);
+        final String contentStr = redPackageMessage.getContent();
+        tvOpenRedPkgRemark.setText(TextUtils.isEmpty(contentStr)?"":contentStr);
+
+        Glide.with(context.getApplicationContext())
+                .load(headUrl)
+                .fitCenter()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(ivOpenRedPkgHead);
+
         tvRedPkgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +166,14 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
             public void onClick(View v) {
                 openRedPkgDialog.dismiss();
                 Intent intent = new Intent(context, RedPkgDetailsActivity.class);
-                intent.putExtra("redPkgId",redPkgId);
+                intent.putExtra("redPkgId",TextUtils.isEmpty(redPkgId)?"":redPkgId);
+                intent.putExtra("headUrl",TextUtils.isEmpty(headUrl)?"":headUrl);
+                intent.putExtra("sendName",TextUtils.isEmpty(sendName)?"":sendName);
+                intent.putExtra("content",TextUtils.isEmpty(contentStr)?"":contentStr);
+                String total = redPackageMessage.getTotal();
+                String amout = redPackageMessage.getAmout();
+                intent.putExtra("total",total);
+                intent.putExtra("amout",amout);
                 context.startActivity(intent);
             }
         });

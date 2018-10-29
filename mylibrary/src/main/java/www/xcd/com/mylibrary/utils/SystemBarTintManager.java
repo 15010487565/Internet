@@ -16,8 +16,6 @@
 
 package www.xcd.com.mylibrary.utils;
 
-import java.lang.reflect.Method;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -36,6 +34,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
+
+import java.lang.reflect.Method;
 
 /**
  * Class to manage status and navigation bar tint effects when using KitKat 
@@ -83,6 +83,7 @@ public class SystemBarTintManager {
      *
      * @param activity The host activity.
      */
+    @SuppressWarnings("ResourceType")
     @TargetApi(19)
     public SystemBarTintManager(Activity activity) {
 
