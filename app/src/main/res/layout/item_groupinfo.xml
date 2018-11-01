@@ -41,5 +41,13 @@
         android:textSize="@dimen/textsize_15"
         android:textColor="@color/black_33"
         tools:text="" />
-
+    <TextView
+        android:id="@+id/tv_GroupStatus"
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/margin_10"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/textsize_14"
+        android:textColor="#676767"
+        tools:text="群主" />
 </LinearLayout>

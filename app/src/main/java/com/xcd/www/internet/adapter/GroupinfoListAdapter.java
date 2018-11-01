@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.model.GroupInfoListModel;
 import com.xcd.www.internet.view.CircleImageView;
 
@@ -28,20 +29,25 @@ public class GroupinfoListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<GroupInfoListModel.DataBean> mData;
     private Context mContext;
     private List<GroupInfoListModel.DataBean> listType;
+    private String groupUserid;
+    private String userId;
 
     public GroupinfoListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.mContext = context;
     }
 
-    public void setData(List<GroupInfoListModel.DataBean> data) {
+    public void setData(List<GroupInfoListModel.DataBean> data, String groupUserid) {
         this.mData = data;
         this.listType = data;
+        this.groupUserid = groupUserid;
+        userId = String.valueOf(BaseApplication.getInstance().getId());
         notifyDataSetChanged();
     }
 
-    public void addData(List<GroupInfoListModel.DataBean> list) {
+    public void addData(List<GroupInfoListModel.DataBean> list, String groupUserid) {
         this.listType = list;
+        this.groupUserid = groupUserid;
         if (this.mData != null) {
             this.mData.addAll(list);
         } else {
@@ -50,6 +56,9 @@ public class GroupinfoListAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
+    public List<GroupInfoListModel.DataBean> getList() {
+        return mData;
+    }
 //    private Map viewHolderMap = new HashMap<>();
 //
 //    private Map getViewHolderMap() {
@@ -77,8 +86,8 @@ public class GroupinfoListAdapter extends RecyclerView.Adapter<RecyclerView.View
         RecyclerView.ViewHolder viewHolder = null;
 //        switch (viewType) {
 //            case TYPE_ITEM:
-                view = mInflater.inflate(R.layout.item_groupinfo, parent, false);
-                viewHolder = new ViewHolder(view);
+        view = mInflater.inflate(R.layout.item_groupinfo, parent, false);
+        viewHolder = new ViewHolder(view);
 
 //                break;
 //            case TYPE_FOOTER:
@@ -96,39 +105,47 @@ public class GroupinfoListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 //        switch (getItemViewType(position)) {
 //            case TYPE_ITEM:
-                final ViewHolder holderItem = (ViewHolder) holder;
-                GroupInfoListModel.DataBean dataBean = mData.get(position);
+        final ViewHolder holderItem = (ViewHolder) holder;
+        GroupInfoListModel.DataBean dataBean = mData.get(position);
 
-                String logo = dataBean.getH();
+        String logo = dataBean.getH();
 
-                Glide.with(mContext.getApplicationContext())
-                        .load(logo)
-                        .fitCenter()
-                        .dontAnimate()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.mipmap.launcher_login)
-                        .error(R.mipmap.launcher_login)
-                        .into(holderItem.ivGroupInfologo);
+        Glide.with(mContext.getApplicationContext())
+                .load(logo)
+                .fitCenter()
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.mipmap.launcher_login)
+                .error(R.mipmap.launcher_login)
+                .into(holderItem.ivGroupInfologo);
+        int id = dataBean.getId();
 
-                if (mOnItemClickListener != null) {
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mOnItemClickListener.onItemClick(holder.itemView, position);
-                        }
-                    });
+        if (String.valueOf(id).equals(groupUserid)) {
+            holderItem.tvGroupStatus.setText("群主");
+        } else {
+            holderItem.tvGroupStatus.setText("");
+        }
 
+        if (mOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
                 }
-                String name = dataBean.getN();
+            });
 
-                holderItem.tvName.setText(name + "" + position);
+        }
+        String name = dataBean.getN();
 
-                holderItem.tvName.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+        holderItem.tvName.setText(name + "" + position);
+
+        holderItem.tvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 //                        Toast.makeText(mContext, name, Toast.LENGTH_SHORT).show();
-                    }
-                });
+            }
+        });
+
 //                break;
 //            case TYPE_FOOTER:
 //                FootViewHolder footviewholder = (FootViewHolder) holder;
@@ -170,12 +187,14 @@ public class GroupinfoListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvGroupInfologo;
         CircleImageView ivGroupInfologo;
+        TextView tvGroupStatus;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             ivGroupInfologo = itemView.findViewById(R.id.iv_GroupInfologo);
             tvGroupInfologo = itemView.findViewById(R.id.tv_GroupInfologo);
+            tvGroupStatus = itemView.findViewById(R.id.tv_GroupStatus);
         }
     }
 

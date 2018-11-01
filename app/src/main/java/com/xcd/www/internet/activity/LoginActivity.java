@@ -6,12 +6,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.fragment.LoginCodeFragment;
 import com.xcd.www.internet.fragment.LoginPasswordFragment;
+import com.xcd.www.internet.util.EventBusMsg;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +38,9 @@ public class LoginActivity extends CheckPermissionsActivity implements CompoundB
 
     };
     private List<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
-    private TextView tvLoginRegister, tvLoginForgetPassword;
+    private TextView tvLoginRegister, tvLoginForgetPassword, tvCountriesName;
     private RadioButton rbLoginCode,rbLoginPwd;
+    private LinearLayout llLogintCountryCodes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,8 @@ public class LoginActivity extends CheckPermissionsActivity implements CompoundB
     }
 
     private void initView() {
+        llLogintCountryCodes = findViewById(R.id.ll_LogintCountryCodes);
+        llLogintCountryCodes.setOnClickListener(this);
         //登录方式
         rbLoginCode = findViewById(R.id.rb_LoginCode);
         rbLoginCode.setOnCheckedChangeListener(this);
@@ -84,6 +91,7 @@ public class LoginActivity extends CheckPermissionsActivity implements CompoundB
         //忘记密码
         tvLoginForgetPassword = findViewById(R.id.tv_LoginForgetPassword);
         tvLoginForgetPassword.setOnClickListener(this);
+        tvCountriesName = findViewById(R.id.tv_CountriesName);
     }
 
     private void clickFragmentBtn(int tabIndex) {
@@ -112,6 +120,32 @@ public class LoginActivity extends CheckPermissionsActivity implements CompoundB
             case R.id.tv_LoginForgetPassword://忘記密碼
                 startActivity(new Intent(this,UpdataPwdActivity.class));
                 break;
+            case R.id.ll_LogintCountryCodes:
+                Intent intent = new Intent(this,CountryCodesActivity.class);
+                startActivityForResult(intent,11000);
+                break;
+        }
+    }
+    String CountryZipCode;
+
+    public String getCountryZipCode() {
+        return CountryZipCode;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            switch (requestCode) {
+                case 11000:
+                    CountryZipCode = data.getStringExtra("CountryZipCode");
+                    EventBusMsg msg = new EventBusMsg("CountryZipCode");
+                    msg.setMsgCon(CountryZipCode);
+                    EventBus.getDefault().post(msg);
+                    String countryZipName = data.getStringExtra("CountryZipName");
+                    tvCountriesName.setText(countryZipName);
+                    break;
+            }
         }
     }
 

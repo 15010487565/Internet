@@ -21,6 +21,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.activity.RedPkgDetailsActivity;
+import com.xcd.www.internet.view.CircleImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.model.UIMessage;
@@ -66,35 +70,57 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
         } else {
             //holder.message.setBackgroundResource(io.rong.imkit.R.drawable.rc_ic_bubble_left);
         }
-        //AndroidEmoji.ensure((Spannable) holder.message.getText());//显示消息中的 Emoji 表情。
-        String remark = redPackageMessage.getContent();
-        holder.tvRedPkgRemark.setText(TextUtils.isEmpty(remark) ? "恭喜发财，大吉大利" : remark);
-        String sendName = redPackageMessage.getSendName();
-        String sendRedType = redPackageMessage.getCoin();
-        String minNumberString = String.format("来自%s的%s红包", sendName, sendRedType);
-        holder.tvRedPkgName.setText(minNumberString);
+        try {
+            String extra = redPackageMessage.getExtra();
+            JSONObject jsonObject = new JSONObject(extra);
+            String content = jsonObject.optString("content");
+            holder.tvRedPkgRemark.setText(TextUtils.isEmpty(content) ? "恭喜发财，大吉大利" : content);
+
+            final String sendName = jsonObject.optString("sendName");
+            String sendRedType = jsonObject.optString("coin");
+            String minNumberString = String.format("来自%s的%s红包", sendName, sendRedType);
+            holder.tvRedPkgName.setText(minNumberString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     //列表页消息显示内容
     @Override
     public Spannable getContentSummary(RedPackageMessage redPackageMessage) {
-        String sendRedType = redPackageMessage.getCoin();
-        if ("USDT".equals(sendRedType)) {
-            return new SpannableString("【红包】");
-        } else {
-            String desc1 = redPackageMessage.getSendName();
-            return new SpannableString(desc1 == null ? "未知" : desc1);
+        try {
+            String extra = redPackageMessage.getExtra();
+            JSONObject jsonObject = new JSONObject(extra);
+
+            String sendRedType = jsonObject.optString("coin");
+            if ("USDT".equals(sendRedType)) {
+                return new SpannableString("【红包】");
+            } else {
+                String desc1 = redPackageMessage.getSendName();
+                return new SpannableString(desc1 == null ? "未知" : desc1);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new SpannableString("未知");
         }
     }
 
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
+        String groupId = uiMessage.getTargetId();
+        Log.e("TAG_点击","groupId="+groupId);
+        Log.e("TAG_点击","context="+(context==null));
+
         if (context !=null)
-        showOpenRedRkgDialog(redPackageMessage);
+        showOpenRedRkgDialog(redPackageMessage,groupId);
     }
 
     @Override
     public void onItemLongClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
+        String groupId = uiMessage.getTargetId();
+        Log.e("TAG_点击","groupId="+groupId);
         //实现长按删除等功能，咱们直接复制融云其他provider的实现
 //        String[] items1;//复制，删除
 //        items1 = new String[]{view.getContext().getResources().getString(io.rong.imkit.R.string.rc_dialog_item_message_copy), view.getContext().getResources().getString(io.rong.imkit.R.string.rc_dialog_item_message_delete)};
@@ -120,63 +146,72 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     //打開紅包弹窗
     protected AlertDialog openRedPkgDialog;
 
-    private void showOpenRedRkgDialog(final RedPackageMessage redPackageMessage) {
+    private void showOpenRedRkgDialog(final RedPackageMessage redPackageMessage, final String groupId) {
         if (openRedPkgDialog != null && openRedPkgDialog.isShowing()) {
             return;
         }
-        final String redPkgId = redPackageMessage.getRedPacketId();
-
         LayoutInflater factor = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View serviceView = factor.inflate(R.layout.dialog_openredrkg, null);
-
-        final String headUrl = redPackageMessage.getHeadUrl();
-
         //头像
-        ImageView ivOpenRedPkgHead = serviceView.findViewById(R.id.iv_OpenRedPkgHead);
+        CircleImageView ivOpenRedPkgHead = serviceView.findViewById(R.id.iv_OpenRedPkgHead);
         //关闭
         ImageView tvRedPkgClose = serviceView.findViewById(R.id.tv_OpenRedPkgClose);
         //昵称
         TextView tvOpenRedPkgName = serviceView.findViewById(R.id.tv_OpenRedPkgName);
-        final String sendName = redPackageMessage.getSendName();
-        tvOpenRedPkgName.setText(TextUtils.isEmpty(sendName)?"":sendName);
         //备注
         TextView tvOpenRedPkgRemark = serviceView.findViewById(R.id.tv_OpenRedPkgRemark);
-        final String contentStr = redPackageMessage.getContent();
-        tvOpenRedPkgRemark.setText(TextUtils.isEmpty(contentStr)?"":contentStr);
-
-        Glide.with(context.getApplicationContext())
-                .load(headUrl)
-                .fitCenter()
-                .dontAnimate()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(ivOpenRedPkgHead);
-
-        tvRedPkgClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRedPkgDialog.dismiss();
-
-            }
-        });
         TextView refuse = serviceView.findViewById(R.id.iv_OpenRedPkgBtn);
-        refuse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRedPkgDialog.dismiss();
-                Intent intent = new Intent(context, RedPkgDetailsActivity.class);
-                intent.putExtra("redPkgId",TextUtils.isEmpty(redPkgId)?"":redPkgId);
-                intent.putExtra("headUrl",TextUtils.isEmpty(headUrl)?"":headUrl);
-                intent.putExtra("sendName",TextUtils.isEmpty(sendName)?"":sendName);
-                intent.putExtra("content",TextUtils.isEmpty(contentStr)?"":contentStr);
-                String total = redPackageMessage.getTotal();
-                String amout = redPackageMessage.getAmout();
-                intent.putExtra("total",total);
-                intent.putExtra("amout",amout);
-                context.startActivity(intent);
-            }
-        });
+        try {
+            String extra = redPackageMessage.getExtra();
+            JSONObject jsonObject = new JSONObject(extra);
+            final String headUrl = jsonObject.optString("headUrl");
+
+            final String sendName = jsonObject.optString("sendName");
+            tvOpenRedPkgName.setText(TextUtils.isEmpty(sendName)?"":sendName);
+
+            final String contentStr = jsonObject.optString("content");
+            tvOpenRedPkgRemark.setText(TextUtils.isEmpty(contentStr)?"":contentStr);
+
+            final String redPkgId = jsonObject.optString("redPacketId");
+            final String total = jsonObject.optString("total");
+            final String amout = jsonObject.optString("amout");
+
+            Glide.with(context.getApplicationContext())
+                    .load(headUrl)
+                    .fitCenter()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(ivOpenRedPkgHead);
+
+            tvRedPkgClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openRedPkgDialog.dismiss();
+
+                }
+            });
+
+            refuse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openRedPkgDialog.dismiss();
+                    Intent intent = new Intent(context, RedPkgDetailsActivity.class);
+                    intent.putExtra("redPkgId",TextUtils.isEmpty(redPkgId)?"":redPkgId);
+                    intent.putExtra("headUrl",TextUtils.isEmpty(headUrl)?"":headUrl);
+                    intent.putExtra("sendName",TextUtils.isEmpty(sendName)?"":sendName);
+                    intent.putExtra("content",TextUtils.isEmpty(contentStr)?"":contentStr);
+                    intent.putExtra("total",total);
+                    intent.putExtra("amout",amout);
+                    intent.putExtra("groupId",groupId);
+                    context.startActivity(intent);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Activity activity = (Activity) context;
         while (activity.getParent() != null) {
             activity = activity.getParent();

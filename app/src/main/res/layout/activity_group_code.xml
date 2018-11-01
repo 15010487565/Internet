@@ -22,7 +22,7 @@
             android:layout_height="122px"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50px"
-            android:background="@mipmap/launcher_login" />
+            android:src="@mipmap/launcher_login" />
 
         <TextView
             android:id="@+id/tv_GroupCodeName"

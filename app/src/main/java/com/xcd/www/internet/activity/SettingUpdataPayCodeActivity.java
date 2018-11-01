@@ -37,7 +37,7 @@ public class SettingUpdataPayCodeActivity extends SimpleTopbarActivity {
     private int recLen = Config.CODETIME;//验证码倒计时
     Thread thread;
     String account;
-    String updataType;//1 修改支付密码;2 修改登录密码
+    int updataType;//1 修改支付密码;2 修改登录密码
     private static Class<?> rightFuncArray[] = {SettingUpdataPayNextTopBtnFunc.class};
 
     @Override
@@ -55,9 +55,15 @@ public class SettingUpdataPayCodeActivity extends SimpleTopbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_updata_pay_code);
         Intent intent = getIntent();
-        String updataType = intent.getStringExtra("updataType");
-        if ("1".equals(updataType)){//修改支付密码
-            resetTopbarTitle("修改支付密码");
+        BaseApplication instance = BaseApplication.getInstance();
+        String passwordPay = instance.getPasswordPay();
+        updataType = intent.getIntExtra("updataType",0);
+        if (updataType == 1){//修改支付密码
+            if (TextUtils.isEmpty(passwordPay)){
+                resetTopbarTitle("设置支付密码");
+            }else {
+                resetTopbarTitle("修改支付密码");
+            }
         }else {//修改登录密码
             resetTopbarTitle("修改登录密码");
         }
@@ -90,7 +96,7 @@ public class SettingUpdataPayCodeActivity extends SimpleTopbarActivity {
             return;
         }
         Intent intent = new Intent(this,SettingUpdataPayActivity.class);
-        if ("1".equals(updataType)){//修改支付密码
+        if (updataType == 1){//修改支付密码
             intent.setClass(this,SettingUpdataPayActivity.class);
         }else {//修改登录密码
             intent.setClass(this,SettingUpdataLoginActivity.class);

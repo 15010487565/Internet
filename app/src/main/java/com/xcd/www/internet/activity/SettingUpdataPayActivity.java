@@ -35,6 +35,13 @@ public class SettingUpdataPayActivity extends SimpleTopbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_updata_pay);
+        BaseApplication instance = BaseApplication.getInstance();
+        String passwordPay = instance.getPasswordPay();
+        if (TextUtils.isEmpty(passwordPay)){
+           resetTopbarTitle("设置支付密码");
+        }else {
+            resetTopbarTitle("修改支付密码");
+        }
         payCode = getIntent().getStringExtra("payCode");
     }
 
@@ -73,7 +80,7 @@ public class SettingUpdataPayActivity extends SimpleTopbarActivity {
                 String sign = BaseApplication.getInstance().getSign();
                 String country = BaseApplication.getInstance().getCountry();
                 Map<String, String> mapCode = new HashMap<>();
-                mapCode.put("country ", country);
+                mapCode.put("country", country);
                 mapCode.put("sign", sign);
                 mapCode.put("account", account);
                 mapCode.put("code", payCode);

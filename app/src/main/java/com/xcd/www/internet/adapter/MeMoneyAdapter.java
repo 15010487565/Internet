@@ -9,10 +9,9 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.xcd.www.internet.R;
-import com.xcd.www.internet.util.LineChartUtil;
+import com.xcd.www.internet.model.MeBagTypeModel;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -22,22 +21,22 @@ import java.util.Map;
 
 public class MeMoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater mInflater;
-    private List<Map<String,List<String>>> list;
+    private List<MeBagTypeModel> list;
     private Context mContext;
-    private List<Map<String,List<String>>> listType;
+    private List<MeBagTypeModel> listType;
 
     public MeMoneyAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.mContext = context;
     }
 
-    public void setData(List<Map<String,List<String>>> data) {
+    public void setData(List<MeBagTypeModel> data) {
         this.list = data;
         this.listType = data;
         notifyDataSetChanged();
     }
 
-    public void addData(List<Map<String,List<String>>> list) {
+    public void addData(List<MeBagTypeModel> list) {
         this.listType = list;
         if (this.list != null) {
             this.list.addAll(list);
@@ -63,19 +62,25 @@ public class MeMoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
         final ViewHolder holderItem = (ViewHolder) holder;
-        Map<String, List<String>> stringListMap = list.get(position);
-        List<String> list = stringListMap.get("line");
-        LineChart lineChart = LineChartUtil.initChart(holderItem.lineChart);
-        LineChartUtil.showLineChart(lineChart , list, "测试", R.color.blue);
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
-                }
-            });
-
-        }
+        MeBagTypeModel meBagTypeModel = list.get(position);
+        String name = meBagTypeModel.getName();
+        holderItem.tvMeBagType.setText(name);
+        String allPrice = meBagTypeModel.getAllPrice();
+        holderItem.tvMeBagAllMoney.setText(allPrice);
+        holderItem.tvMeMoneyRightTop.setText(meBagTypeModel.getNum());
+        holderItem.tvMeMoneyRightBottom.setText(meBagTypeModel.getPrice());
+//        List<String> list = stringListMap.get("line");
+//        LineChart lineChart = LineChartUtil.initChart(holderItem.lineChart);
+//        LineChartUtil.showLineChart(lineChart , list, "测试", R.color.blue);
+//        if (mOnItemClickListener != null) {
+//            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mOnItemClickListener.onItemClick(holder.itemView, position);
+//                }
+//            });
+//
+//        }
     }
 
     @Override
@@ -95,12 +100,12 @@ public class MeMoneyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvMeMoneyType, tvMeMoneyMarket, tvMeMoneyRightTop, tvMeMoneyRightBottom;
+        TextView tvMeBagType, tvMeBagAllMoney, tvMeMoneyRightTop, tvMeMoneyRightBottom;
         LineChart lineChart;// 声明图表控件
         public ViewHolder(View itemView) {
             super(itemView);
-            tvMeMoneyType = itemView.findViewById(R.id.tv_MeMoneyType);
-            tvMeMoneyMarket = itemView.findViewById(R.id.tv_MeMoneyMarket);
+            tvMeBagType = itemView.findViewById(R.id.tv_MeBagType);
+            tvMeBagAllMoney = itemView.findViewById(R.id.tv_MeAllMoney);
             tvMeMoneyRightTop = itemView.findViewById(R.id.tv_MeMoneyRightTop);
             tvMeMoneyRightBottom = itemView.findViewById(R.id.tv_MeMoneyRightBottom);
             lineChart = itemView.findViewById(R.id.lineChart);//绑定控件

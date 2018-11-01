@@ -51,13 +51,26 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
             final View child = parent.getChildAt(i);
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
-            int position = params.getViewLayoutPosition();
+            int position = 0;
+//            RecyclerView.Adapter adapter = parent.getAdapter();
+
+//            if (adapter instanceof SortAdapter){
+//                SortAdapter sortadapter = (SortAdapter) adapter;
+//                SortAdapter.ViewHolder viewHolder = sortadapter.getViewHolder();
+//                position = viewHolder.getLayoutPosition();
+//            }else {
+                position = params.getViewLayoutPosition();
+//            }
             if (position > -1) {
                 if (position == 0) {//等于0的时候绘制title
+//                    Log.e("TAG_contactModel","==============");
                     drawTitle(c, left, right, child, params, position);
                 } else {
-                    if (null != mData.get(position).getLetters() && !mData.get(position)
-                            .getLetters().equals(mData.get(position - 1).getLetters())) {
+                    ContactModel contactModel = mData.get(position);
+                    String letters = contactModel.getLetters();
+                    ContactModel contactModel1 = mData.get(position - 1);
+//                    Log.e("TAG_contactModel",contactModel.getName()+"==="+letters+";letters前一个="+contactModel1.getName()+"==="+ contactModel1.getLetters());
+                    if (null != letters && !letters.equals(contactModel1.getLetters())) {
                         //字母不为空，并且不等于前一个，也要title
                         drawTitle(c, left, right, child, params, position);
                     }

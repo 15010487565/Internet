@@ -102,7 +102,7 @@ public class InviteFriendAdapter extends RecyclerView.Adapter<InviteFriendAdapte
         }
 
 
-//        holder.tvMeMoneyType.setOnClickListener(new View.OnClickListener() {
+//        holder.tvMeBagType.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();

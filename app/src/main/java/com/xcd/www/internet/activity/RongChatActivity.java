@@ -21,7 +21,12 @@ import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.model.GroupInfoModel;
 import com.xcd.www.internet.rong.module.RongFriendsModel;
+import com.xcd.www.internet.util.EventBusMsg;
 import com.xcd.www.internet.view.CircleImageView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,6 +52,7 @@ public class RongChatActivity extends BaseInternetActivity {
     private String targetId;//当前界面id
 //    private String targetIds;//当前界面id
     private Conversation.ConversationType mConversationType; //会话类型
+    String sign;
     @Override
     public boolean isTopbarVisibility() {
         return false;
@@ -61,6 +67,7 @@ public class RongChatActivity extends BaseInternetActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
+        EventBus.getDefault().register(this);
         String title = getIntent().getData().getQueryParameter("title");
         Log.e("TAG_聊天界面","title="+title);
 //        resetTopbarTitle(title);
@@ -70,18 +77,8 @@ public class RongChatActivity extends BaseInternetActivity {
 //        targetIds = data.getQueryParameter("targetIds");
         mConversationType = Conversation.ConversationType.valueOf(data.getLastPathSegment().toUpperCase(Locale.US));
         Log.e("TAG_聊天界面","mConversationType="+mConversationType);
-        String sign = BaseApplication.getInstance().getSign();
-        if (Conversation.ConversationType.PRIVATE.equals(mConversationType)){
-            Map<String, String> map = new HashMap<>();
-            map.put("id", targetId);
-            map.put("sign", sign);
-            okHttpPostBody(101, GlobalParam.FRIENDSINFO, map);
-        }else if (Conversation.ConversationType.GROUP.equals(mConversationType)){
-            Map<String, String> map = new HashMap<>();
-            map.put("id", targetId);
-            map.put("sign", sign);
-            okHttpPostBody(100, GlobalParam.GETGROUPINFO, map);
-        }
+        sign = BaseApplication.getInstance().getSign();
+        getData();
     }
 
     @Override
@@ -113,7 +110,7 @@ public class RongChatActivity extends BaseInternetActivity {
                 finish();
                 break;
             case R.id.iv_ChatTopHead:
-                ToastUtil.showToast("点击顶部头像");
+//                ToastUtil.showToast("点击顶部头像");
                 break;
             case R.id.tv_ChatTopMore:
                 if (Conversation.ConversationType.PRIVATE.equals(mConversationType)){
@@ -121,7 +118,6 @@ public class RongChatActivity extends BaseInternetActivity {
                 }else if (Conversation.ConversationType.GROUP.equals(mConversationType)){
                     showGroupRightActionBar(v);
                 }
-
 
                 break;
         }
@@ -201,6 +197,34 @@ public class RongChatActivity extends BaseInternetActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(EventBusMsg event) {
+        String msg = event.getMsg();
+        Log.e("TAG_Main", "Contact=" + msg);
+        if ("RefreshGroupHead".equals(msg)) {
+            Glide.with(RongChatActivity.this)
+                    .load(event.getMsgCon())
+                    .fitCenter()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.mipmap.launcher_login)
+                    .error(R.mipmap.launcher_login)
+                    .into(ivChatTopHead);
+        }else if ("RefreshGroupExit".equals(msg)){
+            finish();
+        }else if ("RefreshGroupInfo".equals(msg)){
+            getData();
+        }else if ("RefreshGroupInfoNum".equals(msg)){
+            String msgCon = event.getMsgCon();
+            tvChatTopNumber.setText(msgCon+"位成员");
+        }
+    }
+
     public void showGroupRightActionBar(View view) {
         QuickAction quickAction = new QuickAction(RongChatActivity.this, QuickAction.VERTICAL);
         quickAction.addActionItem(new BaseActionItem(0, RongChatActivity.this.getString(R.string.chat_search),
@@ -249,6 +273,9 @@ public class RongChatActivity extends BaseInternetActivity {
                             intent.putExtra("memberNum",memberNum);
                             String code = group.getCode();
                             intent.putExtra("GroupInfoCode",code);
+                            //群创建者
+                            int groupUserid = group.getUserid();
+                            intent.putExtra("groupUserid",String.valueOf(groupUserid));
                             startActivity(intent);
                         }else {
                             ToastUtil.showToast("获取信息失败！");
@@ -311,14 +338,14 @@ public class RongChatActivity extends BaseInternetActivity {
                         intent = new Intent(RongChatActivity.this, FriendInfoActivity.class);
                         if (friendInfo != null){
                             //头像
-                            String h = friendInfo.getH();
-                            intent.putExtra("ChatInfoHead", TextUtils.isEmpty(h)?"":h);
-                            String n = friendInfo.getN();
-                            intent.putExtra("ChatInfoName", TextUtils.isEmpty(n)?"":n);
-                            //描述
-                            String p = friendInfo.getP();
-                            intent.putExtra("ChatInfoPhone", TextUtils.isEmpty(p)?"":p);
-                            //是否开始消息通知
+//                            String h = friendInfo.getH();
+//                            intent.putExtra("ChatInfoHead", TextUtils.isEmpty(h)?"":h);
+//                            String n = friendInfo.getN();
+//                            intent.putExtra("ChatInfoName", TextUtils.isEmpty(n)?"":n);
+//                            //描述
+//                            String p = friendInfo.getP();
+//                            intent.putExtra("ChatInfoPhone", TextUtils.isEmpty(p)?"":p);
+//                            //是否开始消息通知
                             intent.putExtra("targetId",friendInfo.getId());
                             startActivity(intent);
                         }else {
@@ -350,6 +377,20 @@ public class RongChatActivity extends BaseInternetActivity {
                 window.setAttributes(attributes);
             }
         });
+    }
+
+    private void getData(){
+        if (Conversation.ConversationType.PRIVATE.equals(mConversationType)){
+            Map<String, String> map = new HashMap<>();
+            map.put("id", targetId);
+            map.put("sign", sign);
+            okHttpPostBody(101, GlobalParam.FRIENDSINFO, map);
+        }else if (Conversation.ConversationType.GROUP.equals(mConversationType)){
+            Map<String, String> map = new HashMap<>();
+            map.put("id", targetId);
+            map.put("sign", sign);
+            okHttpPostBody(100, GlobalParam.GETGROUPINFO, map);
+        }
     }
 }
 

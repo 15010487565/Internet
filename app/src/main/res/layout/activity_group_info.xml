@@ -14,7 +14,8 @@
     <www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout
         android:id="@+id/load_GroupInfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:addStatesFromChildren="true"
         android:focusable="true"
         android:focusableInTouchMode="true">
@@ -119,4 +120,17 @@
         </RelativeLayout>
 
     </www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/black_ee" />
+    <TextView
+        android:id="@+id/tv_ExitGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#F14444"
+        android:textSize="@dimen/textsize_16"
+        android:gravity="center"
+        android:padding="30px"
+        android:text="删除并退出"/>
 </LinearLayout>

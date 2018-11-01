@@ -379,6 +379,7 @@ public class OkHttpHelper {
         Thread thread = new Thread(runnablePost);
         thread.start();
     }
+
     /**
      * post请求
      *
@@ -392,10 +393,10 @@ public class OkHttpHelper {
                 Log.e("TAG_url", "url=" + url);
                 Gson gson = new Gson();
                 String json = gson.toJson(paramsMaps);
-                Log.e("TAG_url", "json=" + json);
+                HelpUtils.loge("TAG_result", "json=" + json);
                 byte[] en_result = RSAUtils.encryptByPublicKey(json.getBytes(), RSAUtils.getPublicKey());
                 String keyStr = Base64_.encode(en_result);
-                Log.e("TAG_keyStr", "keyStr=" + keyStr);
+//                HelpUtils.loge("TAG_result", "keyStr=" + keyStr);
                 MediaType mediaType = MediaType.parse("text/plain");
                 RequestBody body = RequestBody.create(mediaType, keyStr);
                 Request request = new Request.Builder()
@@ -420,8 +421,8 @@ public class OkHttpHelper {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         try {
-                            int returnCode = response.code();
-                            Log.e("TAG_Code", "returnCode=" + returnCode);
+//                            int returnCode = response.code();
+//                            Log.e("TAG_Code", "returnCode=" + returnCode);
                             String result = null;
                             if (null != response.cacheResponse()) {
                                 result = response.cacheResponse().toString();
@@ -429,40 +430,108 @@ public class OkHttpHelper {
                                 result = response.body().string();
                             }
                             JSONArray objects = JSON.parseArray(result);
-                            String  o = (String) objects.get(0);
-                            String resultDe =  AESUtils.getInstance().decrypt(o);
+                            String o = (String) objects.get(0);
+                            String resultDe = AESUtils.getInstance().decrypt(o);
                             HelpUtils.loge("TAG_result", resultDe);
-                            int i = resultDe.indexOf("{");
-                            if (i == 0) {
-                                JSONObject jsonObject = new JSONObject(resultDe);
-                                String returnMsg = jsonObject.optString("msg");
-                                int code = jsonObject.optInt("code", -1);
-                                Log.e("TAG_Code", "code=" + code);
-                                if (code != -1) {
-                                    returnCode = code;
-                                }
-                                Message message = new Message();
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("returnCode", returnCode);
 
-                                bundle.putInt("requestCode", requestCode);
-                                bundle.putString("returnMsg", returnMsg);
-                                bundle.putString("returnData", resultDe);
-                                message.setData(bundle);
-                                message.what = HttpConfig.SUCCESSCODE;
-                                message.obj = paramsMaps;
-                                mHandler.sendMessage(message);
+                            JSONObject jsonObject = new JSONObject(resultDe);
+                            String returnMsg = jsonObject.optString("msg");
+                            String returnCode = jsonObject.optString("code");
+                            Log.e("TAG_Code", "code=" + returnCode);
+
+                            Message message = new Message();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("returnCode", Integer.valueOf(returnCode));
+
+                            bundle.putInt("requestCode", requestCode);
+                            bundle.putString("returnMsg", returnMsg);
+                            bundle.putString("returnData", resultDe);
+                            message.setData(bundle);
+                            message.what = HttpConfig.SUCCESSCODE;
+                            message.obj = paramsMaps;
+                            mHandler.sendMessage(message);
+
+                        } catch (Exception e) {
+                            mHandler.sendEmptyMessage(HttpConfig.PARSEERROR);
+                        }
+                    }
+                });
+            }
+        };
+        Thread thread = new Thread(runnablePost);
+        thread.start();
+    }
+
+    /**
+     * post请求
+     *
+     * @param url        请求路径
+     * @param paramsMaps 请求参数
+     */
+    public void postBodyHttpImage(final int requestCode, final String url, final Map<String, String> paramsMaps, final Handler mHandler) {
+        Runnable runnablePost = new Runnable() {
+            @Override
+            public void run() {
+                Log.e("TAG_url", "url=" + url);
+                Gson gson = new Gson();
+                String json = gson.toJson(paramsMaps);
+                HelpUtils.loge("TAG_result", "json=" + json);
+//                byte[] en_result = RSAUtils.encryptByPublicKey(json.getBytes(), RSAUtils.getPublicKey());
+//                String keyStr = Base64_.encode(en_result);
+//                HelpUtils.loge("TAG_result", "keyStr=" + keyStr);
+                MediaType mediaType = MediaType.parse("text/plain");
+                RequestBody body = RequestBody.create(mediaType, json);
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(body)
+                        .addHeader("Content-Type", "text/plain")
+                        .addHeader("cache-control", "no-cache")
+                        .addHeader("Postman-Token", "8e3ac7c4-af9a-4e39-b3a1-6a1ac2b128bb")
+                        .build();
+                Call postCall = client.newCall(request);
+
+                postCall.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException error) {
+                        Message message = new Message();
+                        message.what = HttpConfig.REQUESTERROR;
+                        message.obj = error;
+                        mHandler.sendMessage(message);
+                        Log.e("TAG_url", "onFailure=" + error.toString());
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+
+                            String result = null;
+                            if (null != response.cacheResponse()) {
+                                result = response.cacheResponse().toString();
                             } else {
-                                Message message = new Message();
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("returnCode", returnCode);
-                                bundle.putInt("requestCode", requestCode);
-                                bundle.putString("returnData", resultDe);
-                                message.setData(bundle);
-                                message.what = HttpConfig.SUCCESSCODE;
-                                message.obj = paramsMaps;
-                                mHandler.sendMessage(message);
+                                result = response.body().string();
                             }
+                            JSONArray objects = JSON.parseArray(result);
+                            String o = (String) objects.get(0);
+                            String resultDe = AESUtils.getInstance().decrypt(o);
+                            HelpUtils.loge("TAG_result", resultDe);
+
+                            JSONObject jsonObject = new JSONObject(resultDe);
+                            String returnMsg = jsonObject.optString("msg");
+                            String data = jsonObject.optString("data");
+                            String returnCode = jsonObject.optString("code");
+
+                            Message message = new Message();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("returnCode", Integer.valueOf(returnCode));
+
+                            bundle.putInt("requestCode", requestCode);
+                            bundle.putString("returnMsg", returnMsg);
+                            bundle.putString("returnData", data);
+                            message.setData(bundle);
+                            message.what = HttpConfig.SUCCESSCODE;
+                            message.obj = paramsMaps;
+                            mHandler.sendMessage(message);
+
                         } catch (Exception e) {
                             mHandler.sendEmptyMessage(HttpConfig.PARSEERROR);
                         }

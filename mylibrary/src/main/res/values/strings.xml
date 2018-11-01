@@ -13,6 +13,8 @@
     <string name="home_chat">加密私聊</string>
     <string name="home_scanqrcode">扫一扫</string>
 
+    <string name="addfriend">添加好友</string>
+
     <string name="chat_search">搜索</string>
     <string name="chat_message_close">关闭通知</string>
     <string name="chat_message_open">打开通知</string>
@@ -42,7 +44,7 @@
     <string name="confirm">确定</string>
     <string name="main_cancel">取消</string>
     <string name="main_back">返回</string>
-
+    <string name="check_all">全选</string>
 
     <string name="main_press_again_back">再按一次退出程序</string>
 

@@ -1,5 +1,6 @@
 package com.xcd.www.internet.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +17,6 @@ import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.common.Config;
-import com.xcd.www.internet.util.CommonHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,10 +31,12 @@ public class UpdataPwdActivity extends BaseInternetActivity {
     private EditText etUpdataPwdPhone, etUpdataPwd, etUpdataPwdCode;
     private ImageView ivPswVisibleType;
     private LinearLayout llPswVisibleType, llBack;
-    private TextView tvUpdataPwdOk;
+    private TextView tvUpdataPwdOk, tvCountriesName;
     private boolean isVisiblePws = false;//密码显示状态
     private TextView tvUpdataPwdGetCode;
     private int recLen = Config.CODETIME;//验证码倒计时
+    private LinearLayout llZipCode;
+    private TextView tvZipCode;
     Thread thread;
     @Override
     public boolean isTopbarVisibility() {
@@ -68,6 +70,11 @@ public class UpdataPwdActivity extends BaseInternetActivity {
         //返回
         llBack = findViewById(R.id.ll_Back);
         llBack.setOnClickListener(this);
+
+        llZipCode = findViewById(R.id.ll_ZipCode);
+        llZipCode.setOnClickListener(this);
+        tvZipCode = findViewById(R.id.tv_ZipCode);
+        tvCountriesName = findViewById(R.id.tv_CountriesName);
     }
     @Override
     public void onClick(View v) {
@@ -86,7 +93,7 @@ public class UpdataPwdActivity extends BaseInternetActivity {
                 String password = etUpdataPwd.getText().toString().trim();
                 String code = etUpdataPwdCode.getText().toString().trim();
 
-                if (!CommonHelper.with().checkPhone(phone)) {
+                if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
@@ -98,20 +105,38 @@ public class UpdataPwdActivity extends BaseInternetActivity {
                     ToastUtil.showToast("验证码不能为空！");
                     return;
                 }
-                String country = BaseApplication.getInstance().getCountry();
                 Map<String, String> map = new HashMap<>();
                 map.put("account", phone);
                 map.put("code", code);
-                map.put("country", country);
+                map.put("country", TextUtils.isEmpty(CountryZipCode)?"86":CountryZipCode);
                 map.put("password", password);
                 okHttpPostBody(100, GlobalParam.RESETPWDLOGIN, map);
                 break;
             case R.id.ll_Back:
                 finish();
                 break;
+            case R.id.ll_ZipCode:
+                Intent intent = new Intent(this,CountryCodesActivity.class);
+                startActivityForResult(intent,11000);
+                break;
         }
     }
 
+    String CountryZipCode;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            switch (requestCode) {
+                case 11000:
+                    CountryZipCode = data.getStringExtra("CountryZipCode");
+                    String countryZipName = data.getStringExtra("CountryZipName");
+                    tvCountriesName.setText(countryZipName);
+                    tvZipCode.setText("+"+CountryZipCode);
+                    break;
+            }
+        }
+    }
     private void setEtLoginPasswordVisible() {
         if (!isVisiblePws) {
             ivPswVisibleType.setBackgroundResource(R.mipmap.pwdvisible);

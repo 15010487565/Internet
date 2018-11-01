@@ -1,11 +1,14 @@
 package com.xcd.www.internet.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,11 +17,16 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.LoginActivity;
 import com.xcd.www.internet.activity.MainActivity;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.model.LoginInfoModel;
-import com.xcd.www.internet.util.CommonHelper;
+import com.xcd.www.internet.util.EventBusMsg;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,7 +43,7 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
 
     private EditText etLoginPhone, etLoginPassword;
     private ImageView ivPswVisibleType;
-    private TextView tvLoginPassword;
+    private TextView tvLoginPassword, tvCountryZipCode;
     private LinearLayout llPswVisibleType;
     private boolean isVisiblePws = false;//密码显示状态
 
@@ -59,6 +67,7 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
         //登录
         tvLoginPassword = view.findViewById(R.id.tv_LoginPassword);
         tvLoginPassword.setOnClickListener(this);
+        tvCountryZipCode = view.findViewById(R.id.tv_CountryZipCode);
     }
 
     @Override
@@ -70,22 +79,31 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
                 break;
             case R.id.tv_LoginPassword:
                 //手机号
+//                etLoginPhone.setText("17600368411");
+//                etLoginPassword.setText("gong1234");
+//                etLoginPhone.setText("15010480000");
+//                etLoginPassword.setText("111111");
+//                etLoginPhone.setText("15010487565");
+//                etLoginPassword.setText("123456");
+//                etLoginPhone.setText("18618127836");
+//                etLoginPassword.setText("777777");
                 String phone = etLoginPhone.getText().toString().trim();
-                phone = "17600368411";
-                if (!CommonHelper.with().checkPhone(phone)) {
+                if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
+
                 String password = etLoginPassword.getText().toString().trim();
-                password = "gong1234";
                 if (TextUtils.isEmpty(password)) {
                     ToastUtil.showToast("密码不能为空！");
                     return;
                 }
+                String countryZipCode = ((LoginActivity) getActivity()).getCountryZipCode();
+                Log.e("TAG_登陆","countryZipCode="+countryZipCode);
                 Map<String, String> map = new HashMap<>();
                 map.put("account", phone);
                 map.put("password", password);
-                map.put("country", "86");
+                map.put("country",TextUtils.isEmpty(countryZipCode)?"86":countryZipCode);
                 okHttpPostBody(100, GlobalParam.LOGIN, map);
                 break;
         }
@@ -166,6 +184,29 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
     public void onFinishResult() {
 
     }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    String CountryZipCode;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(EventBusMsg event) {
+        String msg = event.getMsg();
+        CountryZipCode = event.getMsgCon();
+        Log.e("TAG_Main", "Contact=" + msg);
+        if ("CountryZipCode".equals(msg)) {
+            tvCountryZipCode.setText("+"+CountryZipCode);
+        }
+    }
 
 }

@@ -1,25 +1,29 @@
 package com.xcd.www.internet.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.FeatureInfo;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.king.zxing.CaptureActivity;
 import com.king.zxing.Intents;
 import com.xcd.www.internet.R;
@@ -29,6 +33,7 @@ import com.xcd.www.internet.fragment.ContactFragment;
 import com.xcd.www.internet.fragment.FindFragment;
 import com.xcd.www.internet.fragment.HomeFragment;
 import com.xcd.www.internet.fragment.MeFragment;
+import com.xcd.www.internet.model.MainModel;
 import com.xyzlf.share.library.bean.ShareEntity;
 import com.xyzlf.share.library.interfaces.ShareConstant;
 import com.xyzlf.share.library.util.ShareUtil;
@@ -122,6 +127,7 @@ public class MainActivity extends BaseInternetActivity {
      * 第一次返回按钮时间
      */
     private long firstTime;
+    private int currentItem = 0;
     /**
      * 初始化分享弹出框
      */
@@ -135,11 +141,9 @@ public class MainActivity extends BaseInternetActivity {
         setContentView(R.layout.activity_main);
         String account = SharePrefHelper.getInstance(this).getSpString("account");
         Log.e("TAG_主界面", "帐号=" + account);
-        initView();
+
         // 初始化fragments
         initFragments();
-        // 初始化ViewPager
-        initPager();
         // 初始化Tab
         initTabWidget();
         //实例化红点
@@ -147,17 +151,28 @@ public class MainActivity extends BaseInternetActivity {
         resetRedPoint(1, 0);
         resetRedPoint(2, 0);
         resetRedPoint(3, 0);
-//        Map<String, String> params = new HashMap<String, String>();
-//        params.put("id", "15010487565");
-//        params.put("name", "蜗牛");
-//        params.put("icon", "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3797481993,1929347741&fm=26&gp=0.jpg");
-//        okHttpPost(100, "http://api.cn.ronghub.com/message/private/publish.json", params);
+        clickFragmentBtn(currentItem);
 
+        String sign = BaseApplication.getInstance().getSign();
+        Map<String, String> params = new HashMap<>();
+        params.put("type", "rate_market");
+        params.put("sign", sign);
+        okHttpPostBody(100, GlobalParam.CODELIST, params);
     }
 
     private void initView() {
-        viewPager = findViewById(R.id.main_viewpager);
-        tabWidget = findViewById(R.id.main_tabwidget);
+        tabWidget =  findViewById(R.id.main_tabwidget);
+        // 为布局添加fragment,开启事物
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tran = fm.beginTransaction();
+
+        //R.id.relative为布局
+        tran.add(R.id.frame_content, fragmentList.get(0), "home").show(fragmentList.get(0))
+                .add(R.id.frame_content, fragmentList.get(1), "contact").hide(fragmentList.get(1))
+                .add(R.id.frame_content, fragmentList.get(2), "find").hide(fragmentList.get(2))
+                .add(R.id.frame_content, fragmentList.get(3), "me").hide(fragmentList.get(3));
+
+        tran.commit();
 
     }
 
@@ -175,18 +190,7 @@ public class MainActivity extends BaseInternetActivity {
             }
             fragmentList.add(fragment);
         }
-    }
-
-    /**
-     * 初始化ViewPager
-     */
-    protected void initPager() {
-        // adapter
-        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
-        // 默认选中第一个
-        viewPager.setCurrentItem(0);
-        // page change监听
-        viewPager.setOnPageChangeListener(new MainPageChangeListener());
+        initView();
     }
 
     /**
@@ -291,7 +295,23 @@ public class MainActivity extends BaseInternetActivity {
             view.setAlpha(f);
         }
     }
+    private void clickFragmentBtn(int tabIndex) {
+        // 得到Fragment事务管理器
+        FragmentTransaction fragmentTransaction = this
+                .getSupportFragmentManager().beginTransaction();
 
+        for (int i = 0; i < fragmentList.size(); i++) {
+            if (i == tabIndex) {
+
+                fragmentTransaction.show(fragmentList.get(i));
+                resetTextViewAlpha(tabWidget.getChildAt(i), 1);
+            } else {
+                fragmentTransaction.hide(fragmentList.get(i));
+                resetTextViewAlpha(tabWidget.getChildAt(i), 0);
+            }
+        }
+        fragmentTransaction.commit();
+    }
     /**
      * 连续按两次返回键就退出
      */
@@ -311,8 +331,21 @@ public class MainActivity extends BaseInternetActivity {
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         switch (requestCode) {
             case 100:
-                Log.e("TAG_融云", "连接onSuccessResult=" + returnData);
-
+                Log.e("TAG_汇率", "汇率=" + returnData);
+                MainModel mainModel = JSON.parseObject(returnData, MainModel.class);
+                List<MainModel.DataBean> data1 = mainModel.getData();
+                if (data1 !=null&&data1.size()>0){
+                    MainModel.DataBean dataBean = data1.get(0);
+                    List<MainModel.DataBean.SubBean> sub = dataBean.getSub();
+                    for (int i = 0; i < sub.size(); i++) {
+                        MainModel.DataBean.SubBean subBean = sub.get(i);
+                        String field = subBean.getField();
+                        if ("dollar_usdt".equals(field)){
+                            String code = subBean.getCode();
+                            BaseApplication.getInstance().setUsdt_dollar(code);
+                        }
+                    }
+                }
                 break;
             case 101:
                 try {
@@ -362,88 +395,8 @@ public class MainActivity extends BaseInternetActivity {
         public void onTabSelectionChanged(int tabIndex) {
 
             // 重设当前页
-            viewPager.setCurrentItem(tabIndex, false);
-
-            if (!viewPager.hasFocus()) {
-                viewPager.requestFocus();
-            }
+            clickFragmentBtn(tabIndex);
         }
-    }
-
-    /**
-     * pager adapter
-     *
-     * @author litfb
-     * @version 1.0
-     * @date 2014年9月23日
-     */
-    private class MainPagerAdapter extends FragmentPagerAdapter {
-
-        public MainPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int paramInt) {
-            return fragmentList.get(paramInt);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-    }
-
-    /**
-     * page change监听
-     *
-     * @author litfb
-     * @version 1.0
-     * @date 2014年9月23日
-     */
-    private class MainPageChangeListener implements OnPageChangeListener {
-
-        @Override
-        public void onPageScrolled(int paramInt1, float paramFloat, int paramInt2) {
-            int curIndex = tabWidget.getCurIndex();
-            // 向右滑
-            if (curIndex == paramInt1) {
-                resetTextViewAlpha(tabWidget.getChildAt(curIndex), 1 - paramFloat);
-                resetFragmentAlpha(curIndex, 1 - paramFloat);
-                resetTextViewAlpha(tabWidget.getChildAt(curIndex + 1), paramFloat);
-                resetFragmentAlpha(curIndex + 1, paramFloat);
-            } else if (curIndex == paramInt1 + 1) {// 向左划
-                resetTextViewAlpha(tabWidget.getChildAt(curIndex), paramFloat);
-                resetFragmentAlpha(curIndex, paramFloat);
-                resetTextViewAlpha(tabWidget.getChildAt(paramInt1), 1 - paramFloat);
-                resetFragmentAlpha(paramInt1, 1 - paramFloat);
-            }
-        }
-
-        @Override
-        public void onPageSelected(int index) {
-            // tabWidget焦点策略
-            int oldFocusability = tabWidget.getDescendantFocusability();
-            // 阻止冒泡
-            tabWidget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-            // 切换tab
-            tabWidget.setCurrentTab(index);
-
-            // 变换tab显示
-            for (int i = 0; i < fragmentArray.length; i++) {
-                View view = tabWidget.getChildAt(i);
-                resetTextViewStyle(view, i, (i == index));
-            }
-            // 还原焦点策略
-            tabWidget.setDescendantFocusability(oldFocusability);
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int paramInt) {
-
-        }
-
     }
 
     /**
@@ -543,6 +496,7 @@ public class MainActivity extends BaseInternetActivity {
             }
         } else {
             if (resultCode == RESULT_OK && data != null) {
+                lightSwitch(true);
                 switch (requestCode) {
                     case REQUEST_CODE_SCAN:
                         String result = data.getStringExtra(Intents.Scan.RESULT);
@@ -550,16 +504,19 @@ public class MainActivity extends BaseInternetActivity {
                             JSONObject jsonObject = new JSONObject(result);
                             String type = jsonObject.optString("type");
                             String userId = jsonObject.optString("userId");
-                            String code = jsonObject.optString("code");
+
                             Log.e("TAG_二维码", "result=" + result);
                             if ("1".equals(type)){//群二维码
+                                String code = jsonObject.optString("code");
                                 Map<String, String> map = new HashMap<>();
                                 map.put("id", userId );
                                 map.put("code", code );
                                 map.put("sign", BaseApplication.getInstance().getSign());
                                 okHttpPostBody(101, GlobalParam.GROUPINVITE, map);
                             }else {
-
+                                Intent  intent = new Intent(this, FriendInfoActivity.class);
+                                intent.putExtra("targetId",Integer.valueOf(userId));
+                                startActivity(intent);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -582,6 +539,55 @@ public class MainActivity extends BaseInternetActivity {
         Intent intent = new Intent(this, CaptureActivity.class);
         intent.putExtra(KEY_TITLE, "扫一扫");
         ActivityCompat.startActivityForResult(this, intent, REQUEST_CODE_SCAN, optionsCompat.toBundle());
+        lightSwitch(false);
+    }
+    /**
+     * 手电筒控制方法
+     *
+     * @param lightStatus
+     * @return
+     */
+    private CameraManager manager;// 声明CameraManager对象
+    private Camera m_Camera = null;// 声明Camera对象
+    private void lightSwitch(final boolean lightStatus) {
+        manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        if (lightStatus) { // 关闭手电筒
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                try {
+                    manager.setTorchMode("0", false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                if (m_Camera != null) {
+                    m_Camera.stopPreview();
+                    m_Camera.release();
+                    m_Camera = null;
+                }
+            }
+        } else { // 打开手电筒
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                try {
+                    manager.setTorchMode("0", true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                final PackageManager pm = getPackageManager();
+                final FeatureInfo[] features = pm.getSystemAvailableFeatures();
+                for (final FeatureInfo f : features) {
+                    if (PackageManager.FEATURE_CAMERA_FLASH.equals(f.name)) { // 判断设备是否支持闪光灯
+                        if (null == m_Camera) {
+                            m_Camera = Camera.open();
+                        }
+                        final Camera.Parameters parameters = m_Camera.getParameters();
+                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                        m_Camera.setParameters(parameters);
+                        m_Camera.startPreview();
+                    }
+                }
+            }
+        }
     }
 
     @Override

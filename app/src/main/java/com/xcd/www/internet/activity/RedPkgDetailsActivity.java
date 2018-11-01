@@ -18,7 +18,7 @@ import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.RedPkgRecordTopBtnFunc;
 import com.xcd.www.internet.model.RedPkgDetailsModel;
 import com.xcd.www.internet.view.CircleImageView;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,6 +26,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.InformationNotificationMessage;
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
@@ -50,6 +56,7 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
     long accountId;
     String sign;
     String redPkgId;
+    private String groupId;//来源id
     private static Class<?> rightFuncArray[] = {RedPkgRecordTopBtnFunc.class};
 
     @Override
@@ -87,7 +94,7 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
         total = intent.getStringExtra("total");
         //总金额
         amout = intent.getStringExtra("amout");
-
+        groupId = intent.getStringExtra("groupId");
         sign = BaseApplication.getInstance().getSign();
         Map<String, String> map = new HashMap<>();
         map.put("id", redPkgId);//红包id
@@ -211,32 +218,63 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
         if (returnCode == 200) {
             switch (requestCode) {
                 case 100:
-                    RedPkgDetailsModel redPkgDetailsModel = JSON.parseObject(returnData, RedPkgDetailsModel.class);
-                    List<RedPkgDetailsModel.DataBean> data = redPkgDetailsModel.getData();
-                    adapter.setData(data);
-                    int bagNum = redPkgDetailsModel.getBagNum();
-                    tvOpenRedPkgbagNum.setText(String.valueOf("您还有"+bagNum+"次抢红包机会，"));
-                    int openSize = data.size();
-                    //所有人钱数
-                    double openAllMoney = 0;
-                    for (int i = 0; i < openSize; i++) {
-                        RedPkgDetailsModel.DataBean dataBean = data.get(i);
-                        int userId = dataBean.getUserId();
-                        double amount = dataBean.getAmount();
-                        Log.e("TAG_accountId","accountId="+accountId);
-                        Log.e("TAG_accountId","userId="+userId);
-                        if (accountId == userId){
-                            ivOpenRedPkgDetNumber.setText(String.valueOf(amount));
-                        }
-                        BigDecimal b1 = new BigDecimal(openAllMoney);
-                        BigDecimal b2 = new BigDecimal(Double.toString(amount));
+                    try {
+                        RedPkgDetailsModel redPkgDetailsModel = JSON.parseObject(returnData, RedPkgDetailsModel.class);
+                        List<RedPkgDetailsModel.DataBean> data = redPkgDetailsModel.getData();
+                        adapter.setData(data);
+                        int bagNum = redPkgDetailsModel.getBagNum();
+                        tvOpenRedPkgbagNum.setText(String.valueOf("您还有"+bagNum+"次抢红包机会，"));
+                        int openSize = data.size();
+                        //所有人钱数
+                        double openAllMoney = 0;
+                        for (int i = 0; i < openSize; i++) {
+                            RedPkgDetailsModel.DataBean dataBean = data.get(i);
+                            int userId = dataBean.getUserId();
+                            double amount = dataBean.getAmount();
+                            Log.e("TAG_accountId","accountId="+accountId);
+                            Log.e("TAG_accountId","userId="+userId);
+                            if (accountId == userId){
+                                ivOpenRedPkgDetNumber.setText(String.valueOf(amount));
+                            }
+                            BigDecimal b1 = new BigDecimal(openAllMoney);
+                            BigDecimal b2 = new BigDecimal(Double.toString(amount));
 
-                        openAllMoney = b1.add(b2).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                            openAllMoney = b1.add(b2).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                        }
+                        BigDecimal b3 = new BigDecimal(openAllMoney);
+                        BigDecimal b4 = new BigDecimal(amout);
+                        openAllMoney = b4.subtract(b3).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                        tvOpemRedPkgHint.setText("领取"+openSize+"/"+total+"个，剩余"+openAllMoney+"元");
+                        ////0来晚了1成功2已领取3红包过期失效4不能领取私聊自己的5次数不足
+                        int result = redPkgDetailsModel.getResult();
+                        if (result == 1){
+                            String nick = BaseApplication.getInstance().getNick();
+                            MessageContent content = InformationNotificationMessage.obtain(
+                                    nick+ "抢了一个红包"
+                            );
+                            RongIM.getInstance().insertIncomingMessage(
+                                    Conversation.ConversationType.GROUP,
+                                    groupId,
+                                    String.valueOf(accountId),
+                                    new Message.ReceivedStatus(1),
+                                    content,
+                                    new RongIMClient.ResultCallback<Message>() {
+                                        @Override
+                                        public void onSuccess(Message message) {
+                                            Log.e("TAG_发送小灰条","成功="+message.getContent());
+                                        }
+
+                                        @Override
+                                        public void onError(RongIMClient.ErrorCode errorCode) {
+                                            Log.e("TAG_发送小灰条","失败="+errorCode.getMessage());
+                                        }
+                                    }
+                            );
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    BigDecimal b3 = new BigDecimal(openAllMoney);
-                    BigDecimal b4 = new BigDecimal(amout);
-                    openAllMoney = b4.subtract(b3).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    tvOpemRedPkgHint.setText("领取"+openSize+"/"+total+"个，剩余"+openAllMoney+"元");
                     break;
             }
         } else {

@@ -1,10 +1,12 @@
 package com.xcd.www.internet.func;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.AddFriendActivity;
 
 import www.xcd.com.mylibrary.action.QuickAction;
 import www.xcd.com.mylibrary.entity.BaseActionItem;
@@ -29,7 +31,9 @@ public class ContactRightTopBtnFunc extends BaseTopImageBtnFunc {
 
     @Override
     public void onclick(View v) {
-        showCreateMultiChatActionBar(v);
+
+//        showCreateMultiChatActionBar(v);
+        getActivity().startActivity(new Intent(getActivity(),AddFriendActivity.class));
     }
 
     /**
@@ -39,7 +43,7 @@ public class ContactRightTopBtnFunc extends BaseTopImageBtnFunc {
      */
     public void showCreateMultiChatActionBar(View view) {
         QuickAction quickAction = new QuickAction(getActivity(), QuickAction.VERTICAL);
-        quickAction.addActionItem(new BaseActionItem(0, getActivity().getString(R.string.home_create),
+        quickAction.addActionItem(new BaseActionItem(0, getActivity().getString(R.string.addfriend),
                 ContextCompat.getDrawable(getActivity(), R.mipmap.home_create)));
         quickAction.addActionItem(new BaseActionItem(1, getActivity().getString(R.string.home_share),
                 ContextCompat.getDrawable(getActivity(), R.mipmap.home_share)));

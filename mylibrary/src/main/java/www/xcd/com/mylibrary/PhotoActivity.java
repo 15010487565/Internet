@@ -74,15 +74,16 @@ public class PhotoActivity extends SimpleTopbarActivity {
     public String photoName;
     public static final String[] AUTHORIMAGE = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ,Manifest.permission.READ_EXTERNAL_STORAGE
-            ,Manifest.permission.CAMERA
+            , Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.CAMERA
     };
-    public PermissionsChecker mChecker ;
+    public PermissionsChecker mChecker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mChecker = new PermissionsChecker(this);
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
             photoPath = savedInstanceState.getString("photoPath");
             photoName = savedInstanceState.getString("photoName");
         }
@@ -136,8 +137,14 @@ public class PhotoActivity extends SimpleTopbarActivity {
                         if (photoFile != null) {
                             //FileProvider 是一个特殊的 ContentProvider 的子类，
                             //它使用 content:// Uri 代替了 file:/// Uri. ，更便利而且安全的为另一个app分享文件
+//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                                mOriginUri = FileProvider.getUriForFile(BaseApplication.getApplication(), BaseApplication.getApplication().getPackageName() + ".FileProvider",
+//                                        new File(filePath));
+//                            } else {
+//                                mOriginUri = Uri.fromFile(new File(filePath));
+//                            }
                             Uri photoURI = FileProvider.getUriForFile(this,
-                                    GlobalParam.APPLICATIONID,
+                                    GlobalParam.APPLICATIONID+".FileProvider",
                                     photoFile);
 //                            photoURI = geturi(takePictureIntent, this);
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -168,7 +175,8 @@ public class PhotoActivity extends SimpleTopbarActivity {
 
         }
     }
-    public static Uri geturi(Intent intent,Context context) {
+
+    public static Uri geturi(Intent intent, Context context) {
         Uri uri = intent.getData();
         String type = intent.getType();
         if (uri.getScheme().equals("file") && (type.contains("image/"))) {
@@ -180,7 +188,7 @@ public class PhotoActivity extends SimpleTopbarActivity {
                 buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=")
                         .append("'" + path + "'").append(")");
                 Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        new String[] { MediaStore.Images.ImageColumns._ID },
+                        new String[]{MediaStore.Images.ImageColumns._ID},
                         buff.toString(), null, null);
                 int index = 0;
                 for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
@@ -218,12 +226,14 @@ public class PhotoActivity extends SimpleTopbarActivity {
         }
         return viewChoice;
     }
+
     /**
      * 显示图片的view
      */
     private int showViewid;
+
     public int getShowViewid() {
-        return  showViewid;
+        return showViewid;
     }
 
     public void setShowViewid(int showViewid) {
@@ -243,12 +253,14 @@ public class PhotoActivity extends SimpleTopbarActivity {
         }
         return dlgChoice;
     }
+
     /**
      * 是否显示更改头像后的dialog,默认不显示
      */
-    public boolean getIsShowChoiceDialog(){
+    public boolean getIsShowChoiceDialog() {
         return false;
     }
+
     /**
      * 关闭对话框
      */
@@ -285,8 +297,8 @@ public class PhotoActivity extends SimpleTopbarActivity {
                     break;
                 case REQUEST_CODE_HEAD_CAMERA:
                     //剪切功能
-                    Log.e("TAG_剪切","photoPath="+photoPath);
-                    if (photoPath!=null){
+                    Log.e("TAG_剪切", "photoPath=" + photoPath);
+                    if (photoPath != null) {
                         startCrop(photoPath);
                     }
                     break;
@@ -296,7 +308,7 @@ public class PhotoActivity extends SimpleTopbarActivity {
                         Bundle extras = data.getExtras();
                         if (extras != null) {
                             Bitmap cropPhoto = extras.getParcelable("data");
-                            if (cropPhoto!=null){
+                            if (cropPhoto != null) {
                                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                                 // (0 - 100)压缩文件
                                 cropPhoto.compress(Bitmap.CompressFormat.JPEG, 75, stream);
@@ -332,7 +344,7 @@ public class PhotoActivity extends SimpleTopbarActivity {
             if (requestCode == PERMISSIONS_GRANTED && resultCode == PERMISSIONS_DENIED) {
                 finish();
             } else {
-                if (getIsShowChoiceDialog()){
+                if (getIsShowChoiceDialog()) {
                     getChoiceDialog().show();
                 }
             }
@@ -354,7 +366,7 @@ public class PhotoActivity extends SimpleTopbarActivity {
      */
 
     public void startCrop(String imagePath) {
-        Log.e("TAG_裁剪","imagePath="+imagePath);
+        Log.e("TAG_裁剪", "imagePath=" + imagePath);
         File cropFile = new File(YYStorageUtil.getImagePath(PhotoActivity.this), getphotoName() + ".jpg");
         final List<File> list = new ArrayList<>();
         list.add(cropFile);
@@ -368,12 +380,12 @@ public class PhotoActivity extends SimpleTopbarActivity {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
 
-        Bitmap cropPhoto =  BitmapFactory.decodeFile(imagePath, options);
-        if (cropPhoto !=null){
-            FileUtils.compressBmpToFile(cropPhoto, cropFile,true,75,true,0);
+        Bitmap cropPhoto = BitmapFactory.decodeFile(imagePath, options);
+        if (cropPhoto != null) {
+            FileUtils.compressBmpToFile(cropPhoto, cropFile, true, 75, true, 0);
             uploadImage(list);
-        }else {
-            ToastUtil.showShort(this,"请选择正确图片");
+        } else {
+            ToastUtil.showShort(this, "请选择正确图片");
         }
 //        try {
 //            Uri uri = null;
@@ -429,21 +441,23 @@ public class PhotoActivity extends SimpleTopbarActivity {
     public void onFinishResult() {
 
     }
+
     //单选还是多选
     public String getTpye() {
         return AlbumPhotoActivity.TYPE_SINGLE;
     }
 
-    public void setphotoName(String photoName){
+    public void setphotoName(String photoName) {
         this.photoName = photoName;
     }
+
     public String getphotoName() {
 //        return photoName;
         return UUID.randomUUID().toString();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putString("photoPath", photoPath);
         savedInstanceState.putString("photoName", photoName);
         super.onSaveInstanceState(savedInstanceState); //实现父类方法 放在最后 防止拍照后无法返回当前activity

@@ -141,7 +141,7 @@ public class ContactUtil {
                     String mobile = cursor.getString(cursor
                             .getColumnIndex(Phone.NUMBER));
 //                    jsonObject.put("mobile", mobile);
-                    contactModel.setMobile(mobile);
+                    contactModel.setMobile(mobile.replaceAll(" ",""));
                     String name = contactModel.getName();
 //                    Log.e("TAG_联系人","name="+name+";mobile="+mobile);
                     if (TextUtils.isEmpty(name)){

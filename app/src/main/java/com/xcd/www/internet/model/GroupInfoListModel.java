@@ -108,5 +108,15 @@ public class GroupInfoListModel implements Serializable {
         public void setN(String n) {
             this.n = n;
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "id=" + id +
+                    ", p='" + p + '\'' +
+                    ", h='" + h + '\'' +
+                    ", n='" + n + '\'' +
+                    '}';
+        }
     }
 }

@@ -65,7 +65,7 @@ public class CashTypeAdapter extends RecyclerView.Adapter<CashTypeAdapter.ViewHo
         }
 
 //
-//        holder.tvMeMoneyType.setOnClickListener(new View.OnClickListener() {
+//        holder.tvMeBagType.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Toast.makeText(mContext, list.get(position).getName(),Toast.LENGTH_SHORT).show();

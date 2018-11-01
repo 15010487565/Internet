@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,22 +14,25 @@ import android.widget.LinearLayout;
 
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.SearchAdapter;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
+import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.model.ContactModel;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import www.xcd.com.mylibrary.utils.ToastUtil;
+import io.rong.imkit.RongIM;
 
 public class SearchActivity extends BaseInternetActivity implements TextWatcher,SearchAdapter.OnItemClickListener {
 
     private EditText etSearch;
     List<ContactModel> contactSearch;//模糊搜索集合
-    List<ContactModel> contactInfo;
+    List<ContactModel> contactInfo;//数据总集合
     private RecyclerView rcSearch;
     private LinearLayoutManager mLinearLayoutManager;
     private SearchAdapter adapter;
@@ -43,7 +47,28 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        contactInfo = (List<ContactModel>) getIntent().getSerializableExtra("list");
+        contactInfo = new ArrayList<>();
+        BaseApplication instance = BaseApplication.getInstance();
+        List<ContactModel> friendList = instance.getFriendList();
+        List<ContactModel> phoneList = instance.getPhoneList();
+        Iterator it = phoneList.iterator();
+        if (friendList == null || friendList.size()==0){
+            contactInfo.addAll(phoneList);
+        }else {
+            for (int i = 0, j = friendList.size(); i < j; i++) {
+                ContactModel contactModel1 = friendList.get(i);
+                String p = contactModel1.getMobile();
+                while (it.hasNext()) {
+                    ContactModel contactModel = (ContactModel) it.next();
+                    String mobile = contactModel.getMobile();
+                    if (p.equals(mobile)) {
+                        it.remove();
+                    }
+                }
+            }
+            contactInfo.addAll(friendList);
+            contactInfo.addAll(phoneList);
+        }
     }
 
     @Override
@@ -117,6 +142,8 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         //如果长度为0
         if (contactInfo != null&&contactInfo.size()>0){
+            int friendNum = 0;
+            int contactNum = 0;
             if (charSequence.length() > 0) {
                 String trim = etSearch.getText().toString().trim();
                 if (!TextUtils.isEmpty(trim)){
@@ -126,7 +153,27 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
                         String name = contactModel.getName();
                         String letters = contactModel.getLetters();
                         if (name.indexOf(trim)!=-1){//匹配文字
-                            contactSearch.add(contactModel);
+                            String userId = contactModel.getUserId();
+                            if (!TextUtils.isEmpty(userId)&&!"null".equals(userId)){
+                                if (friendNum == 0){
+                                    ContactModel contactType = new ContactModel();
+                                    contactType.setName("好友");
+                                    contactType.setType(Config.TYPE_TITLE);
+                                    contactSearch.add(contactType);
+                                    friendNum++;
+                                }
+                                contactSearch.add(contactModel);
+
+                            }else {
+                                if (contactNum == 0){
+                                    ContactModel contactType = new ContactModel();
+                                    contactType.setName("通讯录联系人");
+                                    contactType.setType(Config.TYPE_TITLE);
+                                    contactSearch.add(contactType);
+                                    contactNum++;
+                                }
+                                contactSearch.add(contactModel);
+                            }
                         }
 //                    else {//匹配首字母
 //                        String pinyin = PinyinUtils.getPingYin(trim);
@@ -136,6 +183,7 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
 //                        }
 //                    }
                     }
+                    Log.e("TAG_搜索","contactSearch="+contactSearch.toString());
                     ivClean.setVisibility(View.VISIBLE);
                     rcSearch.setVisibility(View.VISIBLE);
                     adapter.setData(contactSearch);
@@ -159,7 +207,10 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
     @Override
     public void onItemClick(View view, int position) {
         ContactModel contactModel = contactSearch.get(position);
-        String name = contactModel.getName();
-        ToastUtil.showToast(name);
+        String userId = contactModel.getUserId();
+       if (!TextUtils.isEmpty(userId)&&!"null".equals(userId)){
+           String name = contactModel.getName();
+           RongIM.getInstance().startPrivateChat(this,userId,TextUtils.isEmpty(name)?"":name);
+       }
     }
 }

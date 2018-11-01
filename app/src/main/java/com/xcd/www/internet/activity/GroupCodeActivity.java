@@ -81,7 +81,6 @@ public class GroupCodeActivity extends PhotoActivity implements View.OnLongClick
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
     /**
      * 生成二维码
@@ -90,7 +89,7 @@ public class GroupCodeActivity extends PhotoActivity implements View.OnLongClick
     private void createQRCode(String content){
         //生成二维码最好放子线程生成防止阻塞UI，这里只是演示
         Bitmap logo = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
-        Bitmap bitmap = CodeUtils.createQRCode(content,600,logo);
+        bitmap = CodeUtils.createQRCode(content,600,logo);
         //显示二维码
         ivGroupCode.setImageBitmap(bitmap);
     }
@@ -183,22 +182,22 @@ public class GroupCodeActivity extends PhotoActivity implements View.OnLongClick
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         super.onSuccessResult(requestCode,returnCode,returnMsg,returnData,paramsMaps);
         switch (requestCode) {
-            case 100:
-                if (returnCode == 200) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(returnData);
-                        String img = jsonObject.optString("img");
-                        bitmap = HelpUtils.stringtoBitmap(img);
-                        ivGroupCode.setImageBitmap(bitmap);
-                        String name = jsonObject.optString("name");
-                        tvGroupCodeName.setText(name == null ? "" : name);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    ToastUtil.showToast(returnMsg);
-                }
-                break;
+//            case 100:
+//                if (returnCode == 200) {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(returnData);
+//                        String img = jsonObject.optString("img");
+//                        bitmap = HelpUtils.stringtoBitmap(img);
+//                        ivGroupCode.setImageBitmap(bitmap);
+//                        String name = jsonObject.optString("name");
+//                        tvGroupCodeName.setText(name == null ? "" : name);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    ToastUtil.showToast(returnMsg);
+//                }
+//                break;
         }
     }
 
@@ -237,9 +236,9 @@ public class GroupCodeActivity extends PhotoActivity implements View.OnLongClick
         }
         LayoutInflater factor = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View serviceView = factor.inflate(R.layout.dialog_groupcode, null);
-        TextView tvDialogMakerShare = (TextView) serviceView.findViewById(R.id.tv_DialogMakerShare);
+        TextView tvDialogMakerShare =  serviceView.findViewById(R.id.tv_DialogMakerShare);
         tvDialogMakerShare.setOnClickListener(this);
-        TextView tvDialogMakerPhone = (TextView) serviceView.findViewById(R.id.tv_DialogMakerPhone);
+        TextView tvDialogMakerPhone = serviceView.findViewById(R.id.tv_DialogMakerPhone);
         tvDialogMakerPhone.setOnClickListener(this);
 //        TextView tvDialogMakerCode = (TextView) serviceView.findViewById(R.id.tv_DialogMakerCode);
 //        tvDialogMakerCode.setOnClickListener(this);

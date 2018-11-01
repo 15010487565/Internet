@@ -19,17 +19,31 @@ import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.GroupinfoListAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.GroupInfoTopBtnFunc;
+import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.GroupInfoListModel;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
+import com.xcd.www.internet.util.EventBusMsg;
 import com.xcd.www.internet.view.CircleImageView;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
+import www.xcd.com.mylibrary.utils.DialogUtil;
+import www.xcd.com.mylibrary.utils.ToastUtil;
 import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
 
@@ -50,14 +64,18 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     private LinearLayoutManager mLinearLayoutManager;
     private MultiSwipeRefreshLayout loadGroupInfo;
     private LinearLayout llAddMember, llGroupQRCode;
+    private TextView tvExitGroup;
     String groupInfoHead;
     String groupInfoName;
     String sign;
     String targetId;
     String groupInfoDes;//简介
     String groupInfoCode;//群Code;
+    String groupUserid;//是不是群创建者
+
     int type;
     int memberNum;
+//    long userId;
     private static Class<?> rightFuncArray[] = {GroupInfoTopBtnFunc.class};
 
     @Override
@@ -74,6 +92,7 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_info);
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         groupInfoHead = intent.getStringExtra("GroupInfoHead");
         Glide.with(this)
@@ -99,9 +118,20 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         memberNum = intent.getIntExtra("memberNum", 0);
         tvGroupInfoMemberNum.setText(memberNum + "位成员");
         tvGroupInfoMember.setText(memberNum + "人");
-        sign = BaseApplication.getInstance().getSign();
+        BaseApplication instance = BaseApplication.getInstance();
+        sign = instance.getSign();
+
         targetId = intent.getStringExtra("targetId");
         groupInfoCode = intent.getStringExtra("GroupInfoCode");
+        //群创建者
+        groupUserid = intent.getStringExtra("groupUserid");
+        long id = instance.getId();
+        Log.e("TAG_群信息","groupUserid="+groupUserid+";id="+id);
+        if (!groupUserid.equals(String.valueOf(id))){
+            tvExitGroup.setVisibility(View.VISIBLE);
+        }else {
+            tvExitGroup.setVisibility(View.GONE);
+        }
         getData();
     }
 
@@ -138,6 +168,9 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         //分页加载
         initSwipeRefreshLayout();
         initRecyclerView();
+        //退出群聊
+        tvExitGroup = findViewById(R.id.tv_ExitGroup);
+        tvExitGroup.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -234,6 +267,7 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         intent.putExtra("GroupInfoDes", groupInfoDes);
         intent.putExtra("GroupInfoType", type);
         intent.putExtra("memberNum", memberNum);
+        intent.putExtra("groupUserid",groupUserid);
         startActivity(intent);
     }
 
@@ -242,8 +276,19 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_AddMember:
+                List<ContactModel> groupFriendList = new ArrayList<>();
+                List<GroupInfoListModel.DataBean> list = adapter.getList();
+                for (int i = 0; i < list.size(); i++) {
+                    GroupInfoListModel.DataBean dataBean = list.get(i);
+                    int id = dataBean.getId();
+                    ContactModel contact = new ContactModel();
+                    //群组成隐id
+                    contact.setUserId(String.valueOf(id));
+                    groupFriendList.add(contact);
+                }
                 Intent intent = new Intent(this, InviteFriendActivity.class);
                 intent.putExtra("targetId", targetId);
+                intent.putExtra("groupFriendList", (Serializable)groupFriendList);
                 startActivityForResult(intent, 11000);
                 break;
             case R.id.ll_GroupQRCode:
@@ -253,6 +298,33 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
                 intent1.putExtra("GroupInfoDes", groupInfoDes);
                 intent1.putExtra("GroupInfoCode", groupInfoCode);
                 startActivity(intent1);
+                break;
+            case R.id.tv_ExitGroup:
+                DialogUtil.getInstance()
+                        .setContext(this)
+                        .setCancelable(true)
+                        .title("温馨提示")
+                        .message("您确定要退出当前群组吗？")
+                        .sureText("确定")
+                        .cancelText("取消")
+                        .setSureOnClickListener(new DialogUtil.OnClickListener() {
+                            @Override
+                            public void onClick(View view, String message) {
+                                Map<String, String> map = new HashMap<>();
+                                map.put("id", targetId);//群id
+                                map.put("sign", sign);
+                                okHttpPostBody(101, GlobalParam.GROUPEXIT, map);
+                            }
+                        })
+                        .setCancelOnClickListener(new DialogUtil.OnClickListener() {
+
+                            @Override
+                            public void onClick(View view, String message) {
+
+                            }
+                        })
+                        .showDefaultDialog();
+
                 break;
         }
     }
@@ -278,18 +350,46 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
                 case 100:
                     GroupInfoListModel groupInfoListModel = JSON.parseObject(returnData, GroupInfoListModel.class);
                     List<GroupInfoListModel.DataBean> data = groupInfoListModel.getData();
-                    Log.e("TAG_群组信息", "data=" + data.size());
+
                     if (data == null || data.size() == 0) {
 //                        adapter.upFootText();
                     } else {
+                        Log.e("TAG_群组信息", "排序前data=" + data.toString());
+                        Collections.sort(data, new Comparator<GroupInfoListModel.DataBean>() {
+                            @Override
+                            public int compare(GroupInfoListModel.DataBean u1, GroupInfoListModel.DataBean u2) {
+                                if (u1.getId()==Integer.valueOf(groupUserid)) {
+                                    return -1;
+                                } else  {
+                                    return 1;
+                                }
+                            }
+                        });
+                        int count = groupInfoListModel.getCount();
+                        tvGroupInfoMemberNum.setText(count + "位成员");
+                        tvGroupInfoMember.setText(count + "人");
+                        EventBusMsg msg1 = new EventBusMsg("RefreshGroupInfoNum");
+                        msg1.setMsgCon(count+"");
+                        EventBus.getDefault().post(msg1);
+                        Log.e("TAG_群组信息", "排序后data=" + data.toString());
                         if (page > 1) {
-                            adapter.addData(data);
+                            adapter.addData(data,groupUserid);
                         } else {
-                            adapter.setData(data);
+                            adapter.setData(data,groupUserid);
                         }
                     }
 
                     loadGroupInfo.setLoading(false);
+                    break;
+                case 101://退出群聊
+                    if (returnCode == 200){
+                        EventBusMsg msg1 = new EventBusMsg("RefreshGroupExit");
+                        EventBus.getDefault().post(msg1);
+                        RongIM.getInstance().clearMessages(Conversation.ConversationType.GROUP,targetId,null);
+                        finish();
+                    }else {
+                        ToastUtil.showToast(returnMsg);
+                    }
                     break;
             }
         }
@@ -326,6 +426,28 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(EventBusMsg event) {
+        String msg = event.getMsg();
+        Log.e("TAG_Main", "Contact=" + msg);
+        if ("RefreshGroupHead".equals(msg)) {
+            Glide.with(GroupInfoActivity.this)
+                    .load(event.getMsgCon())
+                    .fitCenter()
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.mipmap.launcher_login)
+                    .error(R.mipmap.launcher_login)
+                    .into(ivGroupInfoTopHead);
+        }else if ("RefreshGroupInfo".equals(msg)){
+            getData();
+        }
+    }
 
     @Override
     public void onLoad() {

@@ -11,102 +11,153 @@
     android:orientation="vertical">
 
     <include layout="@layout/view_simple_topbar" />
-
-    <RelativeLayout
-        android:id="@+id/re_Search"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_40"
-        android:layout_marginLeft="@dimen/margin_15"
-        android:layout_marginRight="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_10"
-        android:layout_marginBottom="@dimen/margin_10"
-        android:background="@drawable/shape_blackf6">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="请输入名称进行搜索"
-            android:gravity="center_vertical"
-            android:textColor="@color/black_99"
-            android:paddingLeft="15dp"
-            android:singleLine="true"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="34px"
-            android:layout_height="34px"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="20dp"
-            android:background="@mipmap/search" />
-
-    </RelativeLayout>
-
-    <android.support.design.widget.CoordinatorLayout
+    <www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="0dp">
-        <!--AppBarLayout 是继承LinerLayout实现的一个ViewGroup容器组件，它是为了Material Design设计的AppBar，支持手势滑动操作-->
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            app:layout_scrollFlags="scroll">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_collapseParallaxMultiplier="0"
-                app:layout_scrollFlags="scroll">
-
-                <android.support.v4.widget.NestedScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white">
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rc_Friend"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false"
-                            android:background="@color/black_f7" />
-
-                </android.support.v4.widget.NestedScrollView>
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
+        android:addStatesFromChildren="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_anchor="@id/appbar"
-            app:layout_anchorGravity="bottom"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_scrollFlags="scroll">
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/re_ContactSearch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_40"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@drawable/shape_blackf6">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rc_Contact"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:hint="请输入名称进行搜索"
+                    android:paddingLeft="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_99"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="34px"
+                    android:layout_height="34px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@mipmap/search" />
+
+            </RelativeLayout>
+
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_anchor="@id/appbar"
-                app:layout_anchorGravity="bottom"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:layout_scrollFlags="scroll"/>
-            <com.xcd.www.internet.view.WaveSideBar
-                android:id="@+id/sideBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:backgroundColor="@color/blue"
-                app:chooseTextColor="@android:color/white"
-                app:circleRadius="24dp"
-                app:hintTextSize="32sp"
-                app:radius="20dp"
-                app:textColor="#969696"
-                app:textSize="10sp" />
-        </FrameLayout>
-    </android.support.design.widget.CoordinatorLayout>
+                android:orientation="vertical"
+                android:padding="0dp">
+                <!--AppBarLayout 是继承LinerLayout实现的一个ViewGroup容器组件，它是为了Material Design设计的AppBar，支持手势滑动操作-->
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:elevation="0dp"
+                    app:layout_scrollFlags="scroll">
 
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_collapseParallaxMultiplier="0"
+                        app:layout_scrollFlags="scroll">
+
+                        <android.support.v4.widget.NestedScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/ll_InviteFriend"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:minHeight="40dp"
+                                    android:orientation="horizontal"
+                                    android:paddingBottom="@dimen/margin_10"
+                                    android:paddingLeft="@dimen/margin_15"
+                                    android:paddingTop="@dimen/margin_10">
+
+                                    <com.xcd.www.internet.view.CircleImageView
+                                        android:layout_width="80px"
+                                        android:layout_height="80px"
+                                        android:layout_centerInParent="true"
+                                        android:scaleType="fitXY"
+                                        android:src="@mipmap/invite_friend"
+                                        app:type="circle" />
+
+                                    <TextView
+                                        android:id="@+id/tvName"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical"
+                                        android:paddingLeft="@dimen/margin_10"
+                                        android:textColor="@color/black_33"
+                                        android:textSize="@dimen/textsize_15"
+                                        android:text="邀请朋友" />
+                                </LinearLayout>
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/rc_Friend"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/black_f7"
+                                    android:nestedScrollingEnabled="false" />
+
+                            </LinearLayout>
+
+                        </android.support.v4.widget.NestedScrollView>
+                    </android.support.design.widget.CollapsingToolbarLayout>
+
+                </android.support.design.widget.AppBarLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_anchor="@id/appbar"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_scrollFlags="scroll">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rc_Contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_anchor="@id/appbar"
+                        app:layout_anchorGravity="bottom"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:layout_scrollFlags="scroll" />
+
+                    <com.xcd.www.internet.view.WaveSideBar
+                        android:id="@+id/sideBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:backgroundColor="@color/blue"
+                        app:chooseTextColor="@android:color/white"
+                        app:circleRadius="24dp"
+                        app:hintTextSize="32sp"
+                        app:radius="20dp"
+                        app:textColor="#969696"
+                        app:textSize="10sp" />
+                </FrameLayout>
+            </android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
+    </www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout>
 
 </LinearLayout>

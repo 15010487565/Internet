@@ -4,18 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.MeMoneyAdapter;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.MeMoneyRightTopBtnFunc;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+import com.xcd.www.internet.model.MeBagModel;
+import com.xcd.www.internet.model.MeBagTypeModel;
+import com.xcd.www.internet.util.EventBusMsg;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
+import www.xcd.com.mylibrary.entity.GlobalParam;
 
 public class MeMoneyActivity extends SimpleTopbarActivity {
 
@@ -23,7 +37,7 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
     private LinearLayoutManager linearLayoutManager;
     private MeMoneyAdapter adapter;
     private TextView tvBag,tvCash;
-
+    String sign;
     private static Class<?> rightFuncArray[] = {MeMoneyRightTopBtnFunc.class};
 
     @Override
@@ -40,9 +54,11 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_me_money);
-        Intent intent = getIntent();
-        String usdt = intent.getStringExtra("usdt");
-        tvBag.setText(usdt);
+        EventBus.getDefault().register(this);
+        sign = BaseApplication.getInstance().getSign();
+        Map<String, String> params = new HashMap<>();
+        params.put("sign", sign);
+        okHttpPostBody(100, GlobalParam.MEBAG, params);
     }
 
     @Override
@@ -69,7 +85,7 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
 //        rcMeMoney.setLoadingMoreEnabled(false);
         //rc线
         RecyclerViewDecoration recyclerViewDecoration = new RecyclerViewDecoration(
-                this, LinearLayoutManager.HORIZONTAL, 15, getResources().getColor(R.color.black_ee));
+                this, LinearLayoutManager.HORIZONTAL, 20, getResources().getColor(R.color.black_ee));
         rcMeMoney.addItemDecoration(recyclerViewDecoration);
         rcMeMoney.setAdapter(adapter);
 
@@ -91,7 +107,26 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-
+        if (returnCode == 200){
+            switch (requestCode){
+                case 100:
+                    MeBagModel mebagModel = JSON.parseObject(returnData, MeBagModel.class);
+                    MeBagModel.DataBean data = mebagModel.getData();
+                    double usdt = data.getUsdt();
+                    BaseApplication instance = BaseApplication.getInstance();
+                    instance.setUsdt(String.valueOf(usdt));
+                    tvBag.setText("$"+String.valueOf(usdt));
+                    List<MeBagTypeModel> list = new ArrayList<>();
+                    MeBagTypeModel meBag = new MeBagTypeModel();
+                    meBag.setName("usdt");
+                    meBag.setNum(String.valueOf(usdt));
+                    meBag.setPrice("$1");
+                    meBag.setAllPrice("≈$"+String.valueOf(usdt));
+                    list.add(meBag);
+                    adapter.setData(list);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -112,5 +147,22 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
     @Override
     public void onFinishResult() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(EventBusMsg event) {
+        String msg = event.getMsg();
+        Log.e("TAG_Main", "msg=" + msg);
+        if ("RefreshBag".equals(msg)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("sign", sign);
+            okHttpPostBody(100, GlobalParam.MEBAG, params);
+        }
     }
 }

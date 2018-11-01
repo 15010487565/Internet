@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="@dimen/height_60"
-        android:text="注冊传智"
+        android:text="注册传智"
         android:textColor="@color/black_28"
         android:textSize="@dimen/textsize_22" />
     <TextView
@@ -44,6 +44,7 @@
         android:background="@color/black_e5" />
 
     <LinearLayout
+        android:id="@+id/ll_RegistCountryCodes"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_50"
         android:layout_marginLeft="@dimen/margin_20"
@@ -82,6 +83,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_CountryZipCode"
             android:layout_width="120px"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

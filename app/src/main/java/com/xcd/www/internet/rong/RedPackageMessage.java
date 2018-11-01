@@ -50,6 +50,7 @@ public class RedPackageMessage extends MessageContent {
         * */
     @Override
     public byte[] encode() {
+        Log.e("TAG_JSONException", "encode");
         JSONObject jsonObj = new JSONObject();
 
         try {
@@ -86,6 +87,7 @@ public class RedPackageMessage extends MessageContent {
 
         try {
             jsonStr = new String(data, "UTF-8");
+            Log.e("TAG_JSONException", jsonStr);
         } catch (UnsupportedEncodingException e1) {
             e1.printStackTrace();
         }
@@ -128,6 +130,7 @@ public class RedPackageMessage extends MessageContent {
 
     //给消息赋值。
     public RedPackageMessage(Parcel in) {
+        Log.e("TAG_JSONException", "RedPackageMessage");
         //自定义的属性
 
         setHeadUrl(ParcelUtils.readFromParcel(in));
@@ -140,7 +143,7 @@ public class RedPackageMessage extends MessageContent {
         setSendName(ParcelUtils.readFromParcel(in));//该类为工具类，消息属性
         setSendID(ParcelUtils.readFromParcel(in));
         setTotal(ParcelUtils.readFromParcel(in));
-//        setExtra(ParcelUtils.readFromParcel(in));
+        setExtra(ParcelUtils.readFromParcel(in));
         setUserInfo(ParcelUtils.readFromParcel(in, UserInfo.class));
     }
 
@@ -172,6 +175,7 @@ public class RedPackageMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        Log.e("TAG_JSONException", "writeToParcel");
         ParcelUtils.writeToParcel(dest, getHeadUrl());
         ParcelUtils.writeToParcel(dest, getRedPacketId());
         ParcelUtils.writeToParcel(dest, getContent());
@@ -181,7 +185,7 @@ public class RedPackageMessage extends MessageContent {
         ParcelUtils.writeToParcel(dest, getSendID()
         );
         ParcelUtils.writeToParcel(dest, getTotal());
-//        ParcelUtils.writeToParcel(dest, getExtra());
+        ParcelUtils.writeToParcel(dest, getExtra());
 
 
         ParcelUtils.writeToParcel(dest, getUserInfo());
@@ -258,7 +262,8 @@ public class RedPackageMessage extends MessageContent {
     @Override
     public String toString() {
         return "RedPackageMessage{" +
-                "headUrl='" + headUrl + '\'' +
+                "extra='" + extra + '\'' +
+                ", headUrl='" + headUrl + '\'' +
                 ", redPacketId='" + redPacketId + '\'' +
                 ", content='" + content + '\'' +
                 ", amout='" + amout + '\'' +

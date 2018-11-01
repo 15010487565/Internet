@@ -135,6 +135,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <TextView
+                android:id="@+id/tv_ExitApp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_45"
                 android:text="安全退出"

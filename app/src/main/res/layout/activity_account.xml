@@ -1,82 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_ee"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <include
-        layout="@layout/view_simple_topbar" />
+    <include layout="@layout/view_simple_topbar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="false"
         android:focusable="true"
-        android:focusableInTouchMode="true" >
+        android:focusableInTouchMode="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="头像"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="头像"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
+
                 <View
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="@dimen/margin_1"/>
-                <com.xcd.www.internet.view.CircleImageView
-                    android:id="@+id/iv_AccountHead"
-                    android:layout_width="100px"
-                    android:layout_height="100px"
-                    android:gravity="center_horizontal|right"
-                    android:layout_marginRight="@dimen/margin_35"
-                    android:src="@mipmap/launcher_login"/>
+                    android:layout_height="@dimen/margin_1"
+                    android:layout_weight="1" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.xcd.www.internet.view.CircleImageView
+                        android:id="@+id/iv_AccountHead"
+                        android:layout_width="100px"
+                        android:layout_height="100px"
+                        android:layout_marginRight="@dimen/margin_35"
+                        android:gravity="center_horizontal|right"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitXY"
+                        android:src="@color/blue"
+                        app:type="circle"/>
+
+                    <TextView
+                        android:id="@+id/tv_AccountHead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/textsize_15" />
+                </RelativeLayout>
+
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:background="@color/white"
                 android:layout_marginTop="@dimen/height_20"
+                android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="昵称"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="昵称"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
 
                 <TextView
                     android:id="@+id/tv_AccountNick"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="91px"
-                    android:text=""
-                    android:gravity="center_vertical|right"
                     android:layout_marginLeft="84px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text=""
                     android:textColor="#454545"
-                    android:textSize="@dimen/textsize_15"/>
+                    android:textSize="@dimen/textsize_15" />
+
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"
@@ -86,40 +110,43 @@
                     android:contentDescription="@null"
                     android:duplicateParentState="true" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_1"
-                android:background="@color/black_ee"
                 android:layout_marginLeft="26px"
-                android:layout_marginRight="26px"/>
+                android:layout_marginRight="26px"
+                android:background="@color/black_ee" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="手机号码"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="手机号码"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
 
                 <TextView
                     android:id="@+id/tv_AccountPhone"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="91px"
-                    android:text=""
-                    android:gravity="center_vertical|right"
                     android:layout_marginLeft="84px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text=""
                     android:textColor="#454545"
-                    android:textSize="@dimen/textsize_15"/>
+                    android:textSize="@dimen/textsize_15" />
+
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"
@@ -129,43 +156,45 @@
                     android:contentDescription="@null"
                     android:duplicateParentState="true" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_1"
-                android:background="@color/black_ee"
                 android:layout_marginLeft="26px"
-                android:layout_marginRight="26px"/>
+                android:layout_marginRight="26px"
+                android:background="@color/black_ee" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:background="@color/white"
-                android:visibility="gone"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户名"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="用户名"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
 
                 <TextView
                     android:id="@+id/tv_AccountName"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="91px"
-                    android:text=""
-                    android:gravity="center_vertical|right"
                     android:layout_marginLeft="84px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text=""
                     android:textColor="#454545"
-                    android:textSize="@dimen/textsize_15"/>
+                    android:textSize="@dimen/textsize_15" />
+
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"
@@ -175,40 +204,43 @@
                     android:contentDescription="@null"
                     android:duplicateParentState="true" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_1"
-                android:background="@color/black_ee"
                 android:layout_marginLeft="26px"
-                android:layout_marginRight="26px"/>
+                android:layout_marginRight="26px"
+                android:background="@color/black_ee" />
+
             <LinearLayout
                 android:id="@+id/ll_AccountCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="实名认证"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="实名认证"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="91px"
-                    android:text=""
-                    android:gravity="center_vertical|right"
                     android:layout_marginLeft="84px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text=""
                     android:textColor="#454545"
-                    android:textSize="@dimen/textsize_15"/>
+                    android:textSize="@dimen/textsize_15" />
+
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"
@@ -218,40 +250,43 @@
                     android:contentDescription="@null"
                     android:duplicateParentState="true" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_1"
-                android:background="@color/black_ee"
                 android:layout_marginLeft="26px"
-                android:layout_marginRight="26px"/>
+                android:layout_marginRight="26px"
+                android:background="@color/black_ee" />
+
             <LinearLayout
                 android:id="@+id/ll_AccountBank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="绑定银行卡"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="绑定银行卡"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="91px"
-                    android:text=""
-                    android:gravity="center_vertical|right"
                     android:layout_marginLeft="84px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text=""
                     android:textColor="#454545"
-                    android:textSize="@dimen/textsize_15"/>
+                    android:textSize="@dimen/textsize_15" />
+
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"
@@ -261,41 +296,44 @@
                     android:contentDescription="@null"
                     android:duplicateParentState="true" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_1"
-                android:background="@color/black_ee"
                 android:layout_marginLeft="26px"
-                android:layout_marginRight="26px"/>
+                android:layout_marginRight="26px"
+                android:background="@color/black_ee" />
+
             <LinearLayout
+                android:id="@+id/ll_AccountCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:background="@color/white"
                 android:layout_marginTop="@dimen/height_20"
-                android:visibility="gone"
+                android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的二维码名片"
+                    android:layout_marginBottom="52px"
                     android:layout_marginLeft="52px"
                     android:layout_marginTop="52px"
-                    android:layout_marginBottom="52px"
                     android:gravity="center_vertical"
+                    android:text="我的二维码名片"
                     android:textColor="#454545"
                     android:textSize="@dimen/textsize_15" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="91px"
-                    android:text=""
-                    android:gravity="center_vertical|right"
                     android:layout_marginLeft="84px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:text=""
                     android:textColor="#454545"
-                    android:textSize="@dimen/textsize_15"/>
+                    android:textSize="@dimen/textsize_15" />
+
                 <ImageView
                     android:layout_width="@dimen/margin_15"
                     android:layout_height="@dimen/margin_15"

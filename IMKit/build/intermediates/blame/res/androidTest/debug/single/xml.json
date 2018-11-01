@@ -2,9 +2,5 @@
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\xml\\rc_file_path.xml",
         "source": "D:\\Internet\\IMKit\\build\\intermediates\\bundles\\debug\\res\\xml\\rc_file_path.xml"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\xml\\rc_file_path.xml",
-        "source": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\bundles\\debug\\res\\xml\\rc_file_path.xml"
     }
 ]

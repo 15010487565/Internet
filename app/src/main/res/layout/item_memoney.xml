@@ -6,7 +6,10 @@
     android:minHeight="50dp"
     android:orientation="horizontal"
     android:gravity="center"
-    android:padding="30px"
+    android:paddingLeft="30px"
+    android:paddingTop="52px"
+    android:paddingBottom="52px"
+    android:paddingRight="30px"
     >
     <LinearLayout
         android:layout_width="0dp"
@@ -15,7 +18,7 @@
         android:paddingLeft="@dimen/margin_10"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tv_MeMoneyType"
+            android:id="@+id/tv_MeBagType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -23,10 +26,11 @@
             android:textColor="@color/black_33"
             tools:text="****" />
         <TextView
-            android:id="@+id/tv_MeMoneyMarket"
+            android:id="@+id/tv_MeAllMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:layout_marginTop="33px"
             android:textSize="@dimen/textsize_10"
             android:textColor="@color/black_66"
             android:text="" />
@@ -41,14 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
-            android:textSize="@dimen/textsize_14"
+            android:textSize="@dimen/textsize_15"
             android:textColor="@color/black_33"
             tools:text="****" />
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="20px"/>
 
         <TextView
             android:id="@+id/tv_MeMoneyRightBottom"
@@ -56,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
             android:textSize="@dimen/textsize_11"
+            android:layout_marginTop="20px"
             android:textColor="@color/black_99"
             android:text="手气最佳" />
     </LinearLayout>

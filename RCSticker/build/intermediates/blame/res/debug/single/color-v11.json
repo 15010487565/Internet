@@ -1,13 +1,5 @@
 [
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_light.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
-    },
-    {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\92ee5e55992edbdf5ea2321ad493d2a9613ab2d1\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
-    },
-    {
         "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\color-v11\\abc_background_cache_hint_selector_material_dark.xml",
         "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\color-v11\\abc_background_cache_hint_selector_material_dark.xml"
     },

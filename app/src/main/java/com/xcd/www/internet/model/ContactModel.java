@@ -14,6 +14,7 @@ public class ContactModel implements Serializable {
      * mobile : 18464288292
      * mobileEmail : 18464288292
      */
+    private int type;//0为title,1为内容
 
     private String firstName;
     private String lastname;
@@ -31,6 +32,14 @@ public class ContactModel implements Serializable {
     private boolean enable;//是都可選擇
     private boolean isSelect;
     private String userId;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String getUserId() {
         return userId;
@@ -106,8 +115,9 @@ public class ContactModel implements Serializable {
 
     private String homeNum;
 
-private String jobNum;
+    private String jobNum;
     private String workFax;
+
     public String getPhoneticMiddleName() {
         return phoneticMiddleName;
     }
@@ -190,23 +200,27 @@ private String jobNum;
 
     @Override
     public String toString() {
-        return "{" +
-                "firstName='" + firstName + '\'' +
-                ", lastname='" + lastname + '\'' +
+        return "ContactModel{" +
+//                "type=" + type +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastname='" + lastname + '\'' +
                 ", mobile='" + mobile + '\'' +
-                ", mobileEmail='" + mobileEmail + '\'' +
-                ", prefix='" + prefix + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", suffix='" + suffix + '\'' +
-                ", phoneticFirstName='" + phoneticFirstName + '\'' +
-                ", phoneticMiddleName='" + phoneticMiddleName + '\'' +
-                ", phoneticLastName='" + phoneticLastName + '\'' +
+//                ", mobileEmail='" + mobileEmail + '\'' +
+//                ", prefix='" + prefix + '\'' +
+//                ", middleName='" + middleName + '\'' +
+//                ", suffix='" + suffix + '\'' +
+//                ", phoneticFirstName='" + phoneticFirstName + '\'' +
+//                ", phoneticMiddleName='" + phoneticMiddleName + '\'' +
+//                ", phoneticLastName='" + phoneticLastName + '\'' +
                 ", letters='" + letters + '\'' +
-                ", Logo='" + Logo + '\'' +
+//                ", Logo='" + Logo + '\'' +
                 ", name='" + name + '\'' +
-                ", homeNum='" + homeNum + '\'' +
-                ", jobNum='" + jobNum + '\'' +
-                ", workFax='" + workFax + '\'' +
+//                ", enable=" + enable +
+//                ", isSelect=" + isSelect +
+//                ", userId='" + userId + '\'' +
+//                ", homeNum='" + homeNum + '\'' +
+//                ", jobNum='" + jobNum + '\'' +
+//                ", workFax='" + workFax + '\'' +
                 '}';
     }
 }

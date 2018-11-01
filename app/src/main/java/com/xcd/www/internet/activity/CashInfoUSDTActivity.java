@@ -2,6 +2,7 @@ package com.xcd.www.internet.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,9 @@ import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.model.PasswordVerifyModel;
+import com.xcd.www.internet.util.EventBusMsg;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -69,6 +73,13 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
                 startActivityForResult(intent1, 10000);
                 break;
             case R.id.tv_CashUsdt:
+                BaseApplication instance = BaseApplication.getInstance();
+                String passwordPay = instance.getPasswordPay();
+                if (TextUtils.isEmpty(passwordPay)){
+                    ToastUtil.showToast("请先设置支付密码！");
+                    return;
+                }
+
                 sign = BaseApplication.getInstance().getSign();
                 if (TextUtils.isEmpty(cashUsdtAddress)){
                     ToastUtil.showToast("提现地址不能为空");
@@ -77,6 +88,7 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
                 DialogUtil.getInstance()
                         .setContext(this)
                         .setCancelable(true)
+                        .setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
                         .title("温馨提示")
                         .hint("请输入支付密码")
                         .sureText("确定")
@@ -90,7 +102,15 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
                                 okHttpPostBody(101, GlobalParam.VERIFYPASSWORD, map);
 
                             }
-                        }).showEditDialog();
+                        })
+                        .setCancelOnClickListener(new DialogUtil.OnClickListener() {
+
+                            @Override
+                            public void onClick(View view, String message) {
+
+                            }
+                        })
+                        .showEditDialog();
 
 
                 break;
@@ -115,6 +135,8 @@ public class CashInfoUSDTActivity extends SimpleTopbarActivity {
         if (returnCode == 200){
             switch (requestCode){
                 case 100:
+                    EventBusMsg msg = new EventBusMsg("RefreshBag");
+                    EventBus.getDefault().post(msg);
                     finish();
                     ToastUtil.showToast(returnMsg);
                     break;

@@ -82,7 +82,7 @@ public class SettingUpdataLoginActivity extends SimpleTopbarActivity {
                 String sign = BaseApplication.getInstance().getSign();
                 String country = BaseApplication.getInstance().getCountry();
                 Map<String, String> mapCode = new HashMap<>();
-                mapCode.put("country ", country );
+                mapCode.put("country", country );
                 mapCode.put("sign", sign);
                 mapCode.put("account", account);
                 mapCode.put("code", payCode );

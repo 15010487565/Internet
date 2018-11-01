@@ -22,8 +22,8 @@ import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.common.Config;
+import com.xcd.www.internet.model.CodeModer;
 import com.xcd.www.internet.model.LoginInfoModel;
-import com.xcd.www.internet.util.CommonHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,12 +37,12 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
 
     private EditText etRegisterPhone, etRegisterPassword, etRegisterCode;
     private ImageView ivPswVisibleType;
-    private LinearLayout llPswVisibleType, llBack;
+    private LinearLayout llPswVisibleType, llBack, llRegistCountryCodes;
     private ImageView ivRegisterCheck;
     private TextView tvRegisterCheck, tvRegisterCheckAgreement, tvRegister;
     private boolean isSelectAgreement = false;
     private boolean isVisiblePws = false;//密码显示状态
-    private TextView tvRegisterGetCode;
+    private TextView tvRegisterGetCode, tvCountryZipCode, tvCountriesName;
     private int recLen = Config.CODETIME;//验证码倒计时
     Thread thread;
 
@@ -60,6 +60,8 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
+        llRegistCountryCodes = findViewById(R.id.ll_RegistCountryCodes);
+        llRegistCountryCodes.setOnClickListener(this);
         //手机号
         etRegisterPhone = findViewById(R.id.et_RegisterPhone);
         etRegisterPhone.addTextChangedListener(this);
@@ -92,6 +94,8 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
         //返回
         llBack = findViewById(R.id.ll_Back);
         llBack.setOnClickListener(this);
+        tvCountryZipCode = findViewById(R.id.tv_CountryZipCode);
+        tvCountriesName = findViewById(R.id.tv_CountriesName);
     }
 
     //注册手机号
@@ -101,6 +105,10 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+            case R.id.ll_RegistCountryCodes:
+                Intent intent = new Intent(this,CountryCodesActivity.class);
+                startActivityForResult(intent,11000);
+                break;
             case R.id.ll_PswVisibleType://密码显示隐藏
                 setEtLoginPasswordVisible();
                 break;
@@ -123,7 +131,7 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                 String password = etRegisterPassword.getText().toString().trim();
                 String code = etRegisterCode.getText().toString().trim();
 
-                if (!CommonHelper.with().checkPhone(phone)) {
+                if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
@@ -138,7 +146,7 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                 Map<String, String> map = new HashMap<>();
                 map.put("account", phone);
                 map.put("password", password);
-                map.put("country", "86");
+                map.put("country", CountryZipCode);
                 map.put("code", code);
                 okHttpPostBody(100, GlobalParam.REGISTER, map);
                 break;
@@ -147,7 +155,21 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                 break;
         }
     }
-
+    String CountryZipCode;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            switch (requestCode) {
+                case 11000:
+                    CountryZipCode = data.getStringExtra("CountryZipCode");
+                    tvCountryZipCode.setText("+"+CountryZipCode);
+                    String countryZipName = data.getStringExtra("CountryZipName");
+                    tvCountriesName.setText(countryZipName);
+                    break;
+            }
+        }
+    }
     private void SettingAgreement() {
         Log.e("TAG_协议", "isSelectAgreement=" + isSelectAgreement);
         if (!isSelectAgreement) {
@@ -161,7 +183,7 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
         String phone = etRegisterPhone.getText().toString().trim();
         String password = etRegisterPassword.getText().toString().trim();
         String code = etRegisterCode.getText().toString().trim();
-        if (!TextUtils.isEmpty(phone) && phone.length() == 11) {
+        if (!TextUtils.isEmpty(phone)) {
             if (!TextUtils.isEmpty(password) && password.length() >= 6) {
                 if (!TextUtils.isEmpty(code) && isSelectAgreement) {
                     tvRegister.setEnabled(true);
@@ -231,6 +253,9 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                     break;
                 case 101://获取验证码
                     handler.postDelayed(runnable, 1000);
+                    CodeModer codeModer = JSON.parseObject(returnData, CodeModer.class);
+                    String code = codeModer.getData();
+                    etRegisterCode.setText(code);
                     break;
             }
         } else {
@@ -330,7 +355,7 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
         String phone = etRegisterPhone.getText().toString().trim();
         String password = etRegisterPassword.getText().toString().trim();
         String code = etRegisterCode.getText().toString().trim();
-        if (!TextUtils.isEmpty(phone) && phone.length() == 11) {
+        if (!TextUtils.isEmpty(phone) ) {
             if (!TextUtils.isEmpty(password) && password.length() >= 6) {
                 if (!TextUtils.isEmpty(code) && isSelectAgreement) {
                     tvRegister.setEnabled(true);

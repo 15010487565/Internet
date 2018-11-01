@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.xcd.www.internet.R;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.GroupInfoModel;
 import com.xcd.www.internet.rong.BaseExtensionModule;
@@ -34,9 +36,11 @@ import io.rong.imkit.DefaultExtensionModule;
 import io.rong.imkit.IExtensionModule;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.GroupUserInfo;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Group;
 import io.rong.imlib.model.UserInfo;
 import io.rong.push.RongPushClient;
 import www.xcd.com.mylibrary.base.application.XCDApplication;
@@ -57,8 +61,11 @@ import static www.xcd.com.mylibrary.utils.ToastUtil.showToast;
  * @version 1.0
  * @date 2014年4月10日
  */
-public class BaseApplication extends XCDApplication implements RongIM.UserInfoProvider
-        , HttpInterface, RongIM.ConversationListBehaviorListener, RongIMClient.ConnectionStatusListener{
+public class BaseApplication extends XCDApplication implements
+        RongIM.UserInfoProvider,
+        RongIM.GroupUserInfoProvider,
+        HttpInterface, RongIM.ConversationListBehaviorListener,
+        RongIMClient.ConnectionStatusListener{
 
     private static BaseApplication instance;
 
@@ -188,6 +195,16 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
         this.usdt = usdt;
     }
 
+    private String usdt_dollar;//usdt兑美元汇率
+
+    public String getUsdt_dollar() {
+        return usdt_dollar;
+    }
+
+    public void setUsdt_dollar(String usdt_dollar) {
+        this.usdt_dollar = usdt_dollar;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -220,6 +237,7 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
             RongIM.setOnReceiveMessageListener(new RongReceiveMessageListener());
             RongIM.getInstance().setSendMessageListener(new SendMessageListener());
             RongIM.setUserInfoProvider(this, true);
+            RongIM.setGroupUserInfoProvider(this, true);
             RongIM.setConnectionStatusListener(this);
 //            setMyExtensionModule();
             /**
@@ -398,7 +416,7 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
 //                    Uri.parse("https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=c1f24fd359e736d147138a08ab514ffc/241f95cad1c8a786b0eb4b016a09c93d71cf50ff.jpg"));
 //        }
 //        RongIM.getInstance().refreshUserInfoCache(userInfo);
-        Log.e("TAG_融云getUserInfo","userid="+userid);
+        Log.e("TAG_融云个人","userid="+userid);
         Map<String, String> params = new HashMap<>();
         params.put("id", userid);
         params.put("sign", sign);
@@ -466,12 +484,35 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
                         //头像
                         avatar = group.getAvatar();
                     }
+                    Log.e("TAG_融云绘画列表", "nickname=" + name + ";userid=" + id+";avatar="+avatar);
 
-                    Log.e("TAG_融云绘画列表", "nickname=" + name + "userid=" + id);
+                    Uri parse = null;
+                    if (TextUtils.isEmpty(avatar)){
+                        parse = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.launcher_login);
+                    }else {
+                        parse =  Uri.parse(avatar);
+                    }
                     if (name != null && id>0) {
-                        RongIM.getInstance().refreshUserInfoCache(new UserInfo(String.valueOf(id), name, Uri.parse(avatar)));
+                        RongIM.getInstance().refreshUserInfoCache(new UserInfo(String.valueOf(id), name,parse));
                     }
                 }
+                break;
+            case 101:
+                GroupInfoModel groupInfoModel = JSON.parseObject(returnData, GroupInfoModel.class);
+                GroupInfoModel.DataBean data = groupInfoModel.getData();
+                GroupInfoModel.DataBean.GroupBean group = data.getGroup();
+                int groupId = group.getId();
+                //头像
+                String avatar = group.getAvatar();
+                RongIM.getInstance().refreshGroupInfoCache(new Group(String.valueOf(groupId), group.getName(), Uri.parse(avatar)));
+//                Glide.with(this)
+//                        .load(avatar)
+//                        .fitCenter()
+//                        .dontAnimate()
+//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                        .placeholder(R.mipmap.launcher_login)
+//                        .error(R.mipmap.launcher_login)
+//                        .into(ivChatTopHead);
                 break;
         }
     }
@@ -494,5 +535,16 @@ public class BaseApplication extends XCDApplication implements RongIM.UserInfoPr
     @Override
     public void onFinishResult() {
 
+    }
+
+    @Override
+    public GroupUserInfo getGroupUserInfo(String groupId , String userId ) {
+        Log.e("TAG_融云群","groupId="+groupId );
+        Log.e("TAG_融云群","userId="+userId );
+        Map<String, String> params = new HashMap<>();
+        params.put("id", groupId);
+        params.put("sign", sign);
+        okHttpPostBody(101, GlobalParam.GETGROUPINFO, params);
+        return null;
     }
 }

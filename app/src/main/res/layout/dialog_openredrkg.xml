@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -26,13 +27,15 @@
                 android:layout_height="30px"
                 android:background="@mipmap/clean" />
         </LinearLayout>
-
-        <ImageView
+        <com.xcd.www.internet.view.CircleImageView
             android:id="@+id/iv_OpenRedPkgHead"
             android:layout_width="107px"
-            android:layout_height="101px"
+            android:layout_height="107px"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            app:type="circle"
+            android:src="@mipmap/launcher_login"/>
 
         <TextView
             android:id="@+id/tv_OpenRedPkgName"

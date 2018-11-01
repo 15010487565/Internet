@@ -16,15 +16,18 @@ import com.xcd.www.internet.view.CircleImageView;
 
 import java.util.List;
 
+import static com.xcd.www.internet.common.Config.TYPE_FRIEND;
+import static com.xcd.www.internet.common.Config.TYPE_TITLE;
+
 
 /**
  * @author: xp
  * @date: 2017/7/19
  */
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater mInflater;
-    private List<ContactModel> mData;
+    private List<ContactModel> list;
     private Context mContext;
 
     public SearchAdapter(Context context) {
@@ -32,73 +35,105 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         this.mContext = context;
     }
     public void setData(List<ContactModel> data){
-        mData = data;
+        list = data;
         notifyDataSetChanged();
     }
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_search, parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.tvName =  view.findViewById(R.id.tvName);
-        viewHolder.ivSortlogo =  view.findViewById(R.id.iv_Sortlogo);
-        viewHolder.tvSortlogo = view.findViewById(R.id.tv_Sortlogo);
-        return viewHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = null;
+        RecyclerView.ViewHolder holder = null;
+        switch (viewType) {
+            case TYPE_TITLE:
+                view = mInflater.inflate(R.layout.item_title, parent, false);
+                holder = new TitleViewHolder(view);
+                break;
+            case TYPE_FRIEND:
+                view = mInflater.inflate(R.layout.item_search, parent,false);
+                holder = new ViewHolder(view);
+
+                break;
+
+        }
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        ContactModel contactModel = mData.get(position);
-
-        String logo = contactModel.getLogo();
-        if (logo.indexOf("http")!=-1){
-            Glide.with(mContext.getApplicationContext())
-                    .load(logo)
-                    .fitCenter()
-                    .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into( holder.ivSortlogo);
-            holder.tvSortlogo.setText("");
+    public int getItemViewType(int position) {
+        ContactModel contactModel = list.get(position);
+        int type = contactModel.getType();
+        if (type == TYPE_TITLE){
+            return TYPE_TITLE;
         }else {
-            holder.tvSortlogo.setText(logo);
-            if (position%3==0){
-                holder.ivSortlogo.setImageResource(R.drawable.shape_round_blue);
-            }else if (position%3==1){
-                holder.ivSortlogo.setImageResource(R.drawable.shape_round_red);
-            }else {
-                holder.ivSortlogo.setImageResource(R.drawable.shape_round_orange);
-            }
-
+            return TYPE_FRIEND;
         }
+    }
 
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        ContactModel contactModel = list.get(position);
+        switch (getItemViewType(position)) {
+            case TYPE_TITLE:
+                TitleViewHolder holderTitle = (TitleViewHolder) holder;
+                String name1 = contactModel.getName();
+                holderTitle.tvSearchTitle.setText(name1);
+                break;
+            case TYPE_FRIEND:
+                ViewHolder viewHolder = (ViewHolder) holder;
+
+                if (mOnItemClickListener != null) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mOnItemClickListener.onItemClick(holder.itemView, position);
+                        }
+                    });
+
                 }
-            });
+                String name = contactModel.getName();
+                if (TextUtils.isEmpty(name)){
+                    String mobile = contactModel.getMobile();
+                    viewHolder.tvName.setText(mobile);
+                }else {
+                    viewHolder.tvName.setText(name);
+                }
+                String logo = contactModel.getLogo();
+                if (TextUtils.isEmpty(logo)){
+                    viewHolder.tvSortlogo.setText(name.substring(0));
+                }else {
+                    if (logo.indexOf("http")!=-1){
+                        Glide.with(mContext.getApplicationContext())
+                                .load(logo)
+                                .fitCenter()
+                                .dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into( viewHolder.ivSortlogo);
+                        viewHolder.tvSortlogo.setText("");
+                    }else {
+                        viewHolder.tvSortlogo.setText(logo);
+                        if (position%3==0){
+                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_blue);
+                        }else if (position%3==1){
+                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_red);
+                        }else {
+                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_orange);
+                        }
+                    }
+                }
+                break;
+        }
 
-        }
-        String name = contactModel.getName();
-        if (TextUtils.isEmpty(name)){
-            String mobile = contactModel.getMobile();
-            holder.tvName.setText(mobile);
-        }else {
-            holder.tvName.setText(name);
-        }
 //
-//        holder.tvMeMoneyType.setOnClickListener(new View.OnClickListener() {
+//        holder.tvMeBagType.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, list.get(position).getName(),Toast.LENGTH_SHORT).show();
 //            }
 //        });
-
     }
 
     @Override
     public int getItemCount() {
-        return mData == null?0:mData.size();
+        return list == null?0: list.size();
     }
 
     //**********************itemClick************************
@@ -112,12 +147,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         this.mOnItemClickListener = mOnItemClickListener;
     }
     //**************************************************************
+    class TitleViewHolder extends RecyclerView.ViewHolder{
+        TextView tvSearchTitle;
+        public TitleViewHolder(View itemView) {
+            super(itemView);
+            tvSearchTitle =  itemView.findViewById(R.id.tv_SearchTitle);
+        }
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName,tvSortlogo;
         CircleImageView ivSortlogo;
         public ViewHolder(View itemView) {
             super(itemView);
+            tvName =  itemView.findViewById(R.id.tvName);
+            ivSortlogo =  itemView.findViewById(R.id.iv_Sortlogo);
+            tvSortlogo = itemView.findViewById(R.id.tv_Sortlogo);
         }
     }
 
@@ -126,19 +171,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
      * @param list
      */
     public void updateList(List<ContactModel> list){
-        this.mData = list;
+        this.list = list;
         notifyDataSetChanged();
     }
 
     public Object getItem(int position) {
-        return mData.get(position);
+        return list.get(position);
     }
 
     /**
      * 根据ListView的当前位置获取分类的首字母的char ascii值
      */
     public int getSectionForPosition(int position) {
-        return mData.get(position).getLetters().charAt(0);
+        return list.get(position).getLetters().charAt(0);
     }
 
     /**
@@ -146,7 +191,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
      */
     public int getPositionForSection(int section) {
         for (int i = 0; i < getItemCount(); i++) {
-            String sortStr = mData.get(i).getLetters();
+            String sortStr = list.get(i).getLetters();
             char firstChar = sortStr.toUpperCase().charAt(0);
             if (firstChar == section) {
                 return i;

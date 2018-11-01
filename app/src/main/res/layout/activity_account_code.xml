@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line_gray"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_simple_topbar" />
+
+    <LinearLayout
+        android:id="@+id/ll_AccountShareCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/height_40"
+        android:background="@drawable/shape_black_white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_AccountCodeHead"
+            android:layout_width="122px"
+            android:layout_height="122px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50px"
+            android:src="@mipmap/launcher_login" />
+
+        <TextView
+            android:id="@+id/tv_AccountCodeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="28px"
+            android:text="**"
+            android:textColor="@color/black_33"
+            android:textSize="@dimen/textsize_16"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_AccountCode"
+            android:layout_width="@dimen/height_150"
+            android:layout_height="@dimen/height_150"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_20" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:text="扫一扫二维码 加入群组"
+            android:textColor="@color/black_99"
+            android:textSize="@dimen/textsize_14" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:text="长按二维码颗分享或保存图片"
+        android:textColor="@color/black_66"
+        android:textSize="@dimen/textsize_14" />
+</LinearLayout>

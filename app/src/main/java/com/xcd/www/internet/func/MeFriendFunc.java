@@ -8,10 +8,7 @@ import com.xcd.www.internet.R;
 
 import www.xcd.com.mylibrary.func.BaseFunc;
 
-/**
- * 排行榜
- *
- */
+
 public class MeFriendFunc extends BaseFunc {
 
 	public MeFriendFunc(Activity activity) {

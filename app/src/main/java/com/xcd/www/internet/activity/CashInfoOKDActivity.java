@@ -2,6 +2,7 @@ package com.xcd.www.internet.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,6 +13,9 @@ import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.model.PasswordVerifyModel;
+import com.xcd.www.internet.util.EventBusMsg;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -61,7 +65,12 @@ public class CashInfoOKDActivity extends SimpleTopbarActivity implements TextWat
         switch (v.getId()){
 
             case R.id.tv_CashOkd:
-
+                BaseApplication instance = BaseApplication.getInstance();
+                String passwordPay = instance.getPasswordPay();
+                if (TextUtils.isEmpty(passwordPay)){
+                    ToastUtil.showToast("请先设置支付密码！");
+                    return;
+                }
                 String trim = tvCashOkdBuyNum.getText().toString().trim();
                 try {
                     if (TextUtils.isEmpty(trim)&&Double.valueOf(trim)>0){
@@ -76,6 +85,7 @@ public class CashInfoOKDActivity extends SimpleTopbarActivity implements TextWat
                 DialogUtil.getInstance()
                         .setContext(this)
                         .setCancelable(true)
+                        .setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
                         .title("温馨提示")
                         .hint("请输入支付密码")
                         .sureText("确定")
@@ -88,6 +98,13 @@ public class CashInfoOKDActivity extends SimpleTopbarActivity implements TextWat
                                 map.put("sign", sign);
                                 okHttpPostBody(101, GlobalParam.VERIFYPASSWORD, map);
                             }
+                        })
+                        .setCancelOnClickListener(new DialogUtil.OnClickListener() {
+
+                            @Override
+                            public void onClick(View view, String message) {
+
+                            }
                         }).showEditDialog();
 
 
@@ -99,6 +116,8 @@ public class CashInfoOKDActivity extends SimpleTopbarActivity implements TextWat
         if (returnCode == 200){
             switch (requestCode){
                 case 100:
+                    EventBusMsg msg = new EventBusMsg("RefreshBag");
+                    EventBus.getDefault().post(msg);
                     ToastUtil.showToast(returnMsg);
                     finish();
                     break;

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.BaseInternetActivity;
 
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.util.Map;
 public class SettingActivity extends BaseInternetActivity {
 
     private LinearLayout llSettingSafety;
+    private TextView tvExitApp;
     @Override
     protected Object getTopbarTitle() {
         return R.string.setting;
@@ -35,6 +38,9 @@ public class SettingActivity extends BaseInternetActivity {
         //隐私与安全
         llSettingSafety = findViewById(R.id.ll_SettingSafety);
         llSettingSafety.setOnClickListener(this);
+
+        tvExitApp = findViewById(R.id.tv_ExitApp);
+        tvExitApp.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +49,9 @@ public class SettingActivity extends BaseInternetActivity {
         switch (v.getId()){
             case R.id.ll_SettingSafety:
                 startActivity(new Intent(this,SettingSafetyActivity.class));
+                break;
+            case R.id.tv_ExitApp:
+                BaseApplication.getInstance().exitApp();
                 break;
         }
     }

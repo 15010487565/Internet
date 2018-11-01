@@ -1,12 +1,15 @@
 package com.xcd.www.internet.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.SearchAllActivity;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.func.HomeLeftTopBtnFunc;
 import com.xcd.www.internet.func.HomeRightTopBtnFunc;
@@ -52,6 +55,8 @@ public class HomeFragment extends SimpleTopbarFragment {
 
     @Override
     protected void initView(LayoutInflater inflater, View view) {
+        LinearLayout reSearch = view.findViewById(R.id.re_HomeSearch);
+        reSearch.setOnClickListener(this);
         //会话列表
         ConversationListFragment conversationListFragment = new ConversationListFragment();
         Uri uri = Uri.parse("rong://" + getActivity().getApplicationInfo().packageName).buildUpon()
@@ -89,6 +94,18 @@ public class HomeFragment extends SimpleTopbarFragment {
         RongExtensionManager.getInstance().registerExtensionModule(new BaseExtensionModule());
     }
 
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.re_HomeSearch:
+                Intent intent = new Intent(getActivity(), SearchAllActivity.class);
+//                intent.putExtra("list", (Serializable) contactInfo);
+                startActivity(intent);
+                break;
+        }
+    }
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {

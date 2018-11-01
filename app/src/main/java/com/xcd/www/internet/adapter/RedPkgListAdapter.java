@@ -92,7 +92,7 @@ public class RedPkgListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         }
 //        String name = dataBean.getNick();
-//        holderItem.tvMeMoneyType.setText(TextUtils.isEmpty(name)?"":name);
+//        holderItem.tvMeBagType.setText(TextUtils.isEmpty(name)?"":name);
         String grabTime = dataBean.getTime();
         holderItem.tvRedPkgListTime.setText(TextUtils.isEmpty(grabTime)?"":grabTime);
         ////0收入1支出

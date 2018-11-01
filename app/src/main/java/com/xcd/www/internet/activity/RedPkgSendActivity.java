@@ -3,6 +3,7 @@ package com.xcd.www.internet.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -89,6 +90,13 @@ public class RedPkgSendActivity extends BaseInternetActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_RedSend:
+                BaseApplication instance = BaseApplication.getInstance();
+                String passwordPay = instance.getPasswordPay();
+                if (TextUtils.isEmpty(passwordPay)){
+                    ToastUtil.showToast("请先设置支付密码！");
+                    return;
+                }
+
                 String amount = etRedPkgAmount.getText().toString().trim();
                 try {
                     if (TextUtils.isEmpty(amount) || Double.valueOf(amount) <= 0) {
@@ -114,6 +122,7 @@ public class RedPkgSendActivity extends BaseInternetActivity {
                 DialogUtil.getInstance()
                         .setContext(this)
                         .setCancelable(true)
+                        .setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
                         .title("温馨提示")
                         .hint("请输入支付密码")
                         .sureText("确定")
@@ -125,6 +134,13 @@ public class RedPkgSendActivity extends BaseInternetActivity {
                                 map.put("password", message );
                                 map.put("sign", sign);
                                 okHttpPostBody(101, GlobalParam.VERIFYPASSWORD, map);
+                            }
+                        })
+                        .setCancelOnClickListener(new DialogUtil.OnClickListener() {
+
+                            @Override
+                            public void onClick(View view, String message) {
+
                             }
                         }).showEditDialog();
 

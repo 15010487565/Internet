@@ -138,7 +138,7 @@ public class CashTypeActivity extends SimpleTopbarActivity implements CashTypeAd
                         intent.setClass(this, CashInfoRmbActivity.class);
                     }
                     startActivity(intent);
-
+                    finish();
                     break;
             }
         }else {

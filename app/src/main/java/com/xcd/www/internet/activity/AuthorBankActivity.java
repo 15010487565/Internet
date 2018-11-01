@@ -60,7 +60,7 @@ public class AuthorBankActivity extends SimpleTopbarActivity {
                 BaseApplication instance = BaseApplication.getInstance();
                 String passwordPay = instance.getPasswordPay();
                 if (TextUtils.isEmpty(passwordPay)){
-                    ToastUtil.showToast("请先在设置支付密码！");
+                    ToastUtil.showToast("请先设置支付密码！");
                     return;
                 }
                 String name = etAuthotBankName.getText().toString().trim();

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.FriendListActivity;
 import com.xcd.www.internet.activity.GroupCreateNextActivity;
 import com.xcd.www.internet.activity.MainActivity;
 
@@ -72,7 +73,8 @@ public class HomeRightTopBtnFunc extends BaseTopImageBtnFunc {
                         break;
 
                     case 2://加密私聊
-
+                        intent = new Intent(getActivity(), FriendListActivity.class);
+                        getActivity().startActivity(intent);
                         break;
 
                     case 3://扫一扫

@@ -454,12 +454,24 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 	 * @param url        地址
 	 * @param paramsMaps 参数
 	 */
+	public boolean isDialogShow = true;
+
+	public boolean isDialogShow() {
+		return isDialogShow;
+	}
+
+	public void setDialogShow(boolean dialogShow) {
+		isDialogShow = dialogShow;
+	}
+
 	public void okHttpPostBody(final int requestCode, String url, final Map<String, String> paramsMaps) {
 		if (NetUtil.getNetWorking(getActivity()) == false) {
 			showToast("请检查网络。。。");
 			return;
 		}
-		dialogshow();
+		if (isDialogShow){
+			dialogshow();
+		}
 		OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps,new Handler() {
 			@Override
 			public void handleMessage(Message msg) {

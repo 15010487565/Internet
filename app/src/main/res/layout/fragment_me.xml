@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:fillViewport="false"
     android:background="@color/line_gray"
@@ -9,14 +10,23 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
     <include layout="@layout/view_simple_topbar" />
-    <ScrollView
+    <www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout
+        android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="false">
-        <LinearLayout
+        android:addStatesFromChildren="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/ns_statistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
                 <LinearLayout
                     android:id="@+id/ll_MeTop"
                     android:layout_width="match_parent"
@@ -28,13 +38,29 @@
                     android:paddingBottom="@dimen/margin_20"
                     android:gravity="center_vertical"
                     android:background="@color/blue">
-                    <ImageView
-                        android:id="@+id/iv_MeTopHead"
-                        android:layout_width="@dimen/height_60"
-                        android:layout_height="@dimen/height_60"
-                        android:contentDescription="@null"
-                        android:layout_gravity="center_vertical"
-                        android:background="@mipmap/launcher_login"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.xcd.www.internet.view.CircleImageView
+                            android:id="@+id/iv_MeTopHead"
+                            android:layout_width="120px"
+                            android:layout_height="120px"
+                            android:gravity="center_horizontal|right"
+                            android:layout_centerInParent="true"
+                            android:scaleType="fitXY"
+                            app:type="circle"
+                            android:src="@mipmap/launcher_login"/>
+
+                        <TextView
+                            android:id="@+id/tv_MeTopHead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/textsize_15" />
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -50,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:singleLine="true"
-                            android:text="X先生"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="@dimen/textsize_17" />
                         <TextView
@@ -66,6 +92,7 @@
                             android:textSize="@dimen/textsize_12" />
                     </LinearLayout>
                     <ImageView
+                        android:id="@+id/iv_MeCode"
                         android:layout_width="@dimen/margin_20"
                         android:layout_height="@dimen/margin_20"
                         android:contentDescription="@null"
@@ -83,43 +110,95 @@
 
                 </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_40"
-                    android:background="@color/blue"/>
+                    android:layout_height="wrap_content">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_40"
+                        android:background="@color/blue"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingRight="@dimen/margin_20"
+                        android:paddingBottom="@dimen/margin_20"
+                        android:layout_marginLeft="@dimen/margin_20"
+                        android:layout_marginRight="@dimen/margin_20"
+                        android:orientation="vertical"
+                        android:background="@drawable/shape_white">
+                        <LinearLayout
+                            android:id="@+id/ll_MeMoney"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingTop="@dimen/margin_20"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="30px"
+                                android:layout_height="30px"
+                                android:gravity="center"
+                                android:background="@mipmap/me_property" />
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/margin_10"
+                                android:text="总资产"
+                                android:textColor="@color/black_30"
+                                android:textSize="@dimen/textsize_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:layout_marginLeft="@dimen/margin_10"
+                                android:text="更多"
+                                android:textColor="@color/black_99"
+                                android:textSize="@dimen/textsize_12" />
+                            <ImageView
+                                android:layout_width="30px"
+                                android:layout_height="30px"
+                                android:gravity="center"
+                                android:background="@mipmap/back_black" />
+                        </LinearLayout>
+                        <com.github.mikephil.charting.charts.PieChart
+                            android:id="@+id/mPieChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margin_20"
-                    android:paddingRight="@dimen/margin_20"
-                    android:paddingBottom="@dimen/margin_20"
+                    android:padding="@dimen/margin_20"
                     android:layout_marginLeft="@dimen/margin_20"
                     android:layout_marginRight="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/margin_15"
                     android:orientation="vertical"
                     android:background="@drawable/shape_white">
                     <LinearLayout
-                        android:id="@+id/ll_MeMoney"
+                        android:id="@+id/ll_MeRedPkg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingTop="@dimen/margin_20"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="30px"
                             android:layout_height="30px"
                             android:gravity="center"
-                            android:background="@mipmap/me_property" />
+                            android:background="@mipmap/me_red" />
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="@dimen/margin_10"
-                            android:text="总资产"
+                            android:text="我的红包"
                             android:textColor="@color/black_30"
                             android:textSize="@dimen/textsize_12" />
 
@@ -137,155 +216,105 @@
                             android:gravity="center"
                             android:background="@mipmap/back_black" />
                     </LinearLayout>
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/mPieChart"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_20"
-                android:layout_marginLeft="@dimen/margin_20"
-                android:layout_marginRight="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_15"
-                android:orientation="vertical"
-                android:background="@drawable/shape_white">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="30px"
-                        android:layout_height="30px"
-                        android:gravity="center"
-                        android:background="@mipmap/me_red" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:text="我的红包"
-                        android:textColor="@color/black_30"
-                        android:textSize="@dimen/textsize_12" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:text="更多"
-                        android:textColor="@color/black_99"
-                        android:textSize="@dimen/textsize_12" />
-                    <ImageView
-                        android:layout_width="30px"
-                        android:layout_height="30px"
-                        android:gravity="center"
-                        android:background="@mipmap/back_black" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_15"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_margin="@dimen/margin_15"
                         android:background="@color/white"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_StatisticStotalMoney"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="USDT个数"
-                            android:textColor="@color/black_40"
-                            android:textSize="@dimen/textsize_12" />
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5"
-                            android:text="0,000.00"
-                            android:textColor="@color/orange"
-                            android:textSize="@dimen/textsize_20" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="@dimen/margin_1"
-                        android:layout_height="match_parent"
-                        android:background="@color/line_c3"/>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_1"
-                        android:layout_marginRight="@dimen/margin_1"
-                        android:layout_weight="1"
-                        android:background="@color/white"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="USDT个数"
+                                android:textColor="@color/black_40"
+                                android:textSize="@dimen/textsize_12" />
 
-                        <TextView
-                            android:id="@+id/tv_StatisticGoodsNum"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/tv_MeUsdtNum"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
+                                android:text="0,000.00"
+                                android:textColor="@color/orange"
+                                android:textSize="@dimen/textsize_20" />
+                        </LinearLayout>
+                        <View
+                            android:layout_width="@dimen/margin_1"
+                            android:layout_height="match_parent"
+                            android:background="@color/line_c3"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="约等于美金"
-                            android:textColor="@color/black_99"
-                            android:textSize="@dimen/textsize_12" />
+                            android:layout_marginLeft="@dimen/margin_1"
+                            android:layout_marginRight="@dimen/margin_1"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_5"
-                            android:text="$ 0,000.00"
-                            android:textColor="@color/black_33"
-                            android:textSize="@dimen/textsize_20" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="约等于美金"
+                                android:textColor="@color/black_99"
+                                android:textSize="@dimen/textsize_12" />
+
+                            <TextView
+                                android:id="@+id/tv_MeUsdtMoney"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
+                                android:text="$ 0,000.00"
+                                android:textColor="@color/black_33"
+                                android:textSize="@dimen/textsize_20" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/me_custom_func_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/me_vertical_margin"
-                android:orientation="vertical"
-                android:paddingBottom="1px"
-                android:paddingTop="1px">
 
                 <LinearLayout
-                    android:id="@+id/me_custom_func_list"
+                    android:id="@+id/me_custom_func_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="@dimen/me_vertical_margin"
+                    android:orientation="vertical"
+                    android:paddingBottom="1px"
+                    android:paddingTop="1px">
 
+                    <LinearLayout
+                        android:id="@+id/me_custom_func_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/me_system_func_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/me_vertical_margin"
+                    android:orientation="vertical"
+                    android:paddingBottom="1px"
+                    android:paddingTop="1px">
+
+                    <LinearLayout
+                        android:id="@+id/me_system_func_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"></LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-            <LinearLayout
-                android:id="@+id/me_system_func_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/me_vertical_margin"
-                android:orientation="vertical"
-                android:paddingBottom="1px"
-                android:paddingTop="1px">
-
-                <LinearLayout
-                    android:id="@+id/me_system_func_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    </www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout>
 </LinearLayout>

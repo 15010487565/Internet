@@ -1,9 +1,5 @@
 [
     {
-        "merged": "E:\\androidprject\\CanvasFinal-master\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-v21\\notification_action_background.xml",
-        "source": "C:\\Users\\Android\\.android\\build-cache\\87a2aeffc36f4c5aa8d7893a844f3af475ba4bc1\\output\\res\\drawable-v21\\notification_action_background.xml"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-v21\\notification_action_background.xml",
         "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable-v21\\notification_action_background.xml"
     }

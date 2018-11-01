@@ -17,7 +17,8 @@ import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.CreateGroupTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.CreateGroupModel;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+import com.xcd.www.internet.util.ReadImgToBinary;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,13 +27,20 @@ import java.util.List;
 import java.util.Map;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.InformationNotificationMessage;
 import www.xcd.com.mylibrary.PhotoActivity;
 import www.xcd.com.mylibrary.activity.PermissionsActivity;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.DialogUtil;
 import www.xcd.com.mylibrary.utils.ToastUtil;
+import www.xcd.com.mylibrary.utils.key.Base64_;
+import www.xcd.com.mylibrary.utils.key.RSAUtils;
 
-public class GroupCreateActivity extends PhotoActivity implements CreateGroupAdapter.OnItemClickListener{
+public class GroupCreateActivity extends PhotoActivity implements CreateGroupAdapter.OnItemClickListener {
 
     private ImageView ivUploadHead;
     private List<ContactModel> createGroupNextList;
@@ -40,7 +48,11 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
     private LinearLayoutManager mLinearLayoutManager;
     private CreateGroupAdapter adapter;
     private EditText etGroupName, etGroupDes;
+    String headportrait;
+    String sign;
+    //    String avatar;
     private static Class<?> rightFuncArray[] = {CreateGroupTopBtnFunc.class};
+
     @Override
     protected Class<?>[] getTopbarRightFuncArray() {
         return rightFuncArray;
@@ -55,7 +67,7 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-
+        sign = BaseApplication.getInstance().getSign();
     }
 
     @Override
@@ -69,7 +81,7 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
         ivUploadHead = findViewById(R.id.iv_UploadHead);
         ivUploadHead.setOnClickListener(this);
         //邀请人集合
-        rcCreateGroup =  findViewById(R.id.rc_CreateGroup);
+        rcCreateGroup = findViewById(R.id.rc_CreateGroup);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setAutoMeasureEnabled(true);
         rcCreateGroup.setLayoutManager(mLinearLayoutManager);
@@ -81,20 +93,18 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
         rcCreateGroup.addItemDecoration(recyclerViewDecoration);
         //实例化数据
         createGroupNextList = (List<ContactModel>) getIntent().getSerializableExtra("createGroupNextList");
-        if (createGroupNextList !=null){
-            Log.e("TAG_创建","list="+createGroupNextList.toString());
-        }
+
         adapter.setData(createGroupNextList);
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_UploadHead:
                 if (mChecker.lacksPermissions(AUTHORIMAGE)) {
                     // 请求权限
-                    PermissionsActivity.startActivityForResult(this,11000,AUTHORIMAGE);
+                    PermissionsActivity.startActivityForResult(this, 11000, AUTHORIMAGE);
 //                    ActivityCompat.requestPermissions(this, BaseActivity.WRITEREADPERMISSIONS, 11000);
                 } else {
                     // 全部权限都已获取
@@ -104,25 +114,54 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
                 break;
         }
     }
-    String  headUrl;
+
+
     @Override
     public void uploadImage(List<File> list) {
         super.uploadImage(list);
         int showViewid = getShowViewid();
         try {
             for (File imagepath : list) {
-                headUrl = imagepath.getPath();
+                final String headUrl = imagepath.getPath();
                 switch (showViewid) {
-                    case R.id.iv_UploadHead://上传营业执照
-                        Glide.with(this)
-                                .load(headUrl)
-                                .fitCenter()
-                                .dontAnimate()
-                                .placeholder(R.mipmap.photo)
-                                .error(R.mipmap.photo)
-                                .into(ivUploadHead);
+                    case R.id.iv_UploadHead:
+
+                        if (headUrl != null) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //将图片转化为字符串
+                                    String proveFile = ReadImgToBinary.imgToBase64(headUrl);
+
+                                    Map<String, String> params = new HashMap<>();
+                                    if (!headUrl.matches("^image/(jpg)$")) {
+                                        byte[] en_result = RSAUtils.encryptByPublicKey("jpg".getBytes(), RSAUtils.getPublicKey());
+                                        String keyStr = Base64_.encode(en_result);
+                                        params.put("type", keyStr);
+                                    } else if (!headUrl.matches("^image/(png)$")) {
+                                        byte[] en_result = RSAUtils.encryptByPublicKey("png".getBytes(), RSAUtils.getPublicKey());
+                                        String keyStr = Base64_.encode(en_result);
+                                        params.put("type", keyStr);
+                                    }
+                                    params.put("data", proveFile);
+
+                                    long time = System.currentTimeMillis();//获取系统时间的10位的时间戳
+                                    String date = String.valueOf(time);
+                                    byte[] dateResult = RSAUtils.encryptByPublicKey(date.getBytes(), RSAUtils.getPublicKey());
+                                    String dateStr = Base64_.encode(dateResult);
+                                    params.put("date", dateStr);
+
+                                    byte[] signResult = RSAUtils.encryptByPublicKey(sign.getBytes(), RSAUtils.getPublicKey());
+                                    String signStr = Base64_.encode(signResult);
+                                    params.put("sign", signStr);
+
+                                    okHttpPostBodyImage(101, GlobalParam.UPLOADIMG, params);
+                                }
+                            });
+                        }
 
                         break;
+
                 }
             }
 
@@ -132,44 +171,40 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
     }
 
     //确定
-    public void createGroup(){
+    public void createGroup() {
 
         String groupName = etGroupName.getText().toString().trim();
-        if (TextUtils.isEmpty(groupName)){
+        if (TextUtils.isEmpty(groupName)) {
             ToastUtil.showToast("群名称不能为空!");
             return;
         }
         String groupDes = etGroupDes.getText().toString().trim();
-        if (TextUtils.isEmpty(groupDes)){
+        if (TextUtils.isEmpty(groupDes)) {
             ToastUtil.showToast("群名称不能为空!");
             return;
         }
-        if (TextUtils.isEmpty(headUrl)){
+        if (TextUtils.isEmpty(headportrait)) {
             ToastUtil.showToast("群头像不能为空!");
             return;
         }
-        long id = BaseApplication.getInstance().getId();
+        if (createGroupNextList == null || createGroupNextList.size() == 0) {
+            ToastUtil.showToast("单人不能创建群组");
+            return;
+        }
         StringBuffer sb = new StringBuffer();
-        if (createGroupNextList.size()<=0){
-            sb.append(34);
-        }else {
-            sb.append(id);
-            sb.append(",");
-            for (int i = 0,j =createGroupNextList.size(); i < j ; i++) {
-                ContactModel contactModel = createGroupNextList.get(i);
-                String mobile = contactModel.getMobile();
-                sb.append(mobile);
-                if (i!=j-1){
-                    sb.append(",");
-                }
+        for (int i = 0, j = createGroupNextList.size(); i < j; i++) {
+            ContactModel contactModel = createGroupNextList.get(i);
+            String userId = contactModel.getUserId();
+            sb.append(userId);
+            if (i != j - 1) {
+                sb.append(",");
             }
         }
-        String sign = BaseApplication.getInstance().getSign();
         Map<String, String> params = new HashMap<>();
         params.put("name", groupName);//群名称
         params.put("des", groupDes);//描述
         params.put("ids", sb.toString());//群成员（id逗号分隔）
-        params.put("avatar", headUrl);//头像
+        params.put("avatar", headportrait);//头像
         params.put("sign", sign);
         okHttpPostBody(100, GlobalParam.CREATEGROUP, params);
     }
@@ -177,22 +212,53 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         switch (requestCode) {
-            case 100://注册
-                if (returnCode == 200){
+            case 100:
+                if (returnCode == 200) {
                     CreateGroupModel createGroupModel = JSON.parseObject(returnData, CreateGroupModel.class);
                     CreateGroupModel.DataBean data = createGroupModel.getData();
                     String targetGroupId = String.valueOf(data.getId());
                     String title = data.getName();
-                    RongIM.getInstance().startGroupChat(this,targetGroupId , title);
+
+                    BaseApplication instance = BaseApplication.getInstance();
+                    String nick = instance.getNick();
+                    MessageContent content = InformationNotificationMessage.obtain(
+                            nick + "创建了一个群组"
+                    );
+                    RongIM.getInstance().insertIncomingMessage(
+                            Conversation.ConversationType.GROUP,
+                            targetGroupId,
+                            String.valueOf(instance.getId()),
+                            new Message.ReceivedStatus(1),
+                            content,
+                            new RongIMClient.ResultCallback<Message>() {
+                                @Override
+                                public void onSuccess(Message message) {
+                                    Log.e("TAG_发送小灰条", "成功=" + message.getContent());
+                                }
+
+                                @Override
+                                public void onError(RongIMClient.ErrorCode errorCode) {
+                                    Log.e("TAG_发送小灰条", "失败=" + errorCode.getMessage());
+                                }
+                            }
+                    );
+                    RongIM.getInstance().startGroupChat(this, targetGroupId, title);
                     finish();
-//                    Map<String, String> params = new HashMap<>();
-//                    params.put("id ", targetGroupId);//群名称
-//                    params.put("friend ", friend );//描述
-//                    okHttpPostBody(100, GlobalParam.CREATEGROUP, params);
-                }else {
+                } else {
                     ToastUtil.showToast(returnMsg);
                 }
                 break;
+            case 101:
+                headportrait = returnData;
+                Glide.with(this)
+                        .load(headportrait)
+                        .fitCenter()
+                        .dontAnimate()
+                        .placeholder(R.mipmap.photo)
+                        .error(R.mipmap.photo)
+                        .into(ivUploadHead);
+                break;
+
         }
     }
 
@@ -227,11 +293,19 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
                 .cancelText("取消")
                 .setSureOnClickListener(new DialogUtil.OnClickListener() {
                     @Override
-                    public void onClick(View view,String message) {
+                    public void onClick(View view, String message) {
                         createGroupNextList.remove(position);
                         adapter.setData(createGroupNextList);
                     }
-                }).showDefaultDialog();
+                })
+                .setCancelOnClickListener(new DialogUtil.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view, String message) {
+
+                    }
+                })
+                .showDefaultDialog();
 
     }
 }

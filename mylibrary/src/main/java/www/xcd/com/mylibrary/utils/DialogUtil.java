@@ -49,7 +49,7 @@ public class DialogUtil {
     private AlertDialog dialog;
     private boolean cancelable = true;
     private CharSequence title, message,hint, cancelText, sureText;
-    private int inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+    private int inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
     private OnClickListener sureClickListener, cancelClickListener;
 
     private static DialogUtil single = null;
@@ -121,7 +121,7 @@ public class DialogUtil {
 
     public AlertDialog showDefaultDialog() {
         LayoutInflater factor = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View serviceView = factor.inflate(R.layout.custom_dialog_layout, null);
+        View serviceView = factor.inflate(R.layout.custom_dialog_layout_default, null);
         //标题
         TextView dialogTitle = serviceView.findViewById(R.id.dialog_Title);
         if (TextUtils.isEmpty(title)) {

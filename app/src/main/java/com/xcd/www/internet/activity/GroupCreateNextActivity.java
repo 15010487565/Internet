@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.xcd.www.internet.R;
@@ -12,7 +11,7 @@ import com.xcd.www.internet.adapter.CreateGroupNextAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.CreateGroupNextTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
+import www.xcd.com.mylibrary.utils.ToastUtil;
 
 public class GroupCreateNextActivity extends SimpleTopbarActivity implements CreateGroupNextAdapter.OnItemClickListener{
 
@@ -61,6 +61,10 @@ public class GroupCreateNextActivity extends SimpleTopbarActivity implements Cre
         rcCreateGroup.addItemDecoration(recyclerViewDecoration);
         //判断是否能邀请到群主
        listApp = BaseApplication.getInstance().getFriendList();
+        for (int i = 0,j = listApp.size(); i < j; i++) {
+            ContactModel contactModel = listApp.get(i);
+            contactModel.setSelect(false);
+        }
         adapter.setData(listApp);
     }
 
@@ -109,7 +113,10 @@ public class GroupCreateNextActivity extends SimpleTopbarActivity implements Cre
                 createGroupNextList.add(contactModel);
             }
         }
-        Log.e("TAG_创建","list="+createGroupNextList.size());
+        if (createGroupNextList==null||createGroupNextList.size() == 0){
+            ToastUtil.showToast("单人不能创建群组");
+            return;
+        }
         Intent intent = new Intent(this, GroupCreateActivity.class);
         intent.putExtra("createGroupNextList", (Serializable)createGroupNextList);
         startActivity(intent);

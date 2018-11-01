@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_20"
-            android:hint="请输入群组名称"
+            android:text=""
             android:textColor="@color/black_66"
             android:textColorHint="@color/black_99"
             android:textSize="@dimen/textsize_16" />
@@ -63,9 +63,37 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_20"
-            android:hint="请输入群组名称"
+            android:text=""
             android:textColor="@color/black_66"
             android:textColorHint="@color/black_99"
             android:textSize="@dimen/textsize_16" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv_ChatInfoStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_20"
+        android:gravity="center"
+        android:paddingBottom="@dimen/margin_15"
+        android:paddingTop="@dimen/margin_15"
+        android:text="开始聊天"
+        android:background="@color/white"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/textsize_16" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_ChatInfoAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/height_20"
+        android:gravity="center"
+        android:paddingBottom="@dimen/margin_15"
+        android:paddingTop="@dimen/margin_15"
+        android:text="添加好友"
+        android:background="@drawable/shape_blue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize_16" />
 </LinearLayout>

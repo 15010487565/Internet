@@ -12,7 +12,7 @@ import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.RedPkgListAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.model.RedPkgDetailsListModel;
-import com.xcd.www.internet.view.RecyclerViewDecoration;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +24,9 @@ import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
 import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
+/**
+ * 我的红包记录
+ */
 public class MeRedPkgActivity extends SimpleTopbarActivity implements MultiSwipeRefreshLayout.OnLoadListener {
 
 
@@ -53,7 +56,7 @@ public class MeRedPkgActivity extends SimpleTopbarActivity implements MultiSwipe
         if (id != 0){
             map.put("id", String.valueOf(id));//最后一条数据id（第一次不传）
         }
-        map.put("limit ", String.valueOf(15));//条数 （默认10）
+        map.put("limit", String.valueOf(15));//条数 （默认10）
         map.put("sign", sign);
         okHttpPostBody(100, GlobalParam.REDPACKETLIST, map);
     }

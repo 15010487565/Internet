@@ -1,23 +1,32 @@
 package com.xcd.www.internet.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.LoginActivity;
 import com.xcd.www.internet.activity.MainActivity;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.common.Config;
+import com.xcd.www.internet.model.CodeModer;
 import com.xcd.www.internet.model.LoginInfoModel;
-import com.xcd.www.internet.util.CommonHelper;
+import com.xcd.www.internet.util.EventBusMsg;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,7 +46,7 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
     private TextView tvLoginGetCode, tvLoginCode;
     private int recLen = Config.CODETIME;//验证码倒计时
     Thread thread;
-
+    private TextView tvCountryZipCode;
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_logincode;
@@ -58,6 +67,7 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
         //登录
         tvLoginCode = view.findViewById(R.id.tv_LoginCode);
         tvLoginCode.setOnClickListener(this);
+        tvCountryZipCode = view.findViewById(R.id.tv_CountryZipCode);
     }
 
     @Override
@@ -71,7 +81,7 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
             case R.id.tv_LoginCode:
                 //手机号
                 String phone = etLoginPhone.getText().toString().trim();
-                if (!CommonHelper.with().checkPhone(phone)) {
+                if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
                     return;
                 }
@@ -80,10 +90,12 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                     ToastUtil.showToast("验证码不能为空！");
                     return;
                 }
+                String countryZipCode = ((LoginActivity) getActivity()).getCountryZipCode();
+                Log.e("TAG_登陆","countryZipCode="+countryZipCode);
                 Map<String, String> map = new HashMap<>();
                 map.put("account", phone);
                 map.put("code", code);
-                map.put("country", "86");
+                map.put("country", TextUtils.isEmpty(countryZipCode)?"86":countryZipCode);
                 okHttpPostBody(100, GlobalParam.LOGIN, map);
                 break;
         }
@@ -125,6 +137,9 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                     break;
                 case 101://获取验证码
                     handler.postDelayed(runnable, 1000);
+                    CodeModer codeModer = JSON.parseObject(returnData, CodeModer.class);
+                    String code = codeModer.getData();
+                    etLoginCode.setText(code);
                     break;
             }
         } else {
@@ -164,7 +179,7 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
                     String timeStr = (String) msg.obj;
                     Map<String, String> mapCode = new HashMap<>();
                     mapCode.put("account", phone);
-                    mapCode.put("country ", "86");
+                    mapCode.put("country ", TextUtils.isEmpty(CountryZipCode)?"86":CountryZipCode);
                     mapCode.put("date", timeStr);
                     okHttpPostBody(101, GlobalParam.GETCODE, mapCode);
 
@@ -212,4 +227,28 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
             }
         }
     };
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (!EventBus.getDefault().isRegistered(this))
+        {
+            EventBus.getDefault().register(this);
+        }
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+    String CountryZipCode;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(EventBusMsg event) {
+        String msg = event.getMsg();
+        CountryZipCode = event.getMsgCon();
+        Log.e("TAG_Main", "Contact=" + msg);
+        if ("CountryZipCode".equals(msg)) {
+            tvCountryZipCode.setText("+"+CountryZipCode);
+        }
+    }
 }
