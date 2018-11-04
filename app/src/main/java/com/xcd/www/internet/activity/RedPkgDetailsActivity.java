@@ -2,6 +2,7 @@ package com.xcd.www.internet.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +13,14 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.jcodecraeer.xrecyclerview.AppBarStateChangeListener;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.RedPkgOpenDetAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.RedPkgRecordTopBtnFunc;
 import com.xcd.www.internet.model.RedPkgDetailsModel;
-import com.xcd.www.internet.view.CircleImageView;
 import com.xcd.www.internet.ui.RecyclerViewDecoration;
+import com.xcd.www.internet.view.CircleImageView;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -83,8 +85,6 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
                 .into(ivOpenRedPkgDetHead);
         String sendName = intent.getStringExtra("sendName");
         tvOpenRedPkgDetName.setText(sendName);
@@ -197,6 +197,24 @@ public class RedPkgDetailsActivity extends SimpleTopbarActivity implements Multi
         //设置样式刷新显示的位置
         loadGroupInfo.setProgressViewOffset(true, -20, 100);
         loadGroupInfo.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
+        AppBarLayout appBarLayout =  findViewById(R.id.appbar);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, AppBarStateChangeListener.State state) {
+//                Log.e("STATE", state.name());
+                if (state == State.EXPANDED) {
+                    //展开状态
+                    loadGroupInfo.setEnabled(true);
+                } else if (state == State.COLLAPSED) {
+                    //折叠状态
+                    loadGroupInfo.setEnabled(false);
+                } else {
+                    //中间状态
+                    loadGroupInfo.setEnabled(false);
+                }
+            }
+        });
     }
 
     @Override

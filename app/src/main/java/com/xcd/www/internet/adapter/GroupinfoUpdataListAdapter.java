@@ -2,6 +2,7 @@ package com.xcd.www.internet.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,8 +116,6 @@ public class GroupinfoUpdataListAdapter extends RecyclerView.Adapter<RecyclerVie
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.launcher_login)
-                .error(R.mipmap.launcher_login)
                 .into(holderItem.ivGroupInfologo);
         int id = dataBean.getId();
         if (String.valueOf(id).equals(groupUserid)) {
@@ -138,7 +137,7 @@ public class GroupinfoUpdataListAdapter extends RecyclerView.Adapter<RecyclerVie
         }
         String name = dataBean.getN();
 
-        holderItem.tvName.setText(name + "" + position);
+        holderItem.tvName.setText(TextUtils.isEmpty(name)?"":name);
 
         holderItem.tvName.setOnClickListener(new View.OnClickListener() {
             @Override

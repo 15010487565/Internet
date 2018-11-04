@@ -27,7 +27,6 @@ public class BaseConversationFragment extends ConversationFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mRongExtension = (RongExtension) view.findViewById(R.id.rc_extension);
 
-
         return view;
     }
 

@@ -1,6 +1,5 @@
 package com.xcd.www.internet.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -101,7 +100,8 @@ public class SettingUpdataLoginActivity extends SimpleTopbarActivity {
 
                 if (returnCode == 200) {
                     ToastUtil.showToast(returnMsg);
-                    startActivity(new Intent(SettingUpdataLoginActivity.this,LoginActivity.class));
+//                    startActivity(new Intent(SettingUpdataLoginActivity.this,LoginActivity.class));
+                    finish();
                 }else{
                     ToastUtil.showToast(returnMsg);
                 }

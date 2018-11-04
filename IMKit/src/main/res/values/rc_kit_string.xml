@@ -209,7 +209,8 @@
     <string name="rc_item_remove_group_after_str">移出了群组</string>
     <string name="rc_item_create_group">创建群组</string>
     <string name="rc_item_created_group">%1$s创建了群组</string>
-    <string name="rc_item_invitation">%1$s邀请%2$s加入群组</string>
+    <string name="rc_item_invitation">%1$s加入群组</string>
+    <!--<string name="rc_item_invitation">%1$s邀请%2$s加入群组</string>-->
     <string name="rc_item_etc">等</string>
     <string name="rc_item_remove_group_member">%1$s将%2$s移出群组</string>
     <string name="rc_item_remove_self">%1$s被%2$s移出群组</string>

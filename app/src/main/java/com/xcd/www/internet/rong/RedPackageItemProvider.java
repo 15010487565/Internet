@@ -21,9 +21,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.activity.RedPkgDetailsActivity;
+import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.view.CircleImageView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import io.rong.imkit.model.ProviderTag;
@@ -72,15 +72,17 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
         }
         try {
             String extra = redPackageMessage.getExtra();
-            JSONObject jsonObject = new JSONObject(extra);
-            String content = jsonObject.optString("content");
-            holder.tvRedPkgRemark.setText(TextUtils.isEmpty(content) ? "恭喜发财，大吉大利" : content);
+            if (extra != null){
+                JSONObject jsonObject = new JSONObject(extra);
+                String content = jsonObject.optString("content");
+                holder.tvRedPkgRemark.setText(TextUtils.isEmpty(content) ? "恭喜发财，大吉大利" : content);
 
-            final String sendName = jsonObject.optString("sendName");
-            String sendRedType = jsonObject.optString("coin");
-            String minNumberString = String.format("来自%s的%s红包", sendName, sendRedType);
-            holder.tvRedPkgName.setText(minNumberString);
-        } catch (JSONException e) {
+                final String sendName = jsonObject.optString("sendName");
+                String sendRedType = jsonObject.optString("coin");
+                String minNumberString = String.format("来自%s的%s红包", sendName, sendRedType);
+                holder.tvRedPkgName.setText(minNumberString);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -92,16 +94,20 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     public Spannable getContentSummary(RedPackageMessage redPackageMessage) {
         try {
             String extra = redPackageMessage.getExtra();
-            JSONObject jsonObject = new JSONObject(extra);
+            if (extra !=null){
+                JSONObject jsonObject = new JSONObject(extra);
 
-            String sendRedType = jsonObject.optString("coin");
-            if ("USDT".equals(sendRedType)) {
-                return new SpannableString("【红包】");
-            } else {
-                String desc1 = redPackageMessage.getSendName();
-                return new SpannableString(desc1 == null ? "未知" : desc1);
+                String sendRedType = jsonObject.optString("coin");
+                if ("USDT".equals(sendRedType)) {
+                    return new SpannableString("【红包】");
+                } else {
+                    String desc1 = redPackageMessage.getSendName();
+                    return new SpannableString(desc1 == null ? "未知" : desc1);
+                }
+
             }
-        } catch (JSONException e) {
+            return new SpannableString("");
+        } catch (Exception e) {
             e.printStackTrace();
             return new SpannableString("未知");
         }
@@ -110,17 +116,18 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     @Override
     public void onItemClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
         String groupId = uiMessage.getTargetId();
-        Log.e("TAG_点击","groupId="+groupId);
-        Log.e("TAG_点击","context="+(context==null));
+        Log.e("TAG_点击", "groupId=" + groupId);
+        Log.e("TAG_点击", "context=" + (context == null));
+        long id = BaseApplication.getInstance().getId();
 
-        if (context !=null)
-        showOpenRedRkgDialog(redPackageMessage,groupId);
+        if (context != null)
+            showOpenRedRkgDialog(redPackageMessage, groupId);
     }
 
     @Override
     public void onItemLongClick(View view, int i, RedPackageMessage redPackageMessage, UIMessage uiMessage) {
         String groupId = uiMessage.getTargetId();
-        Log.e("TAG_点击","groupId="+groupId);
+        Log.e("TAG_点击", "groupId=" + groupId);
         //实现长按删除等功能，咱们直接复制融云其他provider的实现
 //        String[] items1;//复制，删除
 //        items1 = new String[]{view.getContext().getResources().getString(io.rong.imkit.R.string.rc_dialog_item_message_copy), view.getContext().getResources().getString(io.rong.imkit.R.string.rc_dialog_item_message_delete)};
@@ -147,42 +154,59 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
     protected AlertDialog openRedPkgDialog;
 
     private void showOpenRedRkgDialog(final RedPackageMessage redPackageMessage, final String groupId) {
-        if (openRedPkgDialog != null && openRedPkgDialog.isShowing()) {
-            return;
-        }
-        LayoutInflater factor = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View serviceView = factor.inflate(R.layout.dialog_openredrkg, null);
-        //头像
-        CircleImageView ivOpenRedPkgHead = serviceView.findViewById(R.id.iv_OpenRedPkgHead);
-        //关闭
-        ImageView tvRedPkgClose = serviceView.findViewById(R.id.tv_OpenRedPkgClose);
-        //昵称
-        TextView tvOpenRedPkgName = serviceView.findViewById(R.id.tv_OpenRedPkgName);
-        //备注
-        TextView tvOpenRedPkgRemark = serviceView.findViewById(R.id.tv_OpenRedPkgRemark);
-        TextView refuse = serviceView.findViewById(R.id.iv_OpenRedPkgBtn);
         try {
+
             String extra = redPackageMessage.getExtra();
             JSONObject jsonObject = new JSONObject(extra);
             final String headUrl = jsonObject.optString("headUrl");
 
             final String sendName = jsonObject.optString("sendName");
-            tvOpenRedPkgName.setText(TextUtils.isEmpty(sendName)?"":sendName);
-
             final String contentStr = jsonObject.optString("content");
-            tvOpenRedPkgRemark.setText(TextUtils.isEmpty(contentStr)?"":contentStr);
 
             final String redPkgId = jsonObject.optString("redPacketId");
             final String total = jsonObject.optString("total");
             final String amout = jsonObject.optString("amout");
+
+            String sendID = jsonObject.optString("sendID");
+            long id = BaseApplication.getInstance().getId();
+//            if (String.valueOf(id).equals(sendID)){
+//                Intent intent = new Intent(context, RedPkgDetailsActivity.class);
+//                intent.putExtra("redPkgId", TextUtils.isEmpty(redPkgId) ? "" : redPkgId);
+//                intent.putExtra("headUrl", TextUtils.isEmpty(headUrl) ? "" : headUrl);
+//                intent.putExtra("sendName", TextUtils.isEmpty(sendName) ? "" : sendName);
+//                intent.putExtra("content", TextUtils.isEmpty(contentStr) ? "" : contentStr);
+//                intent.putExtra("total", total);
+//                intent.putExtra("amout", amout);
+//                intent.putExtra("groupId", groupId);
+//                context.startActivity(intent);
+//                return;
+//            }
+            if (openRedPkgDialog != null && openRedPkgDialog.isShowing()) {
+                return;
+            }
+            LayoutInflater factor = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View serviceView = factor.inflate(R.layout.dialog_openredrkg, null);
+            //头像
+            CircleImageView ivOpenRedPkgHead = serviceView.findViewById(R.id.iv_OpenRedPkgHead);
+            //关闭
+            ImageView tvRedPkgClose = serviceView.findViewById(R.id.tv_OpenRedPkgClose);
+            //昵称
+            TextView tvOpenRedPkgName = serviceView.findViewById(R.id.tv_OpenRedPkgName);
+            //备注
+            TextView tvOpenRedPkgRemark = serviceView.findViewById(R.id.tv_OpenRedPkgRemark);
+            TextView refuse = serviceView.findViewById(R.id.iv_OpenRedPkgBtn);
+
+
+            tvOpenRedPkgName.setText(TextUtils.isEmpty(sendName) ? "" : sendName);
+
+
+            tvOpenRedPkgRemark.setText(TextUtils.isEmpty(contentStr) ? "" : contentStr);
 
             Glide.with(context.getApplicationContext())
                     .load(headUrl)
                     .fitCenter()
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
                     .into(ivOpenRedPkgHead);
 
             tvRedPkgClose.setOnClickListener(new View.OnClickListener() {
@@ -198,39 +222,40 @@ public class RedPackageItemProvider extends IContainerItemProvider.MessageProvid
                 public void onClick(View v) {
                     openRedPkgDialog.dismiss();
                     Intent intent = new Intent(context, RedPkgDetailsActivity.class);
-                    intent.putExtra("redPkgId",TextUtils.isEmpty(redPkgId)?"":redPkgId);
-                    intent.putExtra("headUrl",TextUtils.isEmpty(headUrl)?"":headUrl);
-                    intent.putExtra("sendName",TextUtils.isEmpty(sendName)?"":sendName);
-                    intent.putExtra("content",TextUtils.isEmpty(contentStr)?"":contentStr);
-                    intent.putExtra("total",total);
-                    intent.putExtra("amout",amout);
-                    intent.putExtra("groupId",groupId);
+                    intent.putExtra("redPkgId", TextUtils.isEmpty(redPkgId) ? "" : redPkgId);
+                    intent.putExtra("headUrl", TextUtils.isEmpty(headUrl) ? "" : headUrl);
+                    intent.putExtra("sendName", TextUtils.isEmpty(sendName) ? "" : sendName);
+                    intent.putExtra("content", TextUtils.isEmpty(contentStr) ? "" : contentStr);
+                    intent.putExtra("total", total);
+                    intent.putExtra("amout", amout);
+                    intent.putExtra("groupId", groupId);
                     context.startActivity(intent);
                 }
             });
-        } catch (JSONException e) {
+
+
+            Activity activity = (Activity) context;
+            while (activity.getParent() != null) {
+                activity = activity.getParent();
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            openRedPkgDialog = builder.create();
+            openRedPkgDialog.setCancelable(false);
+            openRedPkgDialog.setCanceledOnTouchOutside(false);
+            openRedPkgDialog.getWindow().setBackgroundDrawable(new ColorDrawable());
+            openRedPkgDialog.show();
+            WindowManager m = ((Activity) context).getWindowManager();
+            Display d = m.getDefaultDisplay();  //为获取屏幕宽、高
+            android.view.WindowManager.LayoutParams p = openRedPkgDialog.getWindow().getAttributes();  //获取对话框当前的参数值
+//        p.height = (int) (d.getHeight() * 0.7);   //高度设置为屏幕的0.3
+            p.width = (int) (d.getWidth() * 0.72);    //宽度设置为屏幕的0.7
+            openRedPkgDialog.getWindow().setAttributes(p);     //设置生效
+            openRedPkgDialog.setContentView(serviceView);
+//        FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(Gallery.LayoutParams.FILL_PARENT, Gallery.LayoutParams.WRAP_CONTENT);
+            //layout.setMargins(WallspaceUtil.dip2px(this, 10), 0, FeatureFunction.dip2px(this, 10), 0);
+//        serviceView.setLayoutParams(layout);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Activity activity = (Activity) context;
-        while (activity.getParent() != null) {
-            activity = activity.getParent();
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        openRedPkgDialog = builder.create();
-        openRedPkgDialog.setCancelable(false);
-        openRedPkgDialog.setCanceledOnTouchOutside(false);
-        openRedPkgDialog.getWindow().setBackgroundDrawable(new ColorDrawable());
-        openRedPkgDialog.show();
-        WindowManager m = ((Activity) context).getWindowManager();
-        Display d = m.getDefaultDisplay();  //为获取屏幕宽、高     
-        android.view.WindowManager.LayoutParams p = openRedPkgDialog.getWindow().getAttributes();  //获取对话框当前的参数值
-//        p.height = (int) (d.getHeight() * 0.7);   //高度设置为屏幕的0.3
-        p.width = (int) (d.getWidth() * 0.72);    //宽度设置为屏幕的0.7
-        openRedPkgDialog.getWindow().setAttributes(p);     //设置生效
-        openRedPkgDialog.setContentView(serviceView);
-//        FrameLayout.LayoutParams layout = new FrameLayout.LayoutParams(Gallery.LayoutParams.FILL_PARENT, Gallery.LayoutParams.WRAP_CONTENT);
-        //layout.setMargins(WallspaceUtil.dip2px(this, 10), 0, FeatureFunction.dip2px(this, 10), 0);
-//        serviceView.setLayoutParams(layout);
     }
 }

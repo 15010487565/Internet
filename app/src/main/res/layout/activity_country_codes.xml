@@ -5,9 +5,42 @@
     android:orientation="vertical">
     <include
     layout="@layout/view_simple_topbar"/>
-    <ListView
-        android:id="@+id/listView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/height_40"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_marginLeft="@dimen/margin_15"
+        android:layout_marginRight="@dimen/margin_15"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@drawable/shape_blackf6">
 
+        <EditText
+            android:id="@+id/et_Search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:hint="请输入名称进行搜索"
+            android:paddingLeft="15dp"
+            android:singleLine="true"
+            android:background="@null"
+            android:textColor="@color/black_99"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="34px"
+            android:layout_height="34px"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/search" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>

@@ -316,6 +316,10 @@
         "source": "D:\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable\\rc_ext_bg_edit_text_white.xml"
     },
     {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\shape_round_head.xml",
+        "source": "D:\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable\\shape_round_head.xml"
+    },
+    {
         "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_ratingbar_material.xml",
         "source": "C:\\Users\\WS\\.android\\build-cache\\329acfc859ee79a4f221064a8872b5ee2c1070b7\\output\\res\\drawable\\abc_ratingbar_material.xml"
     },

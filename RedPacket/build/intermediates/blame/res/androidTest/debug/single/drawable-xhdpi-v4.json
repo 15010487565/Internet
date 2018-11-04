@@ -196,12 +196,12 @@
         "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_ic_wx.png"
     },
     {
-        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\open_rp.png",
-        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\open_rp.png"
-    },
-    {
         "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\secure_setting.png",
         "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\secure_setting.png"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\open_rp.png",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\open_rp.png"
     },
     {
         "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_bg_from_hongbao.png",
@@ -312,12 +312,12 @@
         "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\jrmf_ic_trans_succ.png"
     },
     {
-        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_btn_red.9.png",
-        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_btn_red.9.png"
-    },
-    {
         "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
         "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_btn_red.9.png",
+        "source": "D:\\Internet\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_btn_red.9.png"
     },
     {
         "merged": "D:\\Internet\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_change.png",

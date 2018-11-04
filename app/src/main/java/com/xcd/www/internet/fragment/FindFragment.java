@@ -1,8 +1,6 @@
 package com.xcd.www.internet.fragment;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,8 +19,8 @@ import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.model.FindBannerModel;
 import com.xcd.www.internet.model.FindListModel;
 import com.xcd.www.internet.model.FindRcModel;
-import com.xcd.www.internet.view.GlideImageLoader;
 import com.xcd.www.internet.ui.RecyclerViewDecoration;
+import com.xcd.www.internet.view.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -31,12 +29,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.ToastUtil;
-import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
 /**
  * Created by gs on 2018/10/16.
@@ -50,12 +45,13 @@ public class FindFragment extends SimpleTopbarFragment implements
     private Banner bannerFind;
     private RecyclerView rcFind;
     private LinearLayoutManager mLinearLayoutManager;
-    private MultiSwipeRefreshLayout findSwLayout;
+//    private MultiSwipeRefreshLayout findSwLayout;
     //轮播
     List<FindBannerModel> listBanner;
     //正文列表
     List<FindListModel> listBody;
     String sign;
+    int width1;
     @Override
     protected Object getTopbarTitle() {
         return "咨询";
@@ -72,25 +68,25 @@ public class FindFragment extends SimpleTopbarFragment implements
         bannerFind = view.findViewById(R.id.banner_Find);
         //开始轮播
         bannerFind.startAutoPlay();
-        initSwipeRefreshLayout(view);
+//        initSwipeRefreshLayout(view);
         initViewPagerImage();
         initRecyclerView(view);
         Map<String, String> map = new HashMap<>();
         map.put("sign", sign);
         okHttpPostBody(100, GlobalParam.FINDLIST, map);
     }
-    private void initSwipeRefreshLayout(View view) {
-        findSwLayout = view.findViewById(R.id.swipe_layout);
+//    private void initSwipeRefreshLayout(View view) {
+//        findSwLayout = view.findViewById(R.id.swipe_layout);
+////        findSwLayout.setOnRefreshListener(this);
+//        //禁止下拉
+////        findSwLayout.setEnabled(false);
+//        //下拉刷新监听
 //        findSwLayout.setOnRefreshListener(this);
-        //禁止下拉
-//        findSwLayout.setEnabled(false);
-        //下拉刷新监听
-        findSwLayout.setOnRefreshListener(this);
-        //设置样式刷新显示的位置
-        findSwLayout.setProgressViewOffset(true, -20, 100);
-        findSwLayout.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
-
-    }
+//        //设置样式刷新显示的位置
+//        findSwLayout.setProgressViewOffset(true, -20, 100);
+//        findSwLayout.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
+//
+//    }
     private void initRecyclerView(View view) {
         //初始化tabRecyclerView
         rcFind = view.findViewById(R.id.rc_Find);
@@ -98,7 +94,7 @@ public class FindFragment extends SimpleTopbarFragment implements
         mLinearLayoutManager.setAutoMeasureEnabled(true);
         rcFind.setLayoutManager(mLinearLayoutManager);
         //创建Adapter
-        adapter = new FindAdapter(getActivity());
+        adapter = new FindAdapter(getActivity(),width1);
         adapter.setOnItemClickListener(this);
 
         rcFind.setAdapter(adapter);
@@ -109,10 +105,10 @@ public class FindFragment extends SimpleTopbarFragment implements
 
     private void initViewPagerImage() {
         WindowManager wm = getActivity().getWindowManager();//获取屏幕宽高
-        int width1 = wm.getDefaultDisplay().getWidth();
+        width1 = wm.getDefaultDisplay().getWidth();
 //        int height1 = wm.getDefaultDisplay().getHeight();
         ViewGroup.LayoutParams para = bannerFind.getLayoutParams();//获取drawerlayout的布局
-        para.height = width1 * 330 / 750;//修改宽度
+        para.height = width1 * 294 / 711;//修改宽度
 //        para.height = height1;//修改高度
         bannerFind.setLayoutParams(para); //设置修改后的布局。
 
@@ -128,6 +124,7 @@ public class FindFragment extends SimpleTopbarFragment implements
 
     private void startWebView(String url) {
         Intent intent = new Intent(getActivity(), WebViewActivity.class);
+        intent.putExtra("isShowTopBar",true);
         intent.putExtra("Url",url);
         startActivity(intent);
     }
@@ -145,7 +142,7 @@ public class FindFragment extends SimpleTopbarFragment implements
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         switch (requestCode) {
             case 100:
-                findSwLayout.setRefreshing(false);
+//                findSwLayout.setRefreshing(false);
                 if (returnCode == 200){
                     FindRcModel findRcModel = JSON.parseObject(returnData, FindRcModel.class);
                     List<FindRcModel.DataBean> data = findRcModel.getData();
@@ -217,35 +214,35 @@ public class FindFragment extends SimpleTopbarFragment implements
         Map<String, String> map = new HashMap<>();
         map.put("sign", sign);
         okHttpPostBody(100, GlobalParam.FINDLIST, map);
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Message msg = handler.obtainMessage();
-                msg.what = 0;
-                msg.obj = getActivity();
-                handler.sendMessage(msg);
-//                swipeRefreshLayout.setRefreshing(false);
-            }
-        };
-        new Timer().schedule(timerTask, 2000);
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                Message msg = handler.obtainMessage();
+//                msg.what = 0;
+//                msg.obj = getActivity();
+//                handler.sendMessage(msg);
+////                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        };
+//        new Timer().schedule(timerTask, 2000);
     }
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    findSwLayout.setRefreshing(false);
-                    break;
-            }
-        }
-    };
+//    private Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what) {
+//                case 0:
+//                    findSwLayout.setRefreshing(false);
+//                    break;
+//            }
+//        }
+//    };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-        }
+//        if (handler != null) {
+//            handler.removeCallbacksAndMessages(null);
+//        }
     }
 }

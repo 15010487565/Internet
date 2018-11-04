@@ -1,6 +1,7 @@
 package com.xcd.www.internet.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.jcodecraeer.xrecyclerview.AppBarStateChangeListener;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.RedPkgListAdapter;
 import com.xcd.www.internet.application.BaseApplication;
@@ -139,6 +141,24 @@ public class MeRedPkgActivity extends SimpleTopbarActivity implements MultiSwipe
         //设置样式刷新显示的位置
         loadGroupInfo.setProgressViewOffset(true, -20, 100);
         loadGroupInfo.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
+        AppBarLayout appBarLayout =  findViewById(R.id.appbar);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, AppBarStateChangeListener.State state) {
+//                Log.e("STATE", state.name());
+                if (state == State.EXPANDED) {
+                    //展开状态
+                    loadGroupInfo.setEnabled(true);
+                } else if (state == State.COLLAPSED) {
+                    //折叠状态
+                    loadGroupInfo.setEnabled(false);
+                } else {
+                    //中间状态
+                    loadGroupInfo.setEnabled(false);
+                }
+            }
+        });
     }
 
     @Override

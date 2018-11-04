@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -100,8 +101,6 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.launcher_login)
-                .error(R.mipmap.launcher_login)
                 .into(ivGroupInfoTopHead);
 
         groupInfoName = intent.getStringExtra("GroupInfoName");
@@ -434,16 +433,17 @@ public class GroupInfoActivity extends SimpleTopbarActivity implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(EventBusMsg event) {
         String msg = event.getMsg();
-        Log.e("TAG_Main", "Contact=" + msg);
         if ("RefreshGroupHead".equals(msg)) {
             Glide.with(GroupInfoActivity.this)
                     .load(event.getMsgCon())
                     .fitCenter()
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.mipmap.launcher_login)
-                    .error(R.mipmap.launcher_login)
                     .into(ivGroupInfoTopHead);
+            String msgName = event.getMsgName();
+            if (!TextUtils.isEmpty(msgName)){
+                tvGroupInfoName.setText(msgName);
+            }
         }else if ("RefreshGroupInfo".equals(msg)){
             getData();
         }

@@ -13,6 +13,8 @@ import com.xcd.www.internet.adapter.CashTypeAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.model.CashTypeModel;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,36 +111,47 @@ public class CashTypeActivity extends SimpleTopbarActivity implements CashTypeAd
         if (returnCode == 200){
             switch (requestCode){
                 case 100:
-                    String coin = null;
-                    for (int i = 0; i < list.size(); i++) {
-                        CashTypeModel cashTypeModel = list.get(i);
-                        boolean select = cashTypeModel.isSelect();
-                        if (select){
-                            coin = cashTypeModel.getCoin();
-                            break;
+                    try {
+                        JSONObject jsonObject = new JSONObject(returnData);
+                        int result = jsonObject.optInt("result");
+                        if (result == 1){
+                            String coin = null;
+                            for (int i = 0; i < list.size(); i++) {
+                                CashTypeModel cashTypeModel = list.get(i);
+                                boolean select = cashTypeModel.isSelect();
+                                if (select){
+                                    coin = cashTypeModel.getCoin();
+                                    break;
+                                }
+                            }
+                            Intent intent = new Intent();
+                            intent.putExtra("coin",coin);
+                            if ("usdt".equals(coin)){
+                                intent.setClass(this, CashInfoUSDTActivity.class);
+                            }else if ("okd".equals(coin)){
+                                intent.setClass(this, CashInfoOKDActivity.class);
+                            }else if ("dollar".equals(coin)){
+                                if (TextUtils.isEmpty(cardNum)){
+                                    ToastUtil.showToast("请先绑定银行卡！");
+                                    return;
+                                }
+                                intent.setClass(this, CashInfoDollarActivity.class);
+                            }else if ("rmb".equals(coin)){
+                                if (TextUtils.isEmpty(cardNum)){
+                                    ToastUtil.showToast("请先绑定银行卡！");
+                                    return;
+                                }
+                                intent.setClass(this, CashInfoRmbActivity.class);
+                            }
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            ToastUtil.showToast("暂无权限！");
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    Intent intent = new Intent();
-                    intent.putExtra("coin",coin);
-                    if ("usdt".equals(coin)){
-                        intent.setClass(this, CashInfoUSDTActivity.class);
-                    }else if ("okd".equals(coin)){
-                        intent.setClass(this, CashInfoOKDActivity.class);
-                    }else if ("dollar".equals(coin)){
-                        if (TextUtils.isEmpty(cardNum)){
-                            ToastUtil.showToast("请先绑定银行卡！");
-                            return;
-                        }
-                        intent.setClass(this, CashInfoDollarActivity.class);
-                    }else if ("rmb".equals(coin)){
-                        if (TextUtils.isEmpty(cardNum)){
-                            ToastUtil.showToast("请先绑定银行卡！");
-                            return;
-                        }
-                        intent.setClass(this, CashInfoRmbActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
+
                     break;
             }
         }else {

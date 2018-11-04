@@ -5,14 +5,14 @@
     android:background="@color/line_gray"
     android:fillViewport="false"
     android:fitsSystemWindows="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:orientation="vertical">
     <include layout="@layout/view_simple_topbar" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_60"
         android:background="@color/blue"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:paddingRight="@dimen/margin_15"
         android:orientation="horizontal">
         <LinearLayout
@@ -51,8 +51,29 @@
             android:layout_marginLeft="@dimen/margin_15"
             android:background="@mipmap/clean"/>
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_Search"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/ns_statistics"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/black_ee">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_Search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:nestedScrollingEnabled="false"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_GroupSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:nestedScrollingEnabled="false"
+                android:background="@color/white" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 </LinearLayout>

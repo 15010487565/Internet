@@ -22,6 +22,7 @@ import com.xcd.www.internet.activity.MainActivity;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.model.LoginInfoModel;
+import com.xcd.www.internet.sq.BlackDao;
 import com.xcd.www.internet.util.EventBusMsg;
 
 import org.greenrobot.eventbus.EventBus;
@@ -81,12 +82,12 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
                 //手机号
 //                etLoginPhone.setText("17600368411");
 //                etLoginPassword.setText("gong1234");
-//                etLoginPhone.setText("15010480000");
-//                etLoginPassword.setText("111111");
+                etLoginPhone.setText("15010480000");
+                etLoginPassword.setText("111111");
 //                etLoginPhone.setText("15010487565");
 //                etLoginPassword.setText("123456");
 //                etLoginPhone.setText("18618127836");
-//                etLoginPassword.setText("777777");
+//                etLoginPassword.setText("888888");
                 String phone = etLoginPhone.getText().toString().trim();
                 if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入正确手机号！");
@@ -153,7 +154,8 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
 
                     String passwordPay = data.getPasswordPay();
                     instance.setPasswordPay(passwordPay);
-
+                    BlackDao blackDao = BlackDao.getInstance(getActivity());
+                    blackDao.addBlackNum(String.valueOf(id),name,nick, headportrait,account);
                     String token = data.getToken();
                     connect(token);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -203,7 +205,6 @@ public class LoginPasswordFragment extends SimpleTopbarFragment {
     public void onEventMainThread(EventBusMsg event) {
         String msg = event.getMsg();
         CountryZipCode = event.getMsgCon();
-        Log.e("TAG_Main", "Contact=" + msg);
         if ("CountryZipCode".equals(msg)) {
             tvCountryZipCode.setText("+"+CountryZipCode);
         }

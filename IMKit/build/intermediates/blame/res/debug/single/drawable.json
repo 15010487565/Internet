@@ -104,6 +104,10 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable\\rc_btn_voice.xml"
     },
     {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_round_head.xml",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable\\shape_round_head.xml"
+    },
+    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_cs_ratingbar.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable\\rc_cs_ratingbar.xml"
     },

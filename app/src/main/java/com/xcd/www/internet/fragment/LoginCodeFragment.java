@@ -22,6 +22,7 @@ import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.model.CodeModer;
 import com.xcd.www.internet.model.LoginInfoModel;
+import com.xcd.www.internet.sq.BlackDao;
 import com.xcd.www.internet.util.EventBusMsg;
 
 import org.greenrobot.eventbus.EventBus;
@@ -132,6 +133,10 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
 
                     String token = data.getToken();
                     connect(token);
+
+                    BlackDao blackDao = BlackDao.getInstance(getActivity());
+                    blackDao.addBlackNum(String.valueOf(id),name,nick, headportrait,account);
+
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                     break;
@@ -246,7 +251,6 @@ public class LoginCodeFragment extends SimpleTopbarFragment {
     public void onEventMainThread(EventBusMsg event) {
         String msg = event.getMsg();
         CountryZipCode = event.getMsgCon();
-        Log.e("TAG_Main", "Contact=" + msg);
         if ("CountryZipCode".equals(msg)) {
             tvCountryZipCode.setText("+"+CountryZipCode);
         }

@@ -151,67 +151,78 @@ public class RedPkgSendActivity extends BaseInternetActivity {
 
     private void rongSendRedPkg( String returnData) {
         RedPkgModel redPkgModel = JSON.parseObject(returnData, RedPkgModel.class);
-        data = redPkgModel.getData();
-        id = data.getId();
-        String contentStr = etRedPkgContent.getText().toString().trim();
-        RedPackageMessage c = new RedPackageMessage();
-        String  headportrait = BaseApplication.getInstance().getHeadportrait();
-        c.setHeadUrl(headportrait);
-        c.setRedPacketId(String.valueOf(id));//redPacketId
+        int result = redPkgModel.getResult();
+        if (result == 1){
+            data = redPkgModel.getData();
+            if (data !=null){
+                id = data.getId();
+                String contentStr = etRedPkgContent.getText().toString().trim();
+                RedPackageMessage c = new RedPackageMessage();
+                String  headportrait = BaseApplication.getInstance().getHeadportrait();
+                c.setHeadUrl(headportrait);
+                c.setRedPacketId(String.valueOf(id));//redPacketId
 //        c.setAmout();
-        c.setContent(TextUtils.isEmpty(contentStr) ? "恭喜发财，大吉大利" : contentStr);
-        c.setAmout(String.valueOf(data.getAmount()));
-        c.setCoin(data.getCoin());
-        c.setTotal(String.valueOf(data.getTotal()));
-        String name = BaseApplication.getInstance().getNick();
-        c.setSendName(name);
-        long userId = BaseApplication.getInstance().getId();
-        c.setSendID(String.valueOf(userId));
-        byte[] b = c.encode();
-        c.setExtra(new String(b));
-        RedPackageMessage myTextMessage = new RedPackageMessage(b);
-        Log.e("TAG_紅包发送", "myTextMessage=" + myTextMessage.toString());
-        Message myMessage = null;
-        if (conversationType.equals("group")){
-            myMessage = Message.obtain(targetId, Conversation.ConversationType.GROUP, myTextMessage);
-        }else if (conversationType.equals("private")){
-            myMessage = Message.obtain(targetId, Conversation.ConversationType.PRIVATE, myTextMessage);
+                c.setContent(TextUtils.isEmpty(contentStr) ? "恭喜发财，大吉大利" : contentStr);
+                c.setAmout(String.valueOf(data.getAmount()));
+                c.setCoin(data.getCoin());
+                c.setTotal(String.valueOf(data.getTotal()));
+                String name = BaseApplication.getInstance().getNick();
+                c.setSendName(name);
+                long userId = BaseApplication.getInstance().getId();
+                c.setSendID(String.valueOf(userId));
+                byte[] b = c.encode();
+                c.setExtra(new String(b));
+                RedPackageMessage myTextMessage = new RedPackageMessage(b);
+                Log.e("TAG_紅包发送", "myTextMessage=" + myTextMessage.toString());
+                Message myMessage = null;
+                if (conversationType.equals("group")){
+                    myMessage = Message.obtain(targetId, Conversation.ConversationType.GROUP, myTextMessage);
+                }else if (conversationType.equals("private")){
+                    myMessage = Message.obtain(targetId, Conversation.ConversationType.PRIVATE, myTextMessage);
+                }else {
+                    return;
+                }
+
+                /**
+                 * <p>发送消息。
+                 * 通过 {@link IRongCallback.ISendMessageCallback}
+                 * 中的方法回调发送的消息状态及消息体。</p>
+                 *
+                 * @param message     将要发送的消息体。
+                 * @param pushContent 当下发 push 消息时，在通知栏里会显示这个字段。
+                 *                    如果发送的是自定义消息，该字段必须填写，否则无法收到 push 消息。
+                 *                    如果发送 sdk 中默认的消息类型，例如 RC:TxtMsg, RC:VcMsg, RC:ImgMsg，则不需要填写，默认已经指定。
+                 * @param pushData    push 附加信息。如果设置该字段，用户在收到 push 消息时，能通过 {@link io.rong.push.notification.PushNotificationMessage#getPushData()} 方法获取。
+                 * @param callback    发送消息的回调，参考 {@link IRongCallback.ISendMessageCallback}。
+                 */
+                RongIM.getInstance().sendMessage(myMessage, "RCD:RedPacketMsg", null, new IRongCallback.ISendMessageCallback() {
+                    @Override
+                    public void onAttached(Message message) {
+                        //消息本地数据库存储成功的回调
+                    }
+
+                    @Override
+                    public void onSuccess(Message message) {
+                        //消息通过网络发送成功的回调
+                        Log.e("TAG_紅包成功", "message=" + message.toString());
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                        //消息发送失败的回调
+                        Log.e("TAG_紅包失败", "message=" + message.toString());
+                        Log.e("TAG_紅包失败", "errorCode=" + errorCode.getMessage()+"===="+errorCode.getValue());
+                    }
+                });
+            }else {
+                ToastUtil.showToast("红包发送失败！");
+            }
+        }else if (result == 0){
+            ToastUtil.showToast("红包余额不足！");
         }else {
-            return;
+            ToastUtil.showToast("红包发送失败！");
         }
-
-        /**
-         * <p>发送消息。
-         * 通过 {@link IRongCallback.ISendMessageCallback}
-         * 中的方法回调发送的消息状态及消息体。</p>
-         *
-         * @param message     将要发送的消息体。
-         * @param pushContent 当下发 push 消息时，在通知栏里会显示这个字段。
-         *                    如果发送的是自定义消息，该字段必须填写，否则无法收到 push 消息。
-         *                    如果发送 sdk 中默认的消息类型，例如 RC:TxtMsg, RC:VcMsg, RC:ImgMsg，则不需要填写，默认已经指定。
-         * @param pushData    push 附加信息。如果设置该字段，用户在收到 push 消息时，能通过 {@link io.rong.push.notification.PushNotificationMessage#getPushData()} 方法获取。
-         * @param callback    发送消息的回调，参考 {@link IRongCallback.ISendMessageCallback}。
-         */
-        RongIM.getInstance().sendMessage(myMessage, "RCD:RedPacketMsg", "RCD:RedPacketMsg", new IRongCallback.ISendMessageCallback() {
-            @Override
-            public void onAttached(Message message) {
-                //消息本地数据库存储成功的回调
-            }
-
-            @Override
-            public void onSuccess(Message message) {
-                //消息通过网络发送成功的回调
-                Log.e("TAG_紅包成功", "message=" + message.toString());
-                finish();
-            }
-
-            @Override
-            public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                //消息发送失败的回调
-                Log.e("TAG_紅包失败", "message=" + message.toString());
-                Log.e("TAG_紅包失败", "errorCode=" + errorCode.getMessage()+"===="+errorCode.getValue());
-            }
-        });
     }
 
     @Override

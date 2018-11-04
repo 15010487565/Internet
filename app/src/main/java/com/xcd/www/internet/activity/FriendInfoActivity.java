@@ -104,8 +104,6 @@ public class FriendInfoActivity extends SimpleTopbarActivity {
                             .fitCenter()
                             .dontAnimate()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.mipmap.launcher_login)
-                            .error(R.mipmap.launcher_login)
                             .into(ivChatInfoTopHead);
                     String chatInfoName = info.getN();
                     tvChatInfoName.setText(TextUtils.isEmpty(chatInfoName)?"":chatInfoName);

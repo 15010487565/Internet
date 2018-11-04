@@ -63,8 +63,6 @@ public class GroupCodeActivity extends PhotoActivity implements View.OnLongClick
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.launcher_login)
-                .error(R.mipmap.launcher_login)
                 .into(ivGroupCodeHead);
 
         String groupInfoName = intent.getStringExtra("GroupInfoName");

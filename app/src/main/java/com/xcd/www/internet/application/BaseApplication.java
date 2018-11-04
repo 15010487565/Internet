@@ -4,17 +4,23 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.GroupInfoModel;
@@ -24,6 +30,7 @@ import com.xcd.www.internet.rong.RedPackageMessage;
 import com.xcd.www.internet.rong.RongReceiveMessageListener;
 import com.xcd.www.internet.rong.SendMessageListener;
 import com.xcd.www.internet.rong.module.RongFriendsModel;
+import com.xcd.www.internet.sq.BlackDao;
 import com.yonyou.sns.im.core.YYIMChat;
 
 import java.io.IOException;
@@ -43,7 +50,6 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.UserInfo;
 import io.rong.push.RongPushClient;
-import www.xcd.com.mylibrary.base.application.XCDApplication;
 import www.xcd.com.mylibrary.config.HttpConfig;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.help.OkHttpHelper;
@@ -61,11 +67,11 @@ import static www.xcd.com.mylibrary.utils.ToastUtil.showToast;
  * @version 1.0
  * @date 2014年4月10日
  */
-public class BaseApplication extends XCDApplication implements
+public class BaseApplication extends BuglyApplication implements
         RongIM.UserInfoProvider,
         RongIM.GroupUserInfoProvider,
         HttpInterface, RongIM.ConversationListBehaviorListener,
-        RongIMClient.ConnectionStatusListener{
+        RongIMClient.ConnectionStatusListener {
 
     private static BaseApplication instance;
 
@@ -75,6 +81,7 @@ public class BaseApplication extends XCDApplication implements
         }
         return instance;
     }
+
     private List<ContactModel> phoneList;
     private List<ContactModel> friendList;
     private String account;
@@ -218,10 +225,10 @@ public class BaseApplication extends XCDApplication implements
         phoneList = new ArrayList<ContactModel>();
         RongIM.init(this);
         try {
-            CrashReport.initCrashReport(getApplicationContext(), "7831d293a3", false);
+
 //            //初始化第三方jar
             YYIMChat.getInstance().init(getApplicationContext());
-            YYIMChat.getInstance().configLogger(Log.VERBOSE, true, true, true);
+//            YYIMChat.getInstance().configLogger(Log.VERBOSE, true, true, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -249,7 +256,7 @@ public class BaseApplication extends XCDApplication implements
                 public void getGroupMembers(String groupId, RongIM.IGroupMemberCallback callback) {
                 }
             });
-            Log.e("TAG_融云","=========BaseApplication");
+            Log.e("TAG_融云", "=========BaseApplication");
             RongPushClient.checkManifest(getApplicationContext());
 //            RongIM.setConversationListBehaviorListener(new RongConversationListBehaviorListener());
         } catch (Exception e) {
@@ -356,7 +363,6 @@ public class BaseApplication extends XCDApplication implements
 //    public String uid;
 //    private String conversationTargetId;
 //    private String uiConversationTitle;
-
     @Override
     public boolean onConversationClick(Context context, View view, UIConversation uiConversation) {
         Conversation.ConversationType conversationType = uiConversation.getConversationType();
@@ -378,9 +384,10 @@ public class BaseApplication extends XCDApplication implements
 //        }
         return false;
     }
+
     public void setMyExtensionModule() {
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
-        Log.e("TAG_扩展栏","moduleList="+moduleList.size());
+        Log.e("TAG_扩展栏", "moduleList=" + moduleList.size());
         IExtensionModule defaultModule = null;
         if (moduleList != null) {
             for (IExtensionModule module : moduleList) {
@@ -404,7 +411,7 @@ public class BaseApplication extends XCDApplication implements
 
     @Override
     public UserInfo getUserInfo(String userid) {
-        UserInfo  userInfo = null;
+        UserInfo userInfo = null;
 //        if (userid.indexOf("系统")!=-1){
 //            userInfo =  new UserInfo(userid,
 //                    "系统消息",
@@ -416,7 +423,7 @@ public class BaseApplication extends XCDApplication implements
 //                    Uri.parse("https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=c1f24fd359e736d147138a08ab514ffc/241f95cad1c8a786b0eb4b016a09c93d71cf50ff.jpg"));
 //        }
 //        RongIM.getInstance().refreshUserInfoCache(userInfo);
-        Log.e("TAG_融云个人","userid="+userid);
+        Log.e("TAG_融云个人", "userid=" + userid);
         Map<String, String> params = new HashMap<>();
         params.put("id", userid);
         params.put("sign", sign);
@@ -429,7 +436,7 @@ public class BaseApplication extends XCDApplication implements
             showToast("请检查网络。。。");
             return;
         }
-        OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps,new Handler() {
+        OkHttpHelper.getInstance().postBodyHttp(requestCode, url, paramsMaps, new Handler() {
             @Override
             public void handleMessage(Message msg) {
 
@@ -460,6 +467,7 @@ public class BaseApplication extends XCDApplication implements
             }
         });
     }
+
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         switch (requestCode) {
@@ -468,32 +476,37 @@ public class BaseApplication extends XCDApplication implements
                     String name = null;
                     int id = 0;
                     String avatar = null;
-                    if (returnData.indexOf("info")!=-1){//单人
-                        RongFriendsModel result = JSON.parseObject(returnData, RongFriendsModel.class);
-                        RongFriendsModel.DataBean userdata = result.getData();
-                        RongFriendsModel.DataBean.InfoBean info = userdata.getInfo();
-                        name = info.getN();
-                        avatar = info.getH();
-                        id = info.getId();
-                    }else if (returnData.indexOf("group")!=-1){
-                        GroupInfoModel groupInfoModel = JSON.parseObject(returnData, GroupInfoModel.class);
-                        GroupInfoModel.DataBean data = groupInfoModel.getData();
-                        GroupInfoModel.DataBean.GroupBean group = data.getGroup();
-                        name = group.getName();
-                        id = group.getId();
-                        //头像
-                        avatar = group.getAvatar();
-                    }
-                    Log.e("TAG_融云绘画列表", "nickname=" + name + ";userid=" + id+";avatar="+avatar);
+
+                    RongFriendsModel result = JSON.parseObject(returnData, RongFriendsModel.class);
+                    RongFriendsModel.DataBean userdata = result.getData();
+                    RongFriendsModel.DataBean.InfoBean info = userdata.getInfo();
+                    name = info.getN();
+                    avatar = info.getH();
+                    id = info.getId();
+
+                    Log.e("TAG_融云绘画列表", "nickname=" + name + ";userid=" + id + ";avatar=" + avatar);
 
                     Uri parse = null;
-                    if (TextUtils.isEmpty(avatar)){
-                        parse = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.launcher_login);
-                    }else {
-                        parse =  Uri.parse(avatar);
+                    if (TextUtils.isEmpty(avatar)) {
+
+                        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                        View view = inflater.inflate(R.layout.wb_location_map_marker, null);
+                        TextView txt = view.findViewById(R.id.tv_Sortlogo);
+                        if (!TextUtils.isEmpty(name)) {
+                            txt.setText(name.substring(0, 1));
+                        }
+                        Bitmap viewBitmap = getViewBitmap(view);
+//                        Bitmap viewBitmap = getViewBitmap(TextUtils.isEmpty(name)?"":name);
+                        String iamgeUrl = MediaStore.Images.Media.insertImage(getContentResolver(), viewBitmap, null, null);
+//                        parse = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.launcher_login);
+                        parse = Uri.parse(iamgeUrl);
+                    } else {
+                        parse = Uri.parse(avatar);
                     }
-                    if (name != null && id>0) {
-                        RongIM.getInstance().refreshUserInfoCache(new UserInfo(String.valueOf(id), name,parse));
+                    if (name != null && id > 0) {
+                        BlackDao blackDao = BlackDao.getInstance(getApplicationContext());
+                        blackDao.addBlackNum(String.valueOf(id), name, name, avatar, info.getP());
+                        RongIM.getInstance().refreshUserInfoCache(new UserInfo(String.valueOf(id), name, parse));
                     }
                 }
                 break;
@@ -504,15 +517,27 @@ public class BaseApplication extends XCDApplication implements
                 int groupId = group.getId();
                 //头像
                 String avatar = group.getAvatar();
-                RongIM.getInstance().refreshGroupInfoCache(new Group(String.valueOf(groupId), group.getName(), Uri.parse(avatar)));
-//                Glide.with(this)
-//                        .load(avatar)
-//                        .fitCenter()
-//                        .dontAnimate()
-//                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                        .placeholder(R.mipmap.launcher_login)
-//                        .error(R.mipmap.launcher_login)
-//                        .into(ivChatTopHead);
+                BlackDao blackDao = BlackDao.getInstance(getApplicationContext());
+                String name = group.getName();
+                blackDao.addBlackNum(String.valueOf(groupId), name, name, avatar, "");
+                Uri parse = null;
+                if (TextUtils.isEmpty(avatar)) {
+                    LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                    View view = inflater.inflate(R.layout.wb_location_map_marker, null);
+                    TextView txt = view.findViewById(R.id.tv_Sortlogo);
+                    if (!TextUtils.isEmpty(name)) {
+                        txt.setText(name.substring(0, 1));
+                    }
+                    Bitmap viewBitmap = getViewBitmap(view);
+//                    Bitmap viewBitmap = getViewBitmap(TextUtils.isEmpty(name)?"":name);
+                    String iamgeUrl = MediaStore.Images.Media.insertImage(getContentResolver(), viewBitmap, null, null);
+//                        parse = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.mipmap.launcher_login);
+                    parse = Uri.parse(iamgeUrl);
+                } else {
+                    parse = Uri.parse(avatar);
+                }
+                RongIM.getInstance().refreshGroupInfoCache(new Group(String.valueOf(groupId), name, parse));
+
                 break;
         }
     }
@@ -538,13 +563,49 @@ public class BaseApplication extends XCDApplication implements
     }
 
     @Override
-    public GroupUserInfo getGroupUserInfo(String groupId , String userId ) {
-        Log.e("TAG_融云群","groupId="+groupId );
-        Log.e("TAG_融云群","userId="+userId );
+    public GroupUserInfo getGroupUserInfo(String groupId, String userId) {
+        Log.e("TAG_融云群", "groupId=" + groupId);
+        Log.e("TAG_融云群", "userId=" + userId);
         Map<String, String> params = new HashMap<>();
         params.put("id", groupId);
         params.put("sign", sign);
         okHttpPostBody(101, GlobalParam.GETGROUPINFO, params);
         return null;
+    }
+
+    //把布局变成Bitmap
+    private Bitmap getViewBitmap(View addViewContent) {
+
+        addViewContent.setDrawingCacheEnabled(true);
+
+        addViewContent.measure(
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        addViewContent.layout(0, 0,
+                addViewContent.getMeasuredWidth(),
+                addViewContent.getMeasuredHeight());
+
+        addViewContent.buildDrawingCache();
+        Bitmap cacheBitmap = addViewContent.getDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(cacheBitmap);
+
+        return bitmap;
+    }
+    private Bitmap getViewBitmap(String name) {
+
+        Bitmap bitmap = Bitmap.createBitmap(100, 100,
+                Bitmap.Config.ARGB_8888);
+
+        bitmap.eraseColor(Color.parseColor("#9CAFC8"));//填充颜
+        Canvas canvas = new Canvas(bitmap);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint .setTextSize(15);
+        paint .setColor(Color.GREEN);
+        paint .setFlags(1);
+        paint .setStyle(Paint.Style.FILL);
+        canvas.drawText(name, 100, 100, paint );
+        return bitmap;
     }
 }

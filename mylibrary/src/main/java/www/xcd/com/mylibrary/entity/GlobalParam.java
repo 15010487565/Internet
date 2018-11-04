@@ -9,7 +9,7 @@ public class GlobalParam {
 
     public final static int MSG_SHOW_LISTVIEW_DATA = 7;
 
-        public final static String IP="http://www.quantusd.com";//线上
+        public final static String IP="https://www.quantusd.com";//线上
 //    public final static String IP = "http://lit.tunnel.qydev.com";//本地测试
 
 
@@ -49,7 +49,7 @@ public class GlobalParam {
     //提现检测
     public final static String CASHCHECK = IP + "/robot/api/withdraw/check";
     //提现
-    public final static String CASH = IP + "/robot/api/withdraw/check";
+    public final static String CASH = IP + "/robot/api/withdraw/cash";
     //购买okd
     public final static String CASHOKD = IP + "/robot/api/bag/buy";
 
@@ -80,4 +80,6 @@ public class GlobalParam {
 
     //获取配置信息
     public final static String CODELIST = IP+"/robot/api/code/list";
+    //排行榜
+    public final static String RANKING = IP+"/h5/rank.html?token=";
 }

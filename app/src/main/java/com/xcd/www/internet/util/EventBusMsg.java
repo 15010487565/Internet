@@ -17,6 +17,15 @@ public class EventBusMsg {
         return msg;
     }
     private String msgCon;
+    private String msgName;
+
+    public String getMsgName() {
+        return msgName;
+    }
+
+    public void setMsgName(String msgName) {
+        this.msgName = msgName;
+    }
 
     public String getMsgCon() {
         return msgCon;

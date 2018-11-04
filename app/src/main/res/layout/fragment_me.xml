@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:addStatesFromChildren="true"
+        android:background="@color/black_ee"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
@@ -22,7 +23,7 @@
             android:id="@+id/ns_statistics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/black_ee">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
                             android:layout_centerInParent="true"
                             android:scaleType="fitXY"
                             app:type="circle"
-                            android:src="@mipmap/launcher_login"/>
+                            android:src="#9CAFC8"/>
 
                         <TextView
                             android:id="@+id/tv_MeTopHead"
@@ -168,7 +169,9 @@
                             android:id="@+id/mPieChart"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
+
                             />
+
                     </LinearLayout>
                 </RelativeLayout>
                 <LinearLayout

@@ -28,9 +28,10 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<FindListModel> contentList;
 
     private LayoutInflater inflater;
-
-    public FindAdapter(Context context) {
+    int width1;
+    public FindAdapter(Context context,int width1) {
         this.context = context;
+        this.width1 = width1;
         inflater = LayoutInflater.from(context);
     }
 
@@ -69,8 +70,6 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .load(url)
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.mipmap.image_error)
-                    .error(R.mipmap.image_error)
                     .into(findHolder.ivFindImage);
         } else {
             findHolder.ivFindImage.setVisibility(View.GONE);
@@ -105,6 +104,11 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             tvFindFrom = itemView.findViewById(R.id.tv_FindFrom);
             tvFindTime = itemView.findViewById(R.id.tv_FindTime);
+
+            ViewGroup.LayoutParams para = ivFindImage.getLayoutParams();//获取drawerlayout的布局
+            para.height = width1 * 236 / 695;//修改宽度
+//        para.height = height1;//修改高度
+            ivFindImage.setLayoutParams(para); //设置修改后的布局。
         }
     }
     private void onItemEventClick(RecyclerView.ViewHolder holder) {

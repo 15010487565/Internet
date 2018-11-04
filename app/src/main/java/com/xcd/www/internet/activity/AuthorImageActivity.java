@@ -49,7 +49,7 @@ public class AuthorImageActivity extends PhotoActivity {
         ivUploadCard.setOnClickListener(this);
 
         //上传
-        tvAuthorUpload =findViewById(R.id.tv_AuthorUpload);
+        tvAuthorUpload = findViewById(R.id.tv_AuthorUpload);
         tvAuthorUpload.setOnClickListener(this);
     }
 
@@ -60,7 +60,7 @@ public class AuthorImageActivity extends PhotoActivity {
             case R.id.iv_UploadCard:
                 if (mChecker.lacksPermissions(AUTHORIMAGE)) {
                     // 请求权限
-                    PermissionsActivity.startActivityForResult(this,11000,AUTHORIMAGE);
+                    PermissionsActivity.startActivityForResult(this, 11000, AUTHORIMAGE);
 //                    ActivityCompat.requestPermissions(this, BaseActivity.WRITEREADPERMISSIONS, 11000);
                 } else {
                     // 全部权限都已获取
@@ -70,22 +70,24 @@ public class AuthorImageActivity extends PhotoActivity {
                 break;
 
             case R.id.tv_AuthorUpload://上传
-                if (TextUtils.isEmpty(imageurl)){
+                if (TextUtils.isEmpty(imageurl)) {
                     ToastUtil.showToast("请上传手持身份证照！");
                     return;
                 }
                 String imageuRL = "http://www.quantusd.com/group/130E4BD9ACD767F4639CFC375120C7EB";
                 String sign = BaseApplication.getInstance().getSign();
                 Map<String, String> params = new HashMap<>();
-                params.put("p1",imageuRL);
+                params.put("p1", imageuRL);
                 params.put("p2", imageuRL);
-                params.put("p3",imageuRL);
+                params.put("p3", imageuRL);
                 params.put("sign", sign);
                 okHttpPostBody(101, GlobalParam.UPLOADIMAGE, params);
                 break;
         }
     }
+
     String imageurl;
+
     @Override
     public void uploadImage(List<File> list) {
         super.uploadImage(list);
@@ -93,15 +95,15 @@ public class AuthorImageActivity extends PhotoActivity {
         try {
             for (File imagepath : list) {
                 imageurl = imagepath.getPath();
-                Log.e("TAG_认证上传","imageurl="+imageurl);
+                Log.e("TAG_认证上传", "imageurl=" + imageurl);
 
-                        Glide.with(this)
-                                .load(imageurl)
-                                .fitCenter()
-                                .dontAnimate()
-                                .placeholder(R.mipmap.author_idcard_1)
-                                .error(R.mipmap.author_idcard_1)
-                                .into(ivUploadCard);
+                Glide.with(this)
+                        .load(imageurl)
+                        .fitCenter()
+                        .dontAnimate()
+                        .placeholder(R.mipmap.author_idcard_1)
+                        .error(R.mipmap.author_idcard_1)
+                        .into(ivUploadCard);
 //                        params.put("type", "dollar");//（jpg，png）RSA加密
 //                        params.put("data", data );//base64加密数据
 //                        params.put("date ", date  );//系统时间戳 rsa加密
@@ -118,13 +120,13 @@ public class AuthorImageActivity extends PhotoActivity {
 
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
-        super.onSuccessResult(requestCode,returnCode,returnMsg,returnData,paramsMaps);
+        super.onSuccessResult(requestCode, returnCode, returnMsg, returnData, paramsMaps);
         switch (requestCode) {
             case 100:
 
                 break;
             case 101:
-                if (returnCode == 200){
+                if (returnCode == 200) {
                     finish();
                 }
                 ToastUtil.showToast(returnMsg);
@@ -152,18 +154,20 @@ public class AuthorImageActivity extends PhotoActivity {
     public void onFinishResult() {
 
     }
+
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
+        switch (requestCode) {
             case 11000:
-                if (hasAllPermissionsGranted(grantResults)){
+                if (hasAllPermissionsGranted(grantResults)) {
                     getChoiceDialog().show();
-                }else {
+                } else {
                     ToastUtil.showToast("请在应用管理中打开“相机”访问权限！");
                 }
                 break;
         }
     }
+
     // 含有全部的权限
     private boolean hasAllPermissionsGranted(@NonNull int[] grantResults) {
         for (int grantResult : grantResults) {

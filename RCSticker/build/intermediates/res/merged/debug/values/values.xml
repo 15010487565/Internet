@@ -147,135 +147,135 @@
         <item>0x1f30f</item>
     </integer-array>
     <array name="rc_emoji_description">
-        <item>@string/rc_emoji_smiley_face</item><!--1-->
-        <item>@string/rc_emoji_grinning_face</item><!--2-->
-        <item>@string/rc_emoji_smiley</item><!--3-->
-        <item>@string/rc_emoji_cute</item><!--4-->
-        <item>@string/rc_emoji_winking_face</item><!--5-->
-        <item>@string/rc_emoji_heart_eyes</item><!--6-->
-        <item>@string/rc_emoji_blowing_kiss</item><!--7-->
-        <item>@string/rc_emoji_kiss_face</item><!--8-->
-        <item>@string/rc_emoji_crazy_face</item><!--9-->
-        <item>@string/rc_emoji_tongue_out</item><!--10-->
-        <item>@string/rc_emoji_flushed_face</item><!--11-->
-        <item>@string/rc_emoji_grinning_with_smiling</item><!--12-->
-        <item>@string/rc_emoji_pensive</item><!--13-->
-        <item>@string/rc_emoji_pleased</item><!--14-->
-        <item>@string/rc_emoji_dissatisfied</item><!--15-->
-        <item>@string/rc_emoji_worried_face</item><!--16-->
-        <item>@string/rc_emoji_disappointed_face</item><!--17-->
-        <item>@string/rc_emoji_helpless_face</item><!--18-->
-        <item>@string/rc_emoji_crying</item><!--19-->
-        <item>@string/rc_emoji_laughing_tears</item><!--20-->
-        <item>@string/rc_emoji_sobbing</item><!--21-->
-        <item>@string/rc_emoji_sleepy_face</item><!--22-->
-        <item>@string/rc_emoji_cold_sweat</item><!--23-->
-        <item>@string/rc_emoji_happy_sweat</item><!--24-->
-        <item>@string/rc_emoji_sweat</item><!--25-->
-        <item>@string/rc_emoji_tired_face</item><!--26-->
-        <item>@string/rc_emoji_weary_face</item><!--27-->
-        <item>@string/rc_emoji_fearful_face</item><!--28-->
-        <item>@string/rc_emoji_scream</item><!--29-->
-        <item>@string/rc_emoji_angry_face</item><!--30-->
-        <item>@string/rc_emoji_mad_face</item><!--31-->
-        <item>@string/rc_emoji_confounded_face</item><!--32-->
-        <item>@string/rc_emoji_big_grin</item><!--33-->
-        <item>@string/rc_emoji_hungry</item><!--34-->
-        <item>@string/rc_emoji_mask_face</item><!--35-->
-        <item>@string/rc_emoji_sunglasses</item><!--36-->
-        <item>@string/rc_emoji_sleeping</item><!--37-->
-        <item>@string/rc_emoji_shocked_face</item><!--38-->
-        <item>@string/rc_emoji_dizzy_face</item><!--39-->
-        <item>@string/rc_emoji_purple_devil</item><!--40-->
-        <item>@string/rc_emoji_devil</item><!--41-->
-        <item>@string/rc_emoji_surprised_face</item><!--42-->
-        <item>@string/rc_emoji_grimacing_face</item><!--43-->
-        <item>@string/rc_emoji_confused</item><!--44-->
-        <item>@string/rc_emoji_mouthless</item><!--45-->
-        <item>@string/rc_emoji_halo</item><!--46-->
-        <item>@string/rc_emoji_smirking_face</item><!--47-->
-        <item>@string/rc_emoji_expressionless_face</item><!--48-->
-        <item>@string/rc_emoji_see_no_monkey</item><!--49-->
-        <item>@string/rc_emoji_hear_no_monkey</item><!--50-->
-        <item>@string/rc_emoji_no_speaking</item><!--51-->
-        <item>@string/rc_emoji_alien</item><!--52-->
-        <item>@string/rc_emoji_pile_of_poo</item><!--53-->
-        <item>@string/rc_emoji_broken_heart</item><!--54-->
-        <item>@string/rc_emoji_fire</item><!--55-->
-        <item>@string/rc_emoji_anger</item><!--56-->
-        <item>@string/rc_emoji_zzz</item><!--57-->
-        <item>@string/rc_emoji_prohibited</item><!--58-->
-        <item>@string/rc_emoji_star</item><!--59-->
-        <item>@string/rc_emoji_lightning_bolt</item><!--60-->
-        <item>@string/rc_emoji_crescent_moon</item><!--61-->
-        <item>@string/rc_emoji_sunny</item><!--62-->
-        <item>@string/rc_emoji_cloudy</item><!--63-->
-        <item>@string/rc_emoji_cloud</item><!--64-->
-        <item>@string/rc_emoji_snowflake</item><!--65-->
-        <item>@string/rc_emoji_umbrella</item><!--66-->
-        <item>@string/rc_emoji_snowman</item><!--67-->
-        <item>@string/rc_emoji_thumbs_up</item><!--68-->
-        <item>@string/rc_emoji_thumbs_down</item><!--69-->
-        <item>@string/rc_emoji_shake_hand</item><!--70-->
-        <item>@string/rc_emoji_ok_hand</item><!--71-->
-        <item>@string/rc_emoji_oncoming_fist</item><!--72-->
-        <item>@string/rc_emoji_raised_fist</item><!--73-->
-        <item>@string/rc_emoji_victory_hand</item><!--74-->
-        <item>@string/rc_emoji_raised_fist</item><!--75-->
-        <item>@string/rc_emoji_folded_hands</item><!--76-->
-        <item>@string/rc_emoji_pointing_up</item><!--77-->
-        <item>@string/rc_emoji_clapping_hands</item><!--78-->
-        <item>@string/rc_emoji_flexed_biceps</item><!--79-->
-        <item>@string/rc_emoji_family</item><!--80-->
-        <item>@string/rc_emoji_couple</item><!--81-->
-        <item>@string/rc_emoji_baby_angel</item><!--82-->
-        <item>@string/rc_emoji_horse</item><!--83-->
-        <item>@string/rc_emoji_dog</item><!--84-->
-        <item>@string/rc_emoji_pig</item><!--85-->
-        <item>@string/rc_emoji_ghost</item><!--86-->
-        <item>@string/rc_emoji_rose</item><!--87-->
-        <item>@string/rc_emoji_sunflower</item><!--88-->
-        <item>@string/rc_emoji_pine_tree</item><!--89-->
-        <item>@string/rc_emoji_christmas_tree</item><!--90-->
-        <item>@string/rc_emoji_wrapped_gift</item><!--91-->
-        <item>@string/rc_emoji_party_popper</item><!--92-->
-        <item>@string/rc_emoji_money_bag</item><!--93-->
-        <item>@string/rc_emoji_birthday_cake</item><!--94-->
-        <item>@string/rc_emoji_barbecue</item><!--95-->
-        <item>@string/rc_emoji_cooked_rice</item><!--96-->
-        <item>@string/rc_emoji_ice_cream</item><!--97-->
-        <item>@string/rc_emoji_chocolate_bar</item><!--98-->
-        <item>@string/rc_emoji_watermelon</item><!--99-->
-        <item>@string/rc_emoji_wine_glass</item><!--100-->
-        <item>@string/rc_emoji_cheers</item><!--101-->
-        <item>@string/rc_emoji_coffee</item><!--102-->
-        <item>@string/rc_emoji_basketball</item><!--103-->
-        <item>@string/rc_emoji_soccer_ball</item><!--104-->
-        <item>@string/rc_emoji_snowboarder</item><!--105-->
-        <item>@string/rc_emoji_microphone</item><!--106-->
-        <item>@string/rc_emoji_musical_note</item><!--107-->
-        <item>@string/rc_emoji_game_die</item><!--108-->
-        <item>@string/rc_emoji_mahjone_red_dragon</item><!--109-->
-        <item>@string/rc_emoji_crown</item><!--110-->
-        <item>@string/rc_emoji_lipstick</item><!--111-->
-        <item>@string/rc_emoji_kiss</item><!--112-->
-        <item>@string/rc_emoji_ring</item><!--113-->
-        <item>@string/rc_emoji_books</item><!--114-->
-        <item>@string/rc_emoji_graduation_cap</item><!--115-->
-        <item>@string/rc_emoji_pencil</item><!--116-->
-        <item>@string/rc_emoji_house_with_garden</item><!--117-->
-        <item>@string/rc_emoji_shower</item><!--118-->
-        <item>@string/rc_emoji_light_bulb</item><!--119-->
-        <item>@string/rc_emoji_telephone_receiver</item><!--120-->
-        <item>@string/rc_emoji_loudspeaker</item><!--121-->
-        <item>@string/rc_emoji_clock</item><!--122-->
-        <item>@string/rc_emoji_alarm_clock</item><!--123-->
-        <item>@string/rc_emoji_hourglass</item><!--124-->
-        <item>@string/rc_emoji_bomb</item><!--125-->
-        <item>@string/rc_emoji_pistol</item><!--126-->
-        <item>@string/rc_emoji_capsule</item><!--127-->
-        <item>@string/rc_emoji_rocket</item><!--128-->
-        <item>@string/rc_emoji_globe</item><!--129-->
+        <item>@string/rc_emoji_smiley_face</item>
+        <item>@string/rc_emoji_grinning_face</item>
+        <item>@string/rc_emoji_smiley</item>
+        <item>@string/rc_emoji_cute</item>
+        <item>@string/rc_emoji_winking_face</item>
+        <item>@string/rc_emoji_heart_eyes</item>
+        <item>@string/rc_emoji_blowing_kiss</item>
+        <item>@string/rc_emoji_kiss_face</item>
+        <item>@string/rc_emoji_crazy_face</item>
+        <item>@string/rc_emoji_tongue_out</item>
+        <item>@string/rc_emoji_flushed_face</item>
+        <item>@string/rc_emoji_grinning_with_smiling</item>
+        <item>@string/rc_emoji_pensive</item>
+        <item>@string/rc_emoji_pleased</item>
+        <item>@string/rc_emoji_dissatisfied</item>
+        <item>@string/rc_emoji_worried_face</item>
+        <item>@string/rc_emoji_disappointed_face</item>
+        <item>@string/rc_emoji_helpless_face</item>
+        <item>@string/rc_emoji_crying</item>
+        <item>@string/rc_emoji_laughing_tears</item>
+        <item>@string/rc_emoji_sobbing</item>
+        <item>@string/rc_emoji_sleepy_face</item>
+        <item>@string/rc_emoji_cold_sweat</item>
+        <item>@string/rc_emoji_happy_sweat</item>
+        <item>@string/rc_emoji_sweat</item>
+        <item>@string/rc_emoji_tired_face</item>
+        <item>@string/rc_emoji_weary_face</item>
+        <item>@string/rc_emoji_fearful_face</item>
+        <item>@string/rc_emoji_scream</item>
+        <item>@string/rc_emoji_angry_face</item>
+        <item>@string/rc_emoji_mad_face</item>
+        <item>@string/rc_emoji_confounded_face</item>
+        <item>@string/rc_emoji_big_grin</item>
+        <item>@string/rc_emoji_hungry</item>
+        <item>@string/rc_emoji_mask_face</item>
+        <item>@string/rc_emoji_sunglasses</item>
+        <item>@string/rc_emoji_sleeping</item>
+        <item>@string/rc_emoji_shocked_face</item>
+        <item>@string/rc_emoji_dizzy_face</item>
+        <item>@string/rc_emoji_purple_devil</item>
+        <item>@string/rc_emoji_devil</item>
+        <item>@string/rc_emoji_surprised_face</item>
+        <item>@string/rc_emoji_grimacing_face</item>
+        <item>@string/rc_emoji_confused</item>
+        <item>@string/rc_emoji_mouthless</item>
+        <item>@string/rc_emoji_halo</item>
+        <item>@string/rc_emoji_smirking_face</item>
+        <item>@string/rc_emoji_expressionless_face</item>
+        <item>@string/rc_emoji_see_no_monkey</item>
+        <item>@string/rc_emoji_hear_no_monkey</item>
+        <item>@string/rc_emoji_no_speaking</item>
+        <item>@string/rc_emoji_alien</item>
+        <item>@string/rc_emoji_pile_of_poo</item>
+        <item>@string/rc_emoji_broken_heart</item>
+        <item>@string/rc_emoji_fire</item>
+        <item>@string/rc_emoji_anger</item>
+        <item>@string/rc_emoji_zzz</item>
+        <item>@string/rc_emoji_prohibited</item>
+        <item>@string/rc_emoji_star</item>
+        <item>@string/rc_emoji_lightning_bolt</item>
+        <item>@string/rc_emoji_crescent_moon</item>
+        <item>@string/rc_emoji_sunny</item>
+        <item>@string/rc_emoji_cloudy</item>
+        <item>@string/rc_emoji_cloud</item>
+        <item>@string/rc_emoji_snowflake</item>
+        <item>@string/rc_emoji_umbrella</item>
+        <item>@string/rc_emoji_snowman</item>
+        <item>@string/rc_emoji_thumbs_up</item>
+        <item>@string/rc_emoji_thumbs_down</item>
+        <item>@string/rc_emoji_shake_hand</item>
+        <item>@string/rc_emoji_ok_hand</item>
+        <item>@string/rc_emoji_oncoming_fist</item>
+        <item>@string/rc_emoji_raised_fist</item>
+        <item>@string/rc_emoji_victory_hand</item>
+        <item>@string/rc_emoji_raised_fist</item>
+        <item>@string/rc_emoji_folded_hands</item>
+        <item>@string/rc_emoji_pointing_up</item>
+        <item>@string/rc_emoji_clapping_hands</item>
+        <item>@string/rc_emoji_flexed_biceps</item>
+        <item>@string/rc_emoji_family</item>
+        <item>@string/rc_emoji_couple</item>
+        <item>@string/rc_emoji_baby_angel</item>
+        <item>@string/rc_emoji_horse</item>
+        <item>@string/rc_emoji_dog</item>
+        <item>@string/rc_emoji_pig</item>
+        <item>@string/rc_emoji_ghost</item>
+        <item>@string/rc_emoji_rose</item>
+        <item>@string/rc_emoji_sunflower</item>
+        <item>@string/rc_emoji_pine_tree</item>
+        <item>@string/rc_emoji_christmas_tree</item>
+        <item>@string/rc_emoji_wrapped_gift</item>
+        <item>@string/rc_emoji_party_popper</item>
+        <item>@string/rc_emoji_money_bag</item>
+        <item>@string/rc_emoji_birthday_cake</item>
+        <item>@string/rc_emoji_barbecue</item>
+        <item>@string/rc_emoji_cooked_rice</item>
+        <item>@string/rc_emoji_ice_cream</item>
+        <item>@string/rc_emoji_chocolate_bar</item>
+        <item>@string/rc_emoji_watermelon</item>
+        <item>@string/rc_emoji_wine_glass</item>
+        <item>@string/rc_emoji_cheers</item>
+        <item>@string/rc_emoji_coffee</item>
+        <item>@string/rc_emoji_basketball</item>
+        <item>@string/rc_emoji_soccer_ball</item>
+        <item>@string/rc_emoji_snowboarder</item>
+        <item>@string/rc_emoji_microphone</item>
+        <item>@string/rc_emoji_musical_note</item>
+        <item>@string/rc_emoji_game_die</item>
+        <item>@string/rc_emoji_mahjone_red_dragon</item>
+        <item>@string/rc_emoji_crown</item>
+        <item>@string/rc_emoji_lipstick</item>
+        <item>@string/rc_emoji_kiss</item>
+        <item>@string/rc_emoji_ring</item>
+        <item>@string/rc_emoji_books</item>
+        <item>@string/rc_emoji_graduation_cap</item>
+        <item>@string/rc_emoji_pencil</item>
+        <item>@string/rc_emoji_house_with_garden</item>
+        <item>@string/rc_emoji_shower</item>
+        <item>@string/rc_emoji_light_bulb</item>
+        <item>@string/rc_emoji_telephone_receiver</item>
+        <item>@string/rc_emoji_loudspeaker</item>
+        <item>@string/rc_emoji_clock</item>
+        <item>@string/rc_emoji_alarm_clock</item>
+        <item>@string/rc_emoji_hourglass</item>
+        <item>@string/rc_emoji_bomb</item>
+        <item>@string/rc_emoji_pistol</item>
+        <item>@string/rc_emoji_capsule</item>
+        <item>@string/rc_emoji_rocket</item>
+        <item>@string/rc_emoji_globe</item>
     </array>
     <array name="rc_emoji_res">
         <item>@drawable/u1f603</item>
@@ -1417,7 +1417,7 @@
     <string name="rc_item_divided_string">、</string>
     <string name="rc_item_etc">等</string>
     <string name="rc_item_group_notification_summary">[群组通知]</string>
-    <string name="rc_item_invitation">%1$s邀请%2$s加入群组</string>
+    <string name="rc_item_invitation">%1$s加入群组</string>
     <string name="rc_item_join_group">加入了群组</string>
     <string name="rc_item_quit_groups">退出了群组</string>
     <string name="rc_item_remove_group_after_str">移出了群组</string>
@@ -1778,7 +1778,7 @@
         <item name="actionBarWidgetTheme">@null</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
 
-        <!-- Panel attributes -->
+        
         <item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_dark</item>
 
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
@@ -1829,7 +1829,7 @@
         <item name="colorButtonNormal">@color/button_material_dark</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">false</item>
     </style>
     <style name="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -1866,7 +1866,7 @@
         <item name="colorButtonNormal">@color/button_material_light</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">true</item>
     </style>
     <style name="Base.V7.Theme.AppCompat" parent="Platform.AppCompat">
@@ -1878,7 +1878,7 @@
 
         <item name="colorBackgroundFloating">@color/background_floating_material_dark</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">false</item>
 
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_dark</item>
@@ -1889,7 +1889,7 @@
         <item name="dividerVertical">@drawable/abc_list_divider_mtrl_alpha</item>
         <item name="dividerHorizontal">@drawable/abc_list_divider_mtrl_alpha</item>
 
-        <!-- Action Bar Styles -->
+        
         <item name="actionBarTabStyle">@style/Widget.AppCompat.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.AppCompat.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.AppCompat.ActionBar.TabText</item>
@@ -1906,10 +1906,10 @@
         <item name="actionMenuTextAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryDisableOnly</item>
 
-        <!-- Dropdown Spinner Attributes -->
+        
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Spinner.DropDown.ActionBar</item>
 
-        <!-- Action Mode -->
+        
         <item name="actionModeStyle">@style/Widget.AppCompat.ActionMode</item>
         <item name="actionModeBackground">@drawable/abc_cab_background_top_material</item>
         <item name="actionModeSplitBackground">?attr/colorPrimaryDark</item>
@@ -1922,14 +1922,14 @@
         <item name="actionModeSelectAllDrawable">@drawable/abc_ic_menu_selectall_mtrl_alpha</item>
         <item name="actionModeShareDrawable">@drawable/abc_ic_menu_share_mtrl_alpha</item>
 
-        <!-- Panel attributes -->
+        
         <item name="panelMenuListWidth">@dimen/abc_panel_menu_list_width</item>
         <item name="panelMenuListTheme">@style/Theme.AppCompat.CompactMenu</item>
         <item name="panelBackground">@drawable/abc_menu_hardkey_panel_mtrl_mult</item>
         <item name="android:panelBackground">@android:color/transparent</item>
         <item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_dark</item>
 
-        <!-- List attributes -->
+        
         <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSecondary">@style/TextAppearance.AppCompat.Body1</item>
@@ -1939,16 +1939,16 @@
         <item name="listPreferredItemPaddingLeft">@dimen/abc_list_item_padding_horizontal_material</item>
         <item name="listPreferredItemPaddingRight">@dimen/abc_list_item_padding_horizontal_material</item>
 
-        <!-- Spinner styles -->
+        
         <item name="spinnerStyle">@style/Widget.AppCompat.Spinner</item>
         <item name="android:spinnerItemStyle">@style/Widget.AppCompat.TextView.SpinnerItem</item>
         <item name="android:dropDownListViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
 
-        <!-- Required for use of support_simple_spinner_dropdown_item.xml -->
+        
         <item name="spinnerDropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="dropdownListPreferredItemHeight">?attr/listPreferredItemHeightSmall</item>
 
-        <!-- Popup Menu styles -->
+        
         <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.AppCompat.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.AppCompat.Widget.PopupMenu.Small</item>
@@ -1957,17 +1957,17 @@
         <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
         <item name="listMenuViewStyle">@style/Widget.AppCompat.ListMenuView</item>
 
-        <!-- SearchView attributes -->
+        
         <item name="searchViewStyle">@style/Widget.AppCompat.SearchView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="textColorSearchUrl">@color/abc_search_url_text</item>
         <item name="textAppearanceSearchResultTitle">@style/TextAppearance.AppCompat.SearchResult.Title</item>
         <item name="textAppearanceSearchResultSubtitle">@style/TextAppearance.AppCompat.SearchResult.Subtitle</item>
 
-        <!-- ShareActionProvider attributes -->
+        
         <item name="activityChooserViewStyle">@style/Widget.AppCompat.ActivityChooserView</item>
 
-        <!-- Toolbar styles -->
+        
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.AppCompat.Toolbar.Button.Navigation</item>
 
@@ -1976,7 +1976,7 @@
         <item name="editTextColor">?android:attr/textColorPrimary</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
 
-        <!-- Color palette -->
+        
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
         <item name="colorAccent">@color/accent_material_dark</item>
@@ -1999,7 +1999,7 @@
         <item name="ratingBarStyleSmall">@style/Widget.AppCompat.RatingBar.Small</item>
         <item name="seekBarStyle">@style/Widget.AppCompat.SeekBar</item>
 
-        <!-- Button styles -->
+        
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="buttonStyleSmall">@style/Widget.AppCompat.Button.Small</item>
         <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Widget.Button</item>
@@ -2012,7 +2012,7 @@
         <item name="buttonBarNegativeButtonStyle">?attr/buttonBarButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">?attr/buttonBarButtonStyle</item>
 
-        <!-- Dialog attributes -->
+        
         <item name="dialogTheme">@style/ThemeOverlay.AppCompat.Dialog</item>
         <item name="dialogPreferredPadding">@dimen/abc_dialog_padding_material</item>
 
@@ -2022,14 +2022,13 @@
         <item name="textColorAlertDialogListItem">@color/abc_primary_text_material_dark</item>
         <item name="listDividerAlertDialog">@null</item>
 
-        <!-- Define these here; ContextThemeWrappers around themes that define them should
-             always clear these values. -->
+        
         <item name="windowFixedWidthMajor">@null</item>
         <item name="windowFixedWidthMinor">@null</item>
         <item name="windowFixedHeightMajor">@null</item>
         <item name="windowFixedHeightMinor">@null</item>
 
-        <!-- Tooltip attributes -->
+        
         <item name="tooltipFrameBackground">@drawable/tooltip_frame_light</item>
         <item name="tooltipForegroundColor">@color/foreground_material_light</item>
 
@@ -2066,7 +2065,7 @@
 
         <item name="colorBackgroundFloating">@color/background_floating_material_light</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">true</item>
 
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
@@ -2077,7 +2076,7 @@
         <item name="dividerVertical">@drawable/abc_list_divider_mtrl_alpha</item>
         <item name="dividerHorizontal">@drawable/abc_list_divider_mtrl_alpha</item>
 
-        <!-- Action Bar Styles -->
+        
         <item name="actionBarTabStyle">@style/Widget.AppCompat.Light.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.AppCompat.Light.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.AppCompat.Light.ActionBar.TabText</item>
@@ -2094,7 +2093,7 @@
         <item name="actionMenuTextAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryDisableOnly</item>
 
-        <!-- Action Mode -->
+        
         <item name="actionModeStyle">@style/Widget.AppCompat.ActionMode</item>
         <item name="actionModeBackground">@drawable/abc_cab_background_top_material</item>
         <item name="actionModeSplitBackground">?attr/colorPrimaryDark</item>
@@ -2107,17 +2106,17 @@
         <item name="actionModeSelectAllDrawable">@drawable/abc_ic_menu_selectall_mtrl_alpha</item>
         <item name="actionModeShareDrawable">@drawable/abc_ic_menu_share_mtrl_alpha</item>
 
-        <!-- Dropdown Spinner Attributes -->
+        
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar</item>
 
-        <!-- Panel attributes -->
+        
         <item name="panelMenuListWidth">@dimen/abc_panel_menu_list_width</item>
         <item name="panelMenuListTheme">@style/Theme.AppCompat.CompactMenu</item>
         <item name="panelBackground">@drawable/abc_menu_hardkey_panel_mtrl_mult</item>
         <item name="android:panelBackground">@android:color/transparent</item>
         <item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_light</item>
 
-        <!-- List attributes -->
+        
         <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSecondary">@style/TextAppearance.AppCompat.Body1</item>
@@ -2127,16 +2126,16 @@
         <item name="listPreferredItemPaddingLeft">@dimen/abc_list_item_padding_horizontal_material</item>
         <item name="listPreferredItemPaddingRight">@dimen/abc_list_item_padding_horizontal_material</item>
 
-        <!-- Spinner styles -->
+        
         <item name="spinnerStyle">@style/Widget.AppCompat.Spinner</item>
         <item name="android:spinnerItemStyle">@style/Widget.AppCompat.TextView.SpinnerItem</item>
         <item name="android:dropDownListViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
 
-        <!-- Required for use of support_simple_spinner_dropdown_item.xml -->
+        
         <item name="spinnerDropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="dropdownListPreferredItemHeight">?attr/listPreferredItemHeightSmall</item>
 
-        <!-- Popup Menu styles -->
+        
         <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small</item>
@@ -2145,17 +2144,17 @@
         <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
         <item name="listMenuViewStyle">@style/Widget.AppCompat.ListMenuView</item>
 
-        <!-- SearchView attributes -->
+        
         <item name="searchViewStyle">@style/Widget.AppCompat.Light.SearchView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="textColorSearchUrl">@color/abc_search_url_text</item>
         <item name="textAppearanceSearchResultTitle">@style/TextAppearance.AppCompat.SearchResult.Title</item>
         <item name="textAppearanceSearchResultSubtitle">@style/TextAppearance.AppCompat.SearchResult.Subtitle</item>
 
-        <!-- ShareActionProvider attributes -->
+        
         <item name="activityChooserViewStyle">@style/Widget.AppCompat.ActivityChooserView</item>
 
-        <!-- Toolbar styles -->
+        
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.AppCompat.Toolbar.Button.Navigation</item>
 
@@ -2164,7 +2163,7 @@
         <item name="editTextColor">?android:attr/textColorPrimary</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
 
-        <!-- Color palette -->
+        
         <item name="colorPrimaryDark">@color/primary_dark_material_light</item>
         <item name="colorPrimary">@color/primary_material_light</item>
         <item name="colorAccent">@color/accent_material_light</item>
@@ -2187,7 +2186,7 @@
         <item name="ratingBarStyleSmall">@style/Widget.AppCompat.RatingBar.Small</item>
         <item name="seekBarStyle">@style/Widget.AppCompat.SeekBar</item>
 
-        <!-- Button styles -->
+        
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="buttonStyleSmall">@style/Widget.AppCompat.Button.Small</item>
         <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Widget.Button</item>
@@ -2200,7 +2199,7 @@
         <item name="buttonBarNegativeButtonStyle">?attr/buttonBarButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">?attr/buttonBarButtonStyle</item>
 
-        <!-- Dialog attributes -->
+        
         <item name="dialogTheme">@style/ThemeOverlay.AppCompat.Dialog</item>
         <item name="dialogPreferredPadding">@dimen/abc_dialog_padding_material</item>
 
@@ -2210,14 +2209,13 @@
         <item name="textColorAlertDialogListItem">@color/abc_primary_text_material_light</item>
         <item name="listDividerAlertDialog">@null</item>
 
-        <!-- Define these here; ContextThemeWrappers around themes that define them should
-             always clear these values. -->
+        
         <item name="windowFixedWidthMajor">@null</item>
         <item name="windowFixedWidthMinor">@null</item>
         <item name="windowFixedHeightMajor">@null</item>
         <item name="windowFixedHeightMinor">@null</item>
 
-        <!-- Tooltip attributes -->
+        
         <item name="tooltipFrameBackground">@drawable/tooltip_frame_dark</item>
         <item name="tooltipForegroundColor">@color/foreground_material_dark</item>
 
@@ -2595,7 +2593,7 @@
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
 
-        <!-- Window colors -->
+        
         <item name="android:colorForeground">@color/foreground_material_dark</item>
         <item name="android:colorForegroundInverse">@color/foreground_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
@@ -2604,7 +2602,7 @@
         <item name="android:backgroundDimAmount">0.6</item>
         <item name="android:windowBackground">@color/background_material_dark</item>
 
-        <!-- Text colors -->
+        
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item>
         <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_dark</item>
@@ -2617,7 +2615,7 @@
         <item name="android:textColorHighlight">@color/highlighted_text_material_dark</item>
         <item name="android:textColorLink">?attr/colorAccent</item>
 
-        <!-- Text styles -->
+        
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
         <item name="android:textAppearanceInverse">@style/TextAppearance.AppCompat.Inverse</item>
         <item name="android:textAppearanceLarge">@style/TextAppearance.AppCompat.Large</item>
@@ -2637,7 +2635,7 @@
     <style name="Platform.AppCompat.Light" parent="android:Theme.Light">
         <item name="android:windowNoTitle">true</item>
 
-        <!-- Window colors -->
+        
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:colorForegroundInverse">@color/foreground_material_dark</item>
         <item name="android:colorBackground">@color/background_material_light</item>
@@ -2646,7 +2644,7 @@
         <item name="android:backgroundDimAmount">0.6</item>
         <item name="android:windowBackground">@color/background_material_light</item>
 
-        <!-- Text colors -->
+        
         <item name="android:textColorPrimary">@color/abc_primary_text_material_light</item>
         <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorSecondary">@color/abc_secondary_text_material_light</item>
@@ -2660,7 +2658,7 @@
         <item name="android:textColorHighlight">@color/highlighted_text_material_light</item>
         <item name="android:textColorLink">?attr/colorAccent</item>
 
-        <!-- Text styles -->
+        
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
         <item name="android:textAppearanceInverse">@style/TextAppearance.AppCompat.Inverse</item>
         <item name="android:textAppearanceLarge">@style/TextAppearance.AppCompat.Large</item>
@@ -2679,12 +2677,12 @@
     </style>
     <style name="Platform.ThemeOverlay.AppCompat" parent=""/>
     <style name="Platform.ThemeOverlay.AppCompat.Dark">
-        <!-- Action Bar styles -->
+        
         <item name="actionBarItemBackground">@drawable/abc_item_background_holo_dark</item>
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Spinner.DropDown.ActionBar</item>
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_dark</item>
 
-        <!-- SearchView styles -->
+        
         <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>
@@ -2693,7 +2691,7 @@
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar</item>
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
 
-        <!-- SearchView attributes -->
+        
         <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>

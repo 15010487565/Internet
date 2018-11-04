@@ -3,7 +3,9 @@ package com.xcd.www.internet.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,12 +19,14 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.jcodecraeer.xrecyclerview.AppBarStateChangeListener;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.adapter.GroupinfoUpdataListAdapter;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.GroupUpdataTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.GroupInfoListModel;
+import com.xcd.www.internet.sq.BlackDao;
 import com.xcd.www.internet.ui.RecyclerViewDecoration;
 import com.xcd.www.internet.util.EventBusMsg;
 import com.xcd.www.internet.util.ReadImgToBinary;
@@ -40,6 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Group;
 import www.xcd.com.mylibrary.PhotoActivity;
 import www.xcd.com.mylibrary.activity.PermissionsActivity;
 import www.xcd.com.mylibrary.activity.PermissionsChecker;
@@ -105,8 +111,6 @@ public class GroupUpDataActivity extends PhotoActivity implements
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.launcher_login)
-                .error(R.mipmap.launcher_login)
                 .into(ivUploadHead);
 
         String groupInfoName = intent.getStringExtra("GroupInfoName");
@@ -230,6 +234,24 @@ public class GroupUpDataActivity extends PhotoActivity implements
         //设置样式刷新显示的位置
         loadGroupInfo.setProgressViewOffset(true, -20, 100);
         loadGroupInfo.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
+        AppBarLayout appBarLayout =  findViewById(R.id.appbar);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, AppBarStateChangeListener.State state) {
+//                Log.e("STATE", state.name());
+                if (state == State.EXPANDED) {
+                    //展开状态
+                    loadGroupInfo.setEnabled(true);
+                } else if (state == State.COLLAPSED) {
+                    //折叠状态
+                    loadGroupInfo.setEnabled(false);
+                } else {
+                    //中间状态
+                    loadGroupInfo.setEnabled(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -307,8 +329,6 @@ public class GroupUpDataActivity extends PhotoActivity implements
                                 .load(groupInfoHead)
                                 .fitCenter()
                                 .dontAnimate()
-                                .placeholder(R.mipmap.launcher_login)
-                                .error(R.mipmap.launcher_login)
                                 .into(ivUploadHead);
                         //将图片转化为字符串
                         String proveFile = ReadImgToBinary.imgToBase64(headUrl);
@@ -412,11 +432,16 @@ public class GroupUpDataActivity extends PhotoActivity implements
                     loadGroupInfo.setLoading(false);
                     break;
                 case 101://修改头像
+                    String groupName = etGroupUpdataName.getText().toString().trim();
                     EventBusMsg msg = new EventBusMsg("RefreshGroupHead");
                     msg.setMsgCon(groupInfoHead);
+                    msg.setMsgName(groupName);
                     EventBus.getDefault().post(msg);
+                    RongIM.getInstance().refreshGroupInfoCache(new Group(targetId, groupName, Uri.parse(groupInfoHead)));
                     setResult(Activity.RESULT_OK);
                     finish();
+                    BlackDao blackDao = BlackDao.getInstance(this);
+                    blackDao.updateBlackNumMode(targetId,groupName,groupName,groupInfoHead);
                     break;
                 case 102://图片加密
                     groupInfoHead = returnData;

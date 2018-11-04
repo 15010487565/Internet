@@ -71,16 +71,6 @@ public class RedPkgListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RedPkgDetailsListModel.DataBean dataBean = mData.get(position);
         String content = dataBean.getContent();
         holderItem.tvRedPkgName.setText(content);
-//        String logo = dataBean.get();
-//
-//        Glide.with(context.getApplicationContext())
-//                .load(logo)
-//                .fitCenter()
-//                .dontAnimate()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .placeholder(R.mipmap.launcher_login)
-//                .error(R.mipmap.launcher_login)
-//                .into(holderItem.ivredPkgListHead);
 
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

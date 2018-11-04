@@ -1,13 +1,8 @@
 package com.xcd.www.internet.activity;
 
+import android.Manifest;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.FeatureInfo;
-import android.content.pm.PackageManager;
-import android.hardware.Camera;
-import android.hardware.camera2.CameraManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -23,8 +18,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.king.zxing.CaptureActivity;
 import com.king.zxing.Intents;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
@@ -33,7 +26,6 @@ import com.xcd.www.internet.fragment.ContactFragment;
 import com.xcd.www.internet.fragment.FindFragment;
 import com.xcd.www.internet.fragment.HomeFragment;
 import com.xcd.www.internet.fragment.MeFragment;
-import com.xcd.www.internet.model.MainModel;
 import com.xyzlf.share.library.bean.ShareEntity;
 import com.xyzlf.share.library.interfaces.ShareConstant;
 import com.xyzlf.share.library.util.ShareUtil;
@@ -49,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.rong.imkit.RongIM;
+import www.xcd.com.mylibrary.activity.PermissionsActivity;
+import www.xcd.com.mylibrary.activity.PermissionsChecker;
 import www.xcd.com.mylibrary.base.fragment.BaseFragment;
 import www.xcd.com.mylibrary.entity.GlobalParam;
 import www.xcd.com.mylibrary.utils.SharePrefHelper;
@@ -153,11 +147,6 @@ public class MainActivity extends BaseInternetActivity {
         resetRedPoint(3, 0);
         clickFragmentBtn(currentItem);
 
-        String sign = BaseApplication.getInstance().getSign();
-        Map<String, String> params = new HashMap<>();
-        params.put("type", "rate_market");
-        params.put("sign", sign);
-        okHttpPostBody(100, GlobalParam.CODELIST, params);
     }
 
     private void initView() {
@@ -330,23 +319,7 @@ public class MainActivity extends BaseInternetActivity {
     @Override
     public void onSuccessResult(int requestCode, int returnCode, String returnMsg, String returnData, Map<String, Object> paramsMaps) {
         switch (requestCode) {
-            case 100:
-                Log.e("TAG_汇率", "汇率=" + returnData);
-                MainModel mainModel = JSON.parseObject(returnData, MainModel.class);
-                List<MainModel.DataBean> data1 = mainModel.getData();
-                if (data1 !=null&&data1.size()>0){
-                    MainModel.DataBean dataBean = data1.get(0);
-                    List<MainModel.DataBean.SubBean> sub = dataBean.getSub();
-                    for (int i = 0; i < sub.size(); i++) {
-                        MainModel.DataBean.SubBean subBean = sub.get(i);
-                        String field = subBean.getField();
-                        if ("dollar_usdt".equals(field)){
-                            String code = subBean.getCode();
-                            BaseApplication.getInstance().setUsdt_dollar(code);
-                        }
-                    }
-                }
-                break;
+
             case 101:
                 try {
                     JSONObject jsonObject = new JSONObject(returnData);
@@ -496,7 +469,6 @@ public class MainActivity extends BaseInternetActivity {
             }
         } else {
             if (resultCode == RESULT_OK && data != null) {
-                lightSwitch(true);
                 switch (requestCode) {
                     case REQUEST_CODE_SCAN:
                         String result = data.getStringExtra(Intents.Scan.RESULT);
@@ -522,6 +494,9 @@ public class MainActivity extends BaseInternetActivity {
                             e.printStackTrace();
                         }
                         break;
+                    case 11000:
+                        scanAQRCode();
+                        break;
 
                 }
 
@@ -531,62 +506,20 @@ public class MainActivity extends BaseInternetActivity {
 
     //扫一扫功能
     public static final int REQUEST_CODE_SCAN = 0X01;
-
+    private PermissionsChecker mChecker;
     public void scanAQRCode() {
+        mChecker = new PermissionsChecker(this);
 //        Intent intent = new Intent(MainActivity.this, WeChatCaptureActivity.class);
 //        startActivity(intent);
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.in, R.anim.out);
-        Intent intent = new Intent(this, CaptureActivity.class);
-        intent.putExtra(KEY_TITLE, "扫一扫");
-        ActivityCompat.startActivityForResult(this, intent, REQUEST_CODE_SCAN, optionsCompat.toBundle());
-        lightSwitch(false);
-    }
-    /**
-     * 手电筒控制方法
-     *
-     * @param lightStatus
-     * @return
-     */
-    private CameraManager manager;// 声明CameraManager对象
-    private Camera m_Camera = null;// 声明Camera对象
-    private void lightSwitch(final boolean lightStatus) {
-        manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        if (lightStatus) { // 关闭手电筒
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                try {
-                    manager.setTorchMode("0", false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                if (m_Camera != null) {
-                    m_Camera.stopPreview();
-                    m_Camera.release();
-                    m_Camera = null;
-                }
-            }
-        } else { // 打开手电筒
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                try {
-                    manager.setTorchMode("0", true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                final PackageManager pm = getPackageManager();
-                final FeatureInfo[] features = pm.getSystemAvailableFeatures();
-                for (final FeatureInfo f : features) {
-                    if (PackageManager.FEATURE_CAMERA_FLASH.equals(f.name)) { // 判断设备是否支持闪光灯
-                        if (null == m_Camera) {
-                            m_Camera = Camera.open();
-                        }
-                        final Camera.Parameters parameters = m_Camera.getParameters();
-                        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                        m_Camera.setParameters(parameters);
-                        m_Camera.startPreview();
-                    }
-                }
-            }
+        String[] perms = {Manifest.permission.CAMERA};
+        if (mChecker.lacksPermissions(perms)) {
+            // 请求权限
+            PermissionsActivity.startActivityForResult(this,11000,perms);
+        } else {
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.in, R.anim.out);
+            Intent intent = new Intent(this, CustomCaptureActivity.class);
+            intent.putExtra(KEY_TITLE, "扫一扫");
+            ActivityCompat.startActivityForResult(this, intent, REQUEST_CODE_SCAN, optionsCompat.toBundle());
         }
     }
 
@@ -618,5 +551,11 @@ public class MainActivity extends BaseInternetActivity {
                 "来试试！从这里下载");
         testBean.setUrl("www.xx.com"); //分享链接
         testBean.setImgUrl("");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RongIM.getInstance().disconnect();
     }
 }

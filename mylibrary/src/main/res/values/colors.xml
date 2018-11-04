@@ -86,4 +86,12 @@
     <color name="orange">#ff6600</color>
     <color name="orange_red">#F6A680</color>
     <color name="orange_laba">#fef0d8</color>
+
+    <color name="color_head_bg">#9CAFC8</color>
+
+    <color name="color_ring1">#32EAF9</color>
+    <color name="color_ring2">#F94E90</color>
+    <color name="color_ring3">#F6C72E</color>
+    <color name="color_ring4">#9526EA</color>
+    <color name="color_ring5">#5725F2</color>
 </resources>

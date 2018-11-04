@@ -420,7 +420,7 @@ public abstract class SimpleTopbarActivity extends BaseActivity implements OnCli
     public void dialogshow() {
         if (loginDialog != null && !loginDialog.isShowing()) {
             loginDialog.show();
-            Log.e("TAG_显示显dialog", (loginDialog != null) + "===" + !loginDialog.isShowing());
+//            Log.e("TAG_显示显dialog", (loginDialog != null) + "===" + !loginDialog.isShowing());
         } else if (loginDialog == null) {
             createDialog();
             dialogshow();

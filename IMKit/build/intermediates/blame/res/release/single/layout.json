@@ -4,12 +4,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_fr_photo.xml"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_item_public_service_message.xml",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_item_public_service_message.xml"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_cs_alert_robot_evaluation.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_cs_alert_robot_evaluation.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_item_public_service_message.xml",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_item_public_service_message.xml"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_picsel_catalog_listview.xml",
@@ -48,12 +48,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_item_public_service_list.xml"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_location_search_activity.xml",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_location_search_activity.xml"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_emoticon_tab_container.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_emoticon_tab_container.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_location_search_activity.xml",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_location_search_activity.xml"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_emoji_item.xml",
@@ -96,36 +96,36 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_emoji_grid_view.xml"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_item_public_service_input_menu_item.xml",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_item_public_service_input_menu_item.xml"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_notification_realtime_location.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_notification_realtime_location.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_item_public_service_input_menu_item.xml",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_item_public_service_input_menu_item.xml"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_input_edit_text.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_input_edit_text.xml"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_voice_input.xml",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_voice_input.xml"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\notification_template_media.xml",
         "source": "C:\\Users\\WS\\.android\\build-cache\\6699211e286582bda4f49706dc58435219cf350d\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_voice_input.xml",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_voice_input.xml"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_cs_item_single_choice.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_cs_item_single_choice.xml"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_plugin_item.xml",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_plugin_item.xml"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ac_picture_pager.xml",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ac_picture_pager.xml"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_ext_plugin_item.xml",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\layout\\rc_ext_plugin_item.xml"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_layout_network_unavailable.xml",

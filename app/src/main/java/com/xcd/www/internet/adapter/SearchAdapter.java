@@ -98,9 +98,11 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
                 String logo = contactModel.getLogo();
                 if (TextUtils.isEmpty(logo)){
-                    viewHolder.tvSortlogo.setText(name.substring(0));
+                    if (!TextUtils.isEmpty(name)){
+                        viewHolder.tvSortlogo.setText(name.substring(0,1));
+                    }
                 }else {
-                    if (logo.indexOf("http")!=-1){
+                    if (!TextUtils.isEmpty(logo)&&logo.indexOf("http")!=-1){
                         Glide.with(mContext.getApplicationContext())
                                 .load(logo)
                                 .fitCenter()
@@ -109,14 +111,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 .into( viewHolder.ivSortlogo);
                         viewHolder.tvSortlogo.setText("");
                     }else {
-                        viewHolder.tvSortlogo.setText(logo);
-                        if (position%3==0){
-                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_blue);
-                        }else if (position%3==1){
-                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_red);
-                        }else {
-                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_orange);
+                        if (!TextUtils.isEmpty(name)){
+                            viewHolder.tvSortlogo.setText(name.substring(0,1));
                         }
+                        viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_head);
                     }
                 }
                 break;

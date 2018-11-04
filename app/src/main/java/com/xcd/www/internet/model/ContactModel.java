@@ -217,7 +217,7 @@ public class ContactModel implements Serializable {
                 ", name='" + name + '\'' +
 //                ", enable=" + enable +
 //                ", isSelect=" + isSelect +
-//                ", userId='" + userId + '\'' +
+                ", userId='" + userId + '\'' +
 //                ", homeNum='" + homeNum + '\'' +
 //                ", jobNum='" + jobNum + '\'' +
 //                ", workFax='" + workFax + '\'' +

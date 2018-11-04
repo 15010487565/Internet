@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -38,6 +37,7 @@ import com.xcd.www.internet.func.MeFriendFunc;
 import com.xcd.www.internet.func.MeHelpFunc;
 import com.xcd.www.internet.func.MeLeftTopBtnFunc;
 import com.xcd.www.internet.func.MeRankingFunc;
+import com.xcd.www.internet.model.MainModel;
 import com.xcd.www.internet.model.MeBagModel;
 import com.xcd.www.internet.util.EventBusMsg;
 
@@ -49,6 +49,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -75,7 +76,6 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
      * 功能对象
      */
     private Hashtable<Integer, BaseFunc> htFunc = new Hashtable<>();
-    private PieChart mPieChart;
     /**
      * 系统功能View
      */
@@ -91,6 +91,9 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
     private LinearLayout llMeMoney, llMeTop, llMeRedPkg;
     String sign;
     private MultiSwipeRefreshLayout meSwLayout;
+    private PieChart mPieChart;
+
+
     /**
      * 获得系统功能列表
      */
@@ -121,6 +124,28 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
     protected int getLayoutId() {
         return R.layout.fragment_me;
     }
+    private boolean isPrepared;
+
+    @Override
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible) {
+            return;
+        }
+        Log.e("TAG_onHiddenChanged","请求接口");
+        //填充各控件的数据
+        initData();
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        if (!hidden) { //隐藏时所作的事情
+            lazyLoad();
+            isVisible = false;
+        }else {
+            isVisible = true;
+        }
+    }
 
     @Override
     protected void initView(LayoutInflater inflater, View view) {
@@ -148,14 +173,20 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
         initCustomFunc();
         // 初始化系统功能
         initSystemFunc();
-        initData();
+        //XXX初始化view的各控件
+        isPrepared = true;
+        lazyLoad();
+        getData(0);
     }
 
     private void initData() {
-        Map<String, String> params = new HashMap<>();
-        params.put("sign", sign);
-        okHttpPostBody(100, GlobalParam.MEBAG, params);
-        getData(0);
+
+//        getData(0);
+        //汇率
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("type", "rate_market");
+        params1.put("sign", sign);
+        okHttpPostBody(101, GlobalParam.CODELIST, params1);
     }
 
     private void initSwipeRefreshLayout(View view) {
@@ -204,8 +235,6 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
                     .fitCenter()
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.mipmap.launcher_login)
-                    .error(R.mipmap.launcher_login)
                     .into(ivMeTopHead);
         }
     }
@@ -219,13 +248,17 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
         entries.add(new PieEntry(0, "BTC"));
         entries.add(new PieEntry(0, "ETH"));
 //        entries.add(new PieEntry(5, "USDT"));
+        if (usdtNum == 0){
+            entries.add(new PieEntry(1f, "USDT"));
 
-        entries.add(new PieEntry((float) usdtNum, "USDT"));
+        }else {
+            entries.add(new PieEntry((float) usdtNum, "USDT"));
 
+        }
         //设置数据
         setData(entries);
-
-        mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        //设置动画
+//        mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
         Legend l = mPieChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -243,6 +276,7 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
 
     private void initPieChart(View view) {
         mPieChart = view.findViewById(R.id.mPieChart);
+        //设置显示成比例
         mPieChart.setUsePercentValues(true);
         mPieChart.getDescription().setEnabled(false);
         mPieChart.setExtraOffsets(5, 10, 5, 5);
@@ -256,10 +290,11 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
 
         mPieChart.setTransparentCircleColor(Color.WHITE);
         mPieChart.setTransparentCircleAlpha(110);
-
+        //饼图上怎么只显示百分比
+        mPieChart.setDrawSliceText(false);
         mPieChart.setHoleRadius(58f);
         mPieChart.setTransparentCircleRadius(61f);
-
+        //饼状图中间可以添加文字
         mPieChart.setDrawCenterText(true);
 
         mPieChart.setRotationAngle(0);
@@ -289,6 +324,7 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
             colors.add(c);
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
+
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
         PieData data = new PieData(dataSet);
@@ -416,22 +452,46 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
                     tvMeUsdtNum.setText(String.valueOf(usdt));
                     String usdt_dollar = BaseApplication.getInstance().getUsdt_dollar();
                     try {
-                        String priceResult = String.format("%.4f", String.valueOf(usdt*Double.valueOf(usdt_dollar)));
+                        Log.e("TAG_汇率", "汇率=" + usdt_dollar);
+                        Log.e("TAG_usdt", "usdt=" + usdt);
+                        Double aDouble = usdt*Double.valueOf(usdt_dollar);
+                        Log.e("TAG_usdt", "aDouble=" + aDouble);
+                        String priceResult = String.format("%.4f", aDouble);
                         tvMeUsdtMoney.setText(priceResult);
                     } catch (Exception e) {
                         tvMeUsdtMoney.setText(String.valueOf(usdt));
                         e.printStackTrace();
                     }
-                    // 设置中间 文件
-//                    mPieChart.setCenterText(String.valueOf(usdt));
-                    mPieChart.setCenterText("");
-                    Log.e("TAG_usdt", "usdt=" + usdt);
+
                     //银行卡
                     String cardNum = data.getCardNum();
                     if (!TextUtils.isEmpty(cardNum)) {
                         instance.setCardNum(cardNum);
                     }
                     getData(usdt);
+                    // 设置中间 文件
+                    mPieChart.setCenterText(String.valueOf("$"+usdt));
+//                    mPieChart.setCenterText("");
+                    break;
+                case 101:
+                    MainModel mainModel = JSON.parseObject(returnData, MainModel.class);
+                    List<MainModel.DataBean> data1 = mainModel.getData();
+                    if (data1 !=null&&data1.size()>0){
+                        MainModel.DataBean dataBean = data1.get(0);
+                        List<MainModel.DataBean.SubBean> sub = dataBean.getSub();
+                        for (int i = 0; i < sub.size(); i++) {
+                            MainModel.DataBean.SubBean subBean = sub.get(i);
+                            String field = subBean.getField();
+                            if ("dollar_usdt".equals(field)){
+                                String code = subBean.getCode();
+                                BaseApplication.getInstance().setUsdt_dollar(code);
+                            }
+                        }
+                    }
+                    //总资产
+                    Map<String, String> params = new HashMap<>();
+                    params.put("sign", sign);
+                    okHttpPostBody(100, GlobalParam.MEBAG, params);
                     break;
             }
         }
@@ -483,12 +543,12 @@ public class MeFragment extends SimpleTopbarFragment implements SwipeRefreshLayo
                     .fitCenter()
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.mipmap.launcher_login)
-                    .error(R.mipmap.launcher_login)
                     .into(ivMeTopHead);
         }else if ("RefreshNick".equals(msg)){
             String nick = BaseApplication.getInstance().getNick();
             tvMeTopName.setText(TextUtils.isEmpty(nick)?"":nick);
+        }else if ("RefreshBag".equals(msg)){
+            initData();
         }
     }
 

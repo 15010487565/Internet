@@ -324,6 +324,10 @@
         "source": "D:\\Internet\\RCSticker\\src\\main\\res\\drawable\\indicator_dot.xml"
     },
     {
+        "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_round_head.xml",
+        "source": "D:\\Internet\\IMKit\\build\\intermediates\\bundles\\default\\res\\drawable\\shape_round_head.xml"
+    },
+    {
         "merged": "D:\\Internet\\RCSticker\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
         "source": "C:\\Users\\WS\\.android\\build-cache\\305812ee49941132197134eedfbee4a7c1c352af\\output\\res\\drawable\\notification_bg.xml"
     },

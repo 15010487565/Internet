@@ -76,8 +76,6 @@ public class RedPkgOpenDetAdapter extends RecyclerView.Adapter<RecyclerView.View
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.launcher_login)
-                .error(R.mipmap.launcher_login)
                 .into(holderItem.ivGroupInfologo);
 
         if (mOnItemClickListener != null) {

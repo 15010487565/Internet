@@ -25,12 +25,12 @@ import static com.xcd.www.internet.common.Config.TYPE_TITLE;
  * @date: 2017/7/19
  */
 
-public class SearchAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SearchFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LayoutInflater mInflater;
     private List<ContactModel> list;
     private Context mContext;
 
-    public SearchAllAdapter(Context context) {
+    public SearchFriendAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         this.mContext = context;
     }
@@ -38,17 +38,20 @@ public class SearchAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         list = data;
         notifyDataSetChanged();
     }
+    public List<ContactModel> getDataList(){
+        return list;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         RecyclerView.ViewHolder holder = null;
         switch (viewType) {
             case TYPE_TITLE:
-                view = mInflater.inflate(R.layout.item_title, parent, false);
+                view = mInflater.inflate(R.layout.item_titlegroup, parent, false);
                 holder = new TitleViewHolder(view);
                 break;
             case TYPE_FRIEND:
-                view = mInflater.inflate(R.layout.item_search, parent,false);
+                view = mInflater.inflate(R.layout.item_searchfriend, parent,false);
                 holder = new ViewHolder(view);
 
                 break;
@@ -84,7 +87,7 @@ public class SearchAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mOnItemClickListener.onItemClick(holder.itemView, position);
+                            mOnItemClickListener.onFriendItemClick(holder.itemView, position);
                         }
                     });
 
@@ -98,7 +101,9 @@ public class SearchAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
                 String logo = contactModel.getLogo();
                 if (TextUtils.isEmpty(logo)){
-                    viewHolder.tvSortlogo.setText(name.substring(0));
+                    if (!TextUtils.isEmpty(name)){
+                        viewHolder.tvSortlogo.setText(name.substring(0,1));
+                    }
                 }else {
                     if (logo.indexOf("http")!=-1){
                         Glide.with(mContext.getApplicationContext())
@@ -109,14 +114,10 @@ public class SearchAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 .into( viewHolder.ivSortlogo);
                         viewHolder.tvSortlogo.setText("");
                     }else {
-                        viewHolder.tvSortlogo.setText(logo);
-                        if (position%3==0){
-                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_blue);
-                        }else if (position%3==1){
-                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_red);
-                        }else {
-                            viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_orange);
+                        if (!TextUtils.isEmpty(name)){
+                            viewHolder.tvSortlogo.setText(name.substring(0,1));
                         }
+                        viewHolder.ivSortlogo.setImageResource(R.drawable.shape_round_head);
                     }
                 }
                 break;
@@ -137,13 +138,13 @@ public class SearchAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     //**********************itemClick************************
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
+    public interface OnFriendItemClickListener {
+        void onFriendItemClick(View view, int position);
     }
 
-    private OnItemClickListener mOnItemClickListener;
+    public OnFriendItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    public void setOnFriendItemClickListener(OnFriendItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
     //**************************************************************

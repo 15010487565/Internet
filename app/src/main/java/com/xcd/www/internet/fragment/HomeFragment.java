@@ -101,7 +101,7 @@ public class HomeFragment extends SimpleTopbarFragment {
         switch (v.getId()) {
             case R.id.re_HomeSearch:
                 Intent intent = new Intent(getActivity(), SearchAllActivity.class);
-//                intent.putExtra("list", (Serializable) contactInfo);
+                intent.putExtra("searchType", 0);//0是全部；1是个人
                 startActivity(intent);
                 break;
         }

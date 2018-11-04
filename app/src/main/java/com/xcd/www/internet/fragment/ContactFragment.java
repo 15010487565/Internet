@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSON;
+import com.jcodecraeer.xrecyclerview.AppBarStateChangeListener;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.activity.InviteFriendBitActivity;
 import com.xcd.www.internet.activity.SearchActivity;
@@ -29,10 +31,11 @@ import com.xcd.www.internet.base.SimpleTopbarFragment;
 import com.xcd.www.internet.func.ContactRightTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.FriendModel;
+import com.xcd.www.internet.sq.BlackDao;
+import com.xcd.www.internet.ui.RecyclerViewDecoration;
 import com.xcd.www.internet.util.ContactUtil;
 import com.xcd.www.internet.util.EventBusMsg;
 import com.xcd.www.internet.util.PinyinComparator;
-import com.xcd.www.internet.ui.RecyclerViewDecoration;
 import com.xcd.www.internet.view.WaveSideBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,6 +61,8 @@ import www.xcd.com.mylibrary.utils.ToastUtil;
 import www.xcd.com.mylibrary.view.MultiSwipeRefreshLayout;
 
 import static com.xcd.www.internet.R.id.swipe_layout;
+import static com.xcd.www.internet.common.Config.TYPE_FRIEND;
+import static com.xcd.www.internet.common.Config.TYPE_TITLE;
 
 /**
  * Created by gs on 2018/10/16.
@@ -89,6 +94,9 @@ public class ContactFragment extends SimpleTopbarFragment implements
     //重绘fragment
     private LayoutInflater inflater;
     private View view;
+
+    private BlackDao blackDao;
+
     private static Class<?> rightFuncArray[] = {ContactRightTopBtnFunc.class};
 
     @Override
@@ -109,6 +117,9 @@ public class ContactFragment extends SimpleTopbarFragment implements
     @Override
     protected void initView(LayoutInflater inflater, View view) {
         sign = BaseApplication.getInstance().getSign();
+
+        blackDao = BlackDao.getInstance(getActivity());
+
         initSwipeRefreshLayout(view);
         initRecyclerView(view);
         reSearch = view.findViewById(R.id.re_ContactSearch);
@@ -127,7 +138,24 @@ public class ContactFragment extends SimpleTopbarFragment implements
         //设置样式刷新显示的位置
         contactSwLayout.setProgressViewOffset(true, -20, 100);
         contactSwLayout.setColorSchemeResources(R.color.red, R.color.orange, R.color.blue, R.color.black);
+        AppBarLayout appBarLayout =  view.findViewById(R.id.appbar);
 
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+//                Log.e("STATE", state.name());
+                if (state == State.EXPANDED) {
+                    //展开状态
+                    contactSwLayout.setEnabled(true);
+                } else if (state == State.COLLAPSED) {
+                    //折叠状态
+                    contactSwLayout.setEnabled(false);
+                } else {
+                    //中间状态
+                    contactSwLayout.setEnabled(false);
+                }
+            }
+        });
     }
     private void initPhone() {
         try {
@@ -215,10 +243,14 @@ public class ContactFragment extends SimpleTopbarFragment implements
                         }
                         ContactModel model = new ContactModel();
                         model.setMobile(p);
-                        model.setName(dataBean.getN());
-                        model.setLogo(dataBean.getH());
-                        model.setUserId(String.valueOf(dataBean.getId()));
+                        String n = dataBean.getN();
+                        model.setName(n);
+                        String h = dataBean.getH();
+                        model.setLogo(h);
+                        String id = String.valueOf(dataBean.getId());
+                        model.setUserId(id);
                         rongFrieng.add(model);
+                        blackDao.addBlackNum(id,n,n, h,p);
                     }
                     BaseApplication.getInstance().setFriendList(rongFrieng);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -233,7 +265,37 @@ public class ContactFragment extends SimpleTopbarFragment implements
                     friendAdapter.setData(rongFrieng);
 
                     BaseApplication.getInstance().setPhoneList(contactInfo);
-                    mAdapter.setData(contactInfo);
+                    List<ContactModel> listCon = new ArrayList<>();
+                    for (int i = 0,j =contactInfo.size(); i < j ; i++) {
+                        ContactModel contactModel_ = contactInfo.get(i);
+                        ContactModel contactModel = null;
+                        if (i == 0) {//等于0的时候绘制title
+                            contactModel = new ContactModel();
+                            contactModel.setType(TYPE_TITLE);
+                            String letters = contactInfo.get(i).getLetters();
+                            contactModel.setLetters(letters);
+                            listCon.add(contactModel);
+                            contactModel_.setType(TYPE_FRIEND);
+                            listCon.add(contactModel_);
+                        } else {
+
+                            String letters = contactModel_.getLetters();
+                            ContactModel contactModel_1 = contactInfo.get(i - 1);
+                            if (null != letters && !letters.equals(contactModel_1.getLetters())) {
+                                //字母不为空，并且不等于前一个，也要title
+                                contactModel = new ContactModel();
+                                contactModel.setType(TYPE_TITLE);
+                                contactModel.setLetters(letters);
+                                listCon.add(contactModel);
+                                contactModel_.setType(TYPE_FRIEND);
+                                listCon.add(contactModel_);
+                            }else {
+                                contactModel_.setType(TYPE_FRIEND);
+                                listCon.add(contactModel_);
+                            }
+                        }
+                    }
+                    mAdapter.setData(listCon);
                     break;
                 case 101:
                     Map<String, String> params = new HashMap<>();
@@ -351,7 +413,6 @@ public class ContactFragment extends SimpleTopbarFragment implements
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(EventBusMsg event){
         String msg = event.getMsg();
-        Log.e("TAG_Main", "contactSwLayout=" + msg);
         if ("RefreshContact".equals(msg)) {
 //            initView(inflater, view);
             initPhone();

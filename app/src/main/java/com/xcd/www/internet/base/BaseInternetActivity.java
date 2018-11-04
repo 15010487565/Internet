@@ -3,6 +3,8 @@ package com.xcd.www.internet.base;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.xcd.www.internet.sq.BlackDao;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
@@ -12,10 +14,11 @@ import www.xcd.com.mylibrary.base.activity.SimpleTopbarActivity;
  */
 
 public abstract class BaseInternetActivity extends SimpleTopbarActivity {
+    protected BlackDao blackDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        blackDao = BlackDao.getInstance(this);
     }
     public void connect(String token) {
 

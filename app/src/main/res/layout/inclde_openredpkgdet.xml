@@ -21,7 +21,7 @@
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
             app:type="circle"
-            android:src="@mipmap/launcher_login"/>
+            android:src="#9CAFC8"/>
     </RelativeLayout>
 
     <TextView

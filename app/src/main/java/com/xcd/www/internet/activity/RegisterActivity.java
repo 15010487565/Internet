@@ -24,6 +24,7 @@ import com.xcd.www.internet.base.BaseInternetActivity;
 import com.xcd.www.internet.common.Config;
 import com.xcd.www.internet.model.CodeModer;
 import com.xcd.www.internet.model.LoginInfoModel;
+import com.xcd.www.internet.sq.BlackDao;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -246,6 +247,8 @@ public class RegisterActivity extends BaseInternetActivity implements TextWatche
                     //支付
                     String passwordPay = data.getPasswordPay();
                     instance.setPasswordPay(passwordPay);
+                    BlackDao blackDao = BlackDao.getInstance(this);
+                    blackDao.addBlackNum(String.valueOf(id),name,nick, headportrait,account);
                     String token = data.getToken();
                     connect(token);
                     Intent intent = new Intent(this, MainActivity.class);

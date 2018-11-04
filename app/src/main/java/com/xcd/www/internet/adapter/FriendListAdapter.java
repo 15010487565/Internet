@@ -54,7 +54,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
         ContactModel contactModel = mData.get(position);
 
         String logo = contactModel.getLogo();
-        if (logo.indexOf("http") != -1) {
+        if (!TextUtils.isEmpty(logo)&&logo.indexOf("http") != -1) {
             Glide.with(mContext.getApplicationContext())
                     .load(logo)
                     .fitCenter()
@@ -64,14 +64,11 @@ public class FriendListAdapter extends RecyclerView.Adapter<FriendListAdapter.Vi
             holder.tvSortlogo.setText("");
 
         } else {
-            holder.tvSortlogo.setText(logo);
-            if (position % 3 == 0) {
-                holder.ivSortlogo.setImageResource(R.drawable.shape_round_blue);
-            } else if (position % 3 == 1) {
-                holder.ivSortlogo.setImageResource(R.drawable.shape_round_red);
-            } else {
-                holder.ivSortlogo.setImageResource(R.drawable.shape_round_orange);
+            String name = contactModel.getName();
+            if (!TextUtils.isEmpty(name)){
+                holder.tvSortlogo.setText(name.substring(0,1));
             }
+            holder.ivSortlogo.setImageResource(R.drawable.shape_round_head);
 
         }
 

@@ -34,7 +34,8 @@ public class HomeLeftTopBtnFunc extends BaseTopImageBtnFunc {
 		//会话类型 以及是否聚合显示
 //		hashMap.put(Conversation.ConversationType.PRIVATE.getName(),false);
 //		hashMap.put(Conversation.ConversationType.PUSH_SERVICE.getName(),true);
-		hashMap.put(Conversation.ConversationType.SYSTEM.getName(),false);
+		hashMap.put(Conversation.ConversationType.SYSTEM.getName(),false);//系统
+		hashMap.put(Conversation.ConversationType.PUSH_SERVICE.getName(),false);//push推送
 		RongIM.getInstance().startConversationList(getActivity(),hashMap);
 
 //		getActivity().startActivity(new Intent(getActivity(), SystemActivity.class));

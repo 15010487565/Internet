@@ -7,12 +7,12 @@ android {
         applicationId "com.xcd.www.internet"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 9
+        versionName "1.0.8"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters 'armeabi'//,"armeabi-v7a", "x86"
         }
     }
     sourceSets.main {
@@ -61,6 +61,12 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(output.outputFile.parent,
+                    buildType.name + "-v" + defaultConfig.versionName + "-" + defaultConfig.versionCode + ".apk");
+        }
+    }
 }
 
 dependencies {
@@ -84,7 +90,7 @@ dependencies {
     compile 'com.android.support:design:27.0.2'
     compile 'com.android.support:cardview-v7:27.0.2'
     compile 'com.jcodecraeer:xrecyclerview:1.3.2'
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.king.zxing:zxing-lite:1.0.2'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.youth.banner:banner:1.4.10'

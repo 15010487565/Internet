@@ -12,4 +12,9 @@ public class Config {
     public final static int TYPE_FRIEND = 1;
     public final static int TYPE_CONTACT = 2;
     public final static int TYPE_TITLE = 3;
+    public final static int TYPE_GROUP = 4;
+    public final static int TYPE_GROUPFRIEND = 5;
+
+    public final static String APP_ID = "7831d293a3";
+
 }

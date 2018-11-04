@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,8 +14,8 @@ import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.MeMoneyRightTopBtnFunc;
 import com.xcd.www.internet.model.MeBagModel;
 import com.xcd.www.internet.model.MeBagTypeModel;
-import com.xcd.www.internet.util.EventBusMsg;
 import com.xcd.www.internet.ui.RecyclerViewDecoration;
+import com.xcd.www.internet.util.EventBusMsg;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -110,20 +109,25 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
         if (returnCode == 200){
             switch (requestCode){
                 case 100:
-                    MeBagModel mebagModel = JSON.parseObject(returnData, MeBagModel.class);
-                    MeBagModel.DataBean data = mebagModel.getData();
-                    double usdt = data.getUsdt();
-                    BaseApplication instance = BaseApplication.getInstance();
-                    instance.setUsdt(String.valueOf(usdt));
-                    tvBag.setText("$"+String.valueOf(usdt));
-                    List<MeBagTypeModel> list = new ArrayList<>();
-                    MeBagTypeModel meBag = new MeBagTypeModel();
-                    meBag.setName("usdt");
-                    meBag.setNum(String.valueOf(usdt));
-                    meBag.setPrice("$1");
-                    meBag.setAllPrice("≈$"+String.valueOf(usdt));
-                    list.add(meBag);
-                    adapter.setData(list);
+                    try {
+                        MeBagModel mebagModel = JSON.parseObject(returnData, MeBagModel.class);
+                        MeBagModel.DataBean data = mebagModel.getData();
+                        double usdt = data.getUsdt();
+                        BaseApplication instance = BaseApplication.getInstance();
+                        instance.setUsdt(String.valueOf(usdt));
+                        tvBag.setText("$"+String.valueOf(usdt));
+                        List<MeBagTypeModel> list = new ArrayList<>();
+                        MeBagTypeModel meBag = new MeBagTypeModel();
+                        meBag.setName("usdt");
+                        meBag.setNum(String.valueOf(usdt));
+                        String usdt_dollar = BaseApplication.getInstance().getUsdt_dollar();
+                        meBag.setPrice(usdt_dollar);
+                        meBag.setAllPrice("≈$"+String.valueOf(usdt));
+                        list.add(meBag);
+                        adapter.setData(list);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }
@@ -158,7 +162,6 @@ public class MeMoneyActivity extends SimpleTopbarActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(EventBusMsg event) {
         String msg = event.getMsg();
-        Log.e("TAG_Main", "msg=" + msg);
         if ("RefreshBag".equals(msg)) {
             Map<String, String> params = new HashMap<>();
             params.put("sign", sign);

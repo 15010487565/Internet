@@ -35,7 +35,7 @@
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
             app:type="circle"
-            android:src="@mipmap/launcher_login"/>
+            android:src="#9CAFC8"/>
 
         <TextView
             android:id="@+id/tv_OpenRedPkgName"

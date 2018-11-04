@@ -105,14 +105,19 @@ public class InviteFriendActivity extends SimpleTopbarActivity implements Invite
             boolean select = contactModel.isSelect();
             if (select) {
                 sb.append(userId);
-                if (i != j - 1) {
-                    sb.append(",");
-                }
+                sb.append(",");
+
             }
         }
         String s = sb.toString();
-        String substring = s.substring(0, s.length() - 1);
-        if (!TextUtils.isEmpty(sb.toString())) {
+        String substring= "";
+        int i = s.lastIndexOf(",");
+        if (i == s.length()-1){
+            substring = s.substring(0, s.length() - 1);
+        }else {
+            substring = s;
+        }
+        if (!TextUtils.isEmpty(s)) {
             String sign = BaseApplication.getInstance().getSign();
             Map<String, String> map = new HashMap<>();
             map.put("id", targetId);//群id

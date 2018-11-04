@@ -76,20 +76,20 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u26bd.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f437.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f437.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_tab_setting.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_tab_setting.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_btn_voice_normal.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_btn_voice_normal.png"
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f437.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f437.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_volume_3.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_volume_3.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_btn_voice_normal.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_btn_voice_normal.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_emoji_block.png",
@@ -104,12 +104,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_btn_voice_hover.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_location_pressed.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_location_pressed.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ad_list_folder_icon.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ad_list_folder_icon.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_location_pressed.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_location_pressed.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f62c.png",
@@ -132,12 +132,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f46b.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f377.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f377.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f332.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f332.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f377.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f377.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_voice_receive_play2.png",
@@ -180,12 +180,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f62f.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_def_coversation_portrait.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_def_coversation_portrait.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f606.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f606.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_def_coversation_portrait.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_def_coversation_portrait.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f4a3.png",
@@ -336,12 +336,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f60c.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u23f0.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u23f0.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_indicator.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_indicator.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u23f0.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u23f0.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f349.png",
@@ -420,12 +420,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_volume_6.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_complete_hover.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_complete_hover.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f648.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f648.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_complete_hover.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_complete_hover.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u263a.png",
@@ -488,12 +488,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_realtime_default_avatar.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_file_icon_file.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_file_icon_file.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ad_list_pages_icon.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ad_list_pages_icon.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_file_icon_file.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_file_icon_file.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_picsel_back_normal.png",
@@ -620,12 +620,12 @@
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_bubble_no_right.9.png"
     },
     {
-        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_checkbox_none.png",
-        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_checkbox_none.png"
-    },
-    {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ext_tab_add.png",
         "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ext_tab_add.png"
+    },
+    {
+        "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_checkbox_none.png",
+        "source": "D:\\Internet\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_checkbox_none.png"
     },
     {
         "merged": "D:\\Internet\\IMKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_warning.png",

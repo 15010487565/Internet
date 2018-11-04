@@ -19,7 +19,7 @@
             android:layout_height="80px"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
-            android:src="@color/red"
+            android:src="#9CAFC8"
             app:type="circle" />
         <TextView
             android:id="@+id/tv_Sortlogo"

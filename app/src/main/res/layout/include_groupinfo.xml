@@ -32,7 +32,7 @@
             android:layout_height="90px"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/photo"
+            android:src="#9CAFC8"
             app:type="circle" />
 
         <TextView

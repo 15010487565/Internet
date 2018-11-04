@@ -1,10 +1,12 @@
 package com.xcd.www.internet.func;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.xcd.www.internet.R;
+import com.xcd.www.internet.activity.MeAboutActivity;
 
 import www.xcd.com.mylibrary.func.BaseFunc;
 
@@ -35,7 +37,7 @@ public class MeAboutFunc extends BaseFunc {
 
 	@Override
 	public void onclick() {
-//		getActivity().startActivity(new Intent(getActivity(), SettingActivity.class));
+		getActivity().startActivity(new Intent(getActivity(), MeAboutActivity.class));
 	}
 	@Override
 	public View initFuncView(boolean isSeparator, Object... params) {

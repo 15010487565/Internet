@@ -63,8 +63,6 @@ public class AccountCodeActivity extends PhotoActivity implements View.OnLongCli
                 .fitCenter()
                 .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.launcher_login)
-                .error(R.mipmap.launcher_login)
                 .into(ivAccountCodeHead);
 
         String AccountInfoName = intent.getStringExtra("AccountInfoName");

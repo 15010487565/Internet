@@ -3,13 +3,16 @@ package com.xcd.www.internet.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 
 import com.xcd.www.internet.R;
 
@@ -34,13 +37,23 @@ public class WebViewActivity extends SimpleTopbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
+
     }
 
     @Override
     protected void afterSetContentView() {
         super.afterSetContentView();
+        RelativeLayout topbat = findViewById(R.id.topbat_parent);
         webview = findViewById(R.id.webView);
-        url = getIntent().getStringExtra("Url");
+        Intent intent = getIntent();
+        url = intent.getStringExtra("Url");
+        boolean isShowTopBar = intent.getBooleanExtra("isShowTopBar", false);
+        if (!isShowTopBar){
+            topbat.setVisibility(View.GONE);
+        }else {
+            topbat.setVisibility(View.VISIBLE);
+        }
+        Log.e("TAG_H5","url="+url);
         WebSettings setting = webview.getSettings();
         setting.setDefaultTextEncodingName("utf-8");
         setting.setJavaScriptEnabled(true);

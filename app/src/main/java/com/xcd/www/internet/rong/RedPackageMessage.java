@@ -50,7 +50,7 @@ public class RedPackageMessage extends MessageContent {
         * */
     @Override
     public byte[] encode() {
-        Log.e("TAG_JSONException", "encode");
+//        Log.e("TAG_JSONException", "encode");
         JSONObject jsonObj = new JSONObject();
 
         try {
@@ -64,16 +64,16 @@ public class RedPackageMessage extends MessageContent {
             jsonObj.put("total", this.getTotal());
 
             jsonObj.put("extra", jsonObj.toString());
-            Log.e("TAG_JSONException===", jsonObj.toString());
+//            Log.e("TAG_JSONException===", jsonObj.toString());
         } catch (Exception e) {
-            Log.e("TAG_JSONException", e.getMessage());
+//            Log.e("TAG_JSONException", e.getMessage());
         }
 
         try {
             return jsonObj.toString().getBytes("UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("TAG_JSONException", e.getMessage());
+//            Log.e("TAG_JSONException", e.getMessage());
             return null;
         }
     }
@@ -87,7 +87,7 @@ public class RedPackageMessage extends MessageContent {
 
         try {
             jsonStr = new String(data, "UTF-8");
-            Log.e("TAG_JSONException", jsonStr);
+//            Log.e("TAG_JSONException", jsonStr);
         } catch (UnsupportedEncodingException e1) {
             e1.printStackTrace();
         }
@@ -130,7 +130,7 @@ public class RedPackageMessage extends MessageContent {
 
     //给消息赋值。
     public RedPackageMessage(Parcel in) {
-        Log.e("TAG_JSONException", "RedPackageMessage");
+//        Log.e("TAG_JSONException", "RedPackageMessage");
         //自定义的属性
 
         setHeadUrl(ParcelUtils.readFromParcel(in));
@@ -175,7 +175,7 @@ public class RedPackageMessage extends MessageContent {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        Log.e("TAG_JSONException", "writeToParcel");
+//        Log.e("TAG_JSONException", "writeToParcel");
         ParcelUtils.writeToParcel(dest, getHeadUrl());
         ParcelUtils.writeToParcel(dest, getRedPacketId());
         ParcelUtils.writeToParcel(dest, getContent());

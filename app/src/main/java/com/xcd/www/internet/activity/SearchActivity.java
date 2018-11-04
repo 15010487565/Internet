@@ -1,13 +1,14 @@
 package com.xcd.www.internet.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.rong.imkit.RongIM;
 
@@ -82,6 +85,7 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
 
         etSearch = findViewById(R.id.et_Search);
         etSearch.addTextChangedListener(this);
+        showSoftInputFromWindow(etSearch);
         rcSearch =  findViewById(R.id.rc_Search);
         rcSearch.setVisibility(View.VISIBLE);
         mLinearLayoutManager = new LinearLayoutManager(this);
@@ -94,7 +98,21 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
                 this, LinearLayoutManager.HORIZONTAL, 1, getResources().getColor(R.color.line_c3));
         rcSearch.addItemDecoration(recyclerViewDecoration);
     }
+    private void showSoftInputFromWindow(final EditText editText){
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        final InputMethodManager imm= (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
 
+                imm.showSoftInput(editText,0);
+                editText.setSelection(editText.getText().length());
+            }
+        },200);
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -183,7 +201,6 @@ public class SearchActivity extends BaseInternetActivity implements TextWatcher,
 //                        }
 //                    }
                     }
-                    Log.e("TAG_搜索","contactSearch="+contactSearch.toString());
                     ivClean.setVisibility(View.VISIBLE);
                     rcSearch.setVisibility(View.VISIBLE);
                     adapter.setData(contactSearch);

@@ -17,8 +17,9 @@ import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.func.CreateGroupTopBtnFunc;
 import com.xcd.www.internet.model.ContactModel;
 import com.xcd.www.internet.model.CreateGroupModel;
-import com.xcd.www.internet.util.ReadImgToBinary;
+import com.xcd.www.internet.sq.BlackDao;
 import com.xcd.www.internet.ui.RecyclerViewDecoration;
+import com.xcd.www.internet.util.ReadImgToBinary;
 
 import java.io.File;
 import java.io.IOException;
@@ -244,6 +245,8 @@ public class GroupCreateActivity extends PhotoActivity implements CreateGroupAda
                     );
                     RongIM.getInstance().startGroupChat(this, targetGroupId, title);
                     finish();
+                    BlackDao blackDao = BlackDao.getInstance(this);
+                    blackDao.updateBlackNumMode(targetGroupId,title,title,headportrait);
                 } else {
                     ToastUtil.showToast(returnMsg);
                 }

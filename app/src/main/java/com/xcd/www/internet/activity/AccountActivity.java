@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.xcd.www.internet.R;
 import com.xcd.www.internet.application.BaseApplication;
 import com.xcd.www.internet.model.LoginInfoModel;
+import com.xcd.www.internet.sq.BlackDao;
 import com.xcd.www.internet.util.EventBusMsg;
 import com.xcd.www.internet.util.ReadImgToBinary;
 import com.xcd.www.internet.view.CircleImageView;
@@ -68,7 +69,12 @@ public class AccountActivity extends PhotoActivity {
 		tvAccountName.setText(TextUtils.isEmpty(name)?"":name);
 
 		if (TextUtils.isEmpty(headportrait)){
-			tvAccountHead.setText(TextUtils.isEmpty(nick)?"":nick.substring(0));
+			if (TextUtils.isEmpty(nick)){
+				tvAccountHead.setText(TextUtils.isEmpty(name)?"":name.substring(0,1));
+			}else {
+				tvAccountHead.setText(nick.substring(0,1));
+			}
+
 		}else {
 			tvAccountHead.setText("");
 			Glide.with(this)
@@ -77,8 +83,6 @@ public class AccountActivity extends PhotoActivity {
 					.dontAnimate()
 					.transform(new GlideCircleTransform(this))
 					.diskCacheStrategy(DiskCacheStrategy.ALL)
-					.placeholder(R.mipmap.launcher_login)
-					.error(R.mipmap.launcher_login)
 					.into(ivAccountHead);
 		}
 
@@ -237,6 +241,8 @@ public class AccountActivity extends PhotoActivity {
 					msg.setMsgCon(headportrait);
 					EventBus.getDefault().post(msg);
 					ToastUtil.showToast(returnMsg);
+					BlackDao blackDao = BlackDao.getInstance(this);
+					blackDao.updateBlackNumMode(String.valueOf(data.getId()),data.getName(),data.getNick(),data.getHeadportrait());
 					break;
 				case 101:
 //					ImageModel imageModel = JSON.parseObject(returnData, ImageModel.class);
